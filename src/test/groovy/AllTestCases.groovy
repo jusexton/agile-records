@@ -10,6 +10,7 @@ class AllTestCases {
         def allTests = new GroovyTestSuite()
         allTests.addTestSuite(AdminTests.class)
         allTests.addTestSuite(StudentTests.class)
+        allTests.addTestSuite(DatabaseTests.class)
         return allTests
     }
 }
