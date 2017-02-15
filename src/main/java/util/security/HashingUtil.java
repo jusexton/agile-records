@@ -23,7 +23,7 @@ public abstract class HashingUtil {
      */
 
     @NotNull
-    public static String hash(final String content, final String algorithm)
+    public static Hash hash(final String content, final String algorithm)
             throws UnsupportedEncodingException, NoSuchAlgorithmException {
         return hash(content, algorithm, "");
     }
@@ -39,7 +39,7 @@ public abstract class HashingUtil {
      * @throws UnsupportedEncodingException Exception
      */
     @NotNull
-    public static String hash(final String content, final String algorithm, final String salt)
+    public static Hash hash(final String content, final String algorithm, final String salt)
             throws NoSuchAlgorithmException, UnsupportedEncodingException {
         MessageDigest md = MessageDigest.getInstance(algorithm);
         md.update(salt.getBytes("UTF-8"));
@@ -48,7 +48,7 @@ public abstract class HashingUtil {
         for (byte aByte : bytes) {
             sb.append(Integer.toString((aByte & 0xff) + 0x100, 16).substring(1));
         }
-        return sb.toString();
+        return new Hash(sb.toString(), salt, algorithm);
     }
 
     /**

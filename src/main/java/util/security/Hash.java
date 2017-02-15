@@ -15,6 +15,10 @@ public class Hash {
         this.algorithm = algorithm;
     }
 
+    public boolean sameSalt(Hash hash){
+        return this.salt.equals(hash.getSalt());
+    }
+
     @Override
     public boolean equals(Object object) {
         boolean result = false;

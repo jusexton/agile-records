@@ -8,25 +8,41 @@ import java.util.stream.Stream
  * Contains all hashing tests
  */
 class HashingTests extends GroovyTestCase {
-    final static length = 20
-    final static charset = "abc"
-    final static random = new Random()
-    final static salt = HashingUtil.generateSalt(length, charset, random)
-    final static String password = "test_password"
 
+    /**
+     * Tests that the salt generated is the specified
+     * length.
+     *
+     * STATUS: PASS
+     */
     void testSaltLength() {
-        assertLength(20, salt.toCharArray())
+        def length = 20
+        String salt = HashingUtil.generateSalt(length, "abc", new Random())
+        assertLength(length, salt.toCharArray())
     }
 
+    /**
+     * Tests that the salt only contains characters specified.
+     *
+     * STATUS: PASS
+     */
     void testSaltCharset() {
+        String charset = "abc"
+        String salt = HashingUtil.generateSalt(20, charset, new Random())
         assertTrue salt.matches("^[" + charset + "_]+")
     }
 
+    /**
+     * Tests that the salts generated are random every time
+     * the method is called.
+     *
+     * STATUS: PASS
+     */
     void testSaltRandomness() {
         final limiter = 1000
         // Generates 1000 salts, none of which should be filtered
         // out with the distinct() call.
-        def saltCount = Stream.generate { HashingUtil.generateSalt(length, charset, random) }
+        def saltCount = Stream.generate { HashingUtil.generateSalt(20, "abc", new Random()) }
                 .limit(limiter)
                 .distinct()
                 .count()
@@ -34,16 +50,19 @@ class HashingTests extends GroovyTestCase {
         assertEquals(limiter, saltCount)
     }
 
-    void testAlgorithms() {
+    /**
+     * Tests that the Hash class's overrided function are
+     * working as expected.
+     *
+     * STATUS: PASS
+     */
+    void testHashOverrides(){
+        String password = "test_password"
         def hash = HashingUtil.hash(password, "SHA-256")
-        assertEquals(hash, HashingUtil.hash(password, "SHA-256"))
+        // Test .toString()
+        assertEquals(hash.toString(), hash.getHash())
 
-        hash = HashingUtil.hash(password, "SHA-512")
-        assertEquals(hash, HashingUtil.hash(password, "SHA-512"))
-    }
-
-    void testAlgorithmResults() {
-        def hash = HashingUtil.hash(password, "SHA-256")
-        shouldFail { assertEquals(hash, HashingUtil.hash("different_password", "SHA-512")) }
+        // Tests .equals()
+        assertTrue(hash == HashingUtil.hash(password, "SHA-256"))
     }
 }
