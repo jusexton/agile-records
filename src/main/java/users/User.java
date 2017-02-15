@@ -1,18 +1,19 @@
 package main.java.users;
 
+import main.java.util.security.Hash;
+
 /**
  * Class that will represent all users that reside on sql server.
  */
-// TODO: Allow User passwords to be hashes.
 public abstract class User {
     private int ID;
     private String userName;
-    private String password;
+    private Hash password;
     private String firstName;
     private String lastName;
     private String email;
 
-    public User(String userName, String password, int ID) {
+    public User(String userName, Hash password, int ID) {
         this.userName = userName;
         this.password = password;
         this.ID = ID;
@@ -34,12 +35,12 @@ public abstract class User {
         this.userName = userName;
     }
 
-    public String getPassword() {
+    public Hash getPassword() {
         return password;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setPassword(Hash hash) {
+        this.password = hash;
     }
 
     public String getFirstName() {

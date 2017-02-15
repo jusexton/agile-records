@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.VBox?>
+<VBox alignment="TOP_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+      prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="main.java.controller.AdminController">
+    <children>
+        <TableView fx:id="adminTableView" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+            <columns>
+                <TableColumn fx:id="idTableColumn" prefWidth="75.0" text="ID"/>
+                <TableColumn fx:id="firstNameTableColumn" prefWidth="75.0" text="First Name"/>
+                <TableColumn fx:id="lastNameTableColumn" prefWidth="75.0" text="Last Name"/>
+            </columns>
+        </TableView>
+        <ButtonBar prefHeight="40.0" prefWidth="200.0">
+            <buttons>
+                <Button fx:id="addButton" mnemonicParsing="false" onAction="#displayCreateStudent" text="Add"
+                        ButtonBar.buttonData="LEFT"/>
+                <Button fx:id="removeButton" mnemonicParsing="false" onAction="#removeSelectedStudents" text="Remove"
+                        ButtonBar.buttonData="LEFT"/>
+            </buttons>
+        </ButtonBar>
+        <Label fx:id="statusLabel"/>
+    </children>
+</VBox>
