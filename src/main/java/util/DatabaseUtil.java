@@ -22,17 +22,15 @@ public abstract class DatabaseUtil {
         try {
             Class.forName("com.mysql.jdbc.Driver");
         } catch (ClassNotFoundException e) {
-            System.err.println("Where is your MySQL JDBC Driver?");
+            System.err.println("No MySQL JDBC Driver Detected!");
             e.printStackTrace();
         }
-
-        System.out.println("MySQL JDBC Driver Registered!");
 
         Connection connection = null;
         try {
             connection = DriverManager.getConnection(host, password, dbName);
         } catch (SQLException e) {
-            System.err.println("Connection Failed! Check output console");
+            System.err.println("Connection Failed!");
             e.printStackTrace();
         }
         return connection;
