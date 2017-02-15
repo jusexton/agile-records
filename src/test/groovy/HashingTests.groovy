@@ -29,7 +29,7 @@ class HashingTests extends GroovyTestCase {
     void testSaltCharset() {
         String charset = "abc"
         String salt = HashingUtil.generateSalt(20, charset, new Random())
-        assertTrue salt.matches("^[" + charset + "_]+")
+        assertTrue(salt.matches("^[" + charset + "_]+"))
     }
 
     /**
@@ -40,8 +40,8 @@ class HashingTests extends GroovyTestCase {
      */
     void testSaltRandomness() {
         final limiter = 1000
-        // Generates 1000 salts, none of which should be filtered
-        // out with the distinct() call.
+        // Generates 1000 salts, none of which should be
+        // filtered out with the distinct() call.
         def saltCount = Stream.generate { HashingUtil.generateSalt(20, "abc", new Random()) }
                 .limit(limiter)
                 .distinct()
@@ -56,13 +56,41 @@ class HashingTests extends GroovyTestCase {
      *
      * STATUS: PASS
      */
-    void testHashOverrides(){
+    void testHashOverrides() {
         String password = "test_password"
         def hash = HashingUtil.hash(password, "SHA-256")
-        // Test .toString()
-        assertEquals(hash.toString(), hash.getHash())
 
-        // Tests .equals()
+        assertEquals(hash.toString(), hash.getHash())
         assertTrue(hash == HashingUtil.hash(password, "SHA-256"))
+    }
+
+    /**
+     * Tests that the sameSalt function works as expected.
+     *
+     * STATUS: PASS
+     */
+    void testHashSameSalt() {
+        String algorithm = "SHA-256"
+        String salt = HashingUtil.generateSalt(20, "abc", new Random())
+        def hashOne = HashingUtil.hash("test_password", algorithm, salt)
+        def hashTwo = HashingUtil.hash("different_password", algorithm, salt)
+
+        assertTrue(hashOne.sameSalt(hashTwo))
+        assertTrue(hashOne != hashTwo)
+    }
+
+    /**
+     * Tests a similar process that will take place when a user
+     * attempts to login.
+     *
+     * STATUS: PASS
+     */
+    void testLoginProcess() {
+        def failPassword = "wrong_password"
+        def correctPassword = "correct_password"
+        def hash = HashingUtil.hash(correctPassword, "SHA-512", "salt")
+
+        assertTrue(hash != HashingUtil.hash(failPassword, "SHA-512", "salt"))
+        assertTrue(hash == HashingUtil.hash(correctPassword, "SHA-512", "salt"))
     }
 }

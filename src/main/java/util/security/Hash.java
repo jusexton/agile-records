@@ -3,7 +3,6 @@ package main.java.util.security;
 /**
  * Class that represents a hashed password.
  */
-// TODO: Unit Test Hash Class
 public class Hash {
     private String hash;
     private String salt;
