@@ -5,7 +5,7 @@ package main.java.users;
  */
 public class Admin extends User {
 
-    public Admin(String userName, String password, int ID){
+    public Admin(String userName, String password, int ID) {
         super(userName, password, ID);
     }
 }

@@ -3,6 +3,7 @@ package main.java.users;
 /**
  * Class that will represent all users that reside on sql server.
  */
+// TODO: Allow User passwords to be hashes.
 public abstract class User {
     private int ID;
     private String userName;

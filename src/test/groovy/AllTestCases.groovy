@@ -12,6 +12,8 @@ class AllTestCases {
         allTests.addTestSuite(StudentTests.class)
         allTests.addTestSuite(DatabaseTests.class)
         allTests.addTestSuite(CourseTests.class)
+        allTests.addTestSuite(HashingTests.class)
+        allTests.addTestSuite(HashTests.class)
         return allTests
     }
 }

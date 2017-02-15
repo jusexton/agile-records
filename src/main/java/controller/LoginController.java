@@ -11,6 +11,7 @@ import java.util.ResourceBundle;
 import java.util.prefs.Preferences;
 
 /**
+ * Controller responsible for login.fxml backend and logic.
  */
 public class LoginController implements Initializable {
 
