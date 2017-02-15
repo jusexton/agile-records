@@ -43,13 +43,13 @@ public class LoginController implements Initializable {
     private boolean attemptLogin() {
         // Tests for content in text fields before connecting to database.
         if (textField.getText().equals("") || passwordField.getText().equals("")) {
+            loginFailLabel.setVisible(true);
             return false;
         }
         // TODO: Add login logic
         Connection connection = null;
         if (connection == null) {
             loginFailLabel.setVisible(true);
-            return false;
         }
         if (checkBox.isSelected()) {
             preferences.put("Last Username", textField.getText());
