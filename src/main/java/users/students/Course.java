@@ -20,7 +20,7 @@ public class Course {
     }
 
     public int getAverage() {
-        int total = 0;
+        double total = 0;
         for (double grade : grades) {
             total += grade;
         }

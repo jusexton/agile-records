@@ -11,6 +11,7 @@ class AllTestCases {
         allTests.addTestSuite(AdminTests.class)
         allTests.addTestSuite(StudentTests.class)
         allTests.addTestSuite(DatabaseTests.class)
+        allTests.addTestSuite(CourseTests.class)
         return allTests
     }
 }
