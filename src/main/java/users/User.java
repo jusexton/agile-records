@@ -5,28 +5,31 @@ package main.java.users;
  */
 public abstract class User {
 
-    private int userId;
-    private string firstName;
-    private string lastName;
+    private int ID;
+    private String firstName;
+    private String lastName;
 
-    public void setUserId(int id){
-        userID = id;
+    public int getID() {
+        return ID;
     }
-    public void setUserFirstName(string s){
-        firstName = s;
+
+    public void setID(int ID) {
+        this.ID = ID;
     }
-    public void setUserLastName(string s){
-        lastName = s;
-    }
-    public int getUserID(){
-        return userId;
-    }
-    public string getUserFirstName(){
+
+    public String getFirstName() {
         return firstName;
     }
-    public string getUserLastName(){
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
         return lastName;
     }
 
-
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
 }
