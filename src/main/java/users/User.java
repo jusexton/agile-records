@@ -9,6 +9,7 @@ public abstract class User {
     private String password;
     private String firstName;
     private String lastName;
+    private String email;
 
     public User(String userName, String password, int ID) {
         this.userName = userName;
@@ -54,5 +55,13 @@ public abstract class User {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 }
