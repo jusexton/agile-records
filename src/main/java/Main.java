@@ -21,7 +21,7 @@ public class Main extends Application {
 
     @Override
     public void stop() throws Exception {
-        // Clean up logic
+        // Clean up logic (if any)
         super.stop();
     }
 }
