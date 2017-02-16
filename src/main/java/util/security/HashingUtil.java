@@ -1,7 +1,5 @@
 package main.java.util.security;
 
-import org.jetbrains.annotations.NotNull;
-
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -22,7 +20,6 @@ public abstract class HashingUtil {
      * @throws NoSuchAlgorithmException     Exception
      */
 
-    @NotNull
     public static Hash hash(final String content, final String algorithm)
             throws UnsupportedEncodingException, NoSuchAlgorithmException {
         return hash(content, algorithm, "");
@@ -38,7 +35,6 @@ public abstract class HashingUtil {
      * @throws NoSuchAlgorithmException     Exception
      * @throws UnsupportedEncodingException Exception
      */
-    @NotNull
     public static Hash hash(final String content, final String algorithm, final String salt)
             throws NoSuchAlgorithmException, UnsupportedEncodingException {
         MessageDigest md = MessageDigest.getInstance(algorithm);
@@ -58,7 +54,6 @@ public abstract class HashingUtil {
      * @param random A random object.
      * @return Randomly generated string of all characters of length 20.
      */
-    @NotNull
     public static String generateSalt(final Random random) {
         return generateSalt(20, random);
     }
@@ -70,7 +65,6 @@ public abstract class HashingUtil {
      * @param random A random object.
      * @return Randomly generated string.
      */
-    @NotNull
     public static String generateSalt(final int length, final Random random) {
         return generateSalt(length,
                 "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxy0123456789!@#$%^&*()_+=-[]{};':,.<>/?`~|\\ ",
@@ -85,7 +79,6 @@ public abstract class HashingUtil {
      * @param random  A random object.
      * @return Randomly generated string.
      */
-    @NotNull
     public static String generateSalt(final int length, final String charset, final Random random) {
         return random.ints(length, 0, charset.length())
                 .boxed()
