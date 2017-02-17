@@ -15,7 +15,7 @@ public class Student extends User {
     }
 
     public void addCourse(String name, int creditHours, int CRN, List<Double> grades, LocalDateTime time){
-        course = new Course(String name, int creditHours, int CRN);
+        course = new Course(name, creditHours, CRN);
         course.setGrades(grades);
         course.setTime(time);
         this.registeredCourses.add(course);
