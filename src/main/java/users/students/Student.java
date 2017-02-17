@@ -35,8 +35,8 @@ public class Student extends User {
         }
         this.GPA =  total/totalHours;
     }
-    public return List<course> getRegisteredCourses(){ return registeredCourses}
-    public void setRegisteredCourses(List<course> courses){ this.registeredCourses = courses}
+    public return List<Course> getRegisteredCourses(){ return registeredCourses}
+    public void setRegisteredCourses(List<Course> courses){ this.registeredCourses = courses}
 
 
 }
