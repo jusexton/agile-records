@@ -9,7 +9,6 @@ import java.util.Random;
  * Contains tools for hashing operations.
  */
 public abstract class HashingUtil {
-
     /**
      * Overloaded hash function. Uses no salt.
      *

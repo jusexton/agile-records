@@ -7,7 +7,7 @@ import main.java.util.security.Hash;
  */
 public class Admin extends User {
 
-    public Admin(String userName, Hash password, int ID) {
-        super(userName, password, ID);
+    public Admin(String userName, Hash password) {
+        super(userName, password);
     }
 }

@@ -42,6 +42,7 @@ public class LoginController implements Initializable {
      *
      * @return Whether the login was successful or not.
      */
+    // TODO: May need to rethink this function.
     private boolean attemptLogin() {
         // Tests for content in text fields before connecting to database.
         if (textField.getText().equals("") || passwordField.getText().equals("")) {

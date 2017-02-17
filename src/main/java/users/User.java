@@ -13,10 +13,9 @@ public abstract class User {
     private String lastName;
     private String email;
 
-    public User(String userName, Hash password, int ID) {
+    public User(String userName, Hash password) {
         this.userName = userName;
         this.password = password;
-        this.ID = ID;
     }
 
     public int getID() {

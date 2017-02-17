@@ -1,17 +1,15 @@
 package main.java.controller;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 import main.java.users.students.Student;
-import main.java.util.security.Hash;
-import main.java.util.security.HashingUtil;
+import main.java.util.WindowUtil;
 
 import java.net.URL;
-import java.security.NoSuchAlgorithmException;
 import java.util.ResourceBundle;
 
 /**
@@ -32,8 +30,8 @@ public class AdminController implements Initializable {
     private Button removeButton;
     @FXML
     private Label statusLabel;
-
-    private ObservableList<Student> students = FXCollections.observableArrayList();
+    @FXML
+    private Label loggedInAsLabel;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -43,22 +41,10 @@ public class AdminController implements Initializable {
         lastNameTableColumn.setCellValueFactory(new PropertyValueFactory<>("lastName"));
 
         // Allows application to detect when rows are double clicked.
-        adminTableView.setRowFactory(tableView -> {
-            TableRow<Student> row = new TableRow<>();
-            row.setOnMouseClicked(mouseEvent -> {
-                if (mouseEvent.getClickCount() == 2 && !row.isEmpty()) {
-                    Student student = row.getItem();
-                    System.out.println("Row Click Detected");
-                    // TODO: Open Student View Using The Newly Selected Student Object.
-                }
-            });
-            return row;
-        });
+        adminTableView.setRowFactory(tableView -> buildRowWithEvent());
 
         // When clicked, opens window that allows user to create a student object
-        addButton.setOnMouseClicked(mouseEvent -> {
-            // TODO: Add Button Functionality
-        });
+        addButton.setOnMouseClicked(mouseEvent -> openCreateStudent());
 
         // When clicked, removes selected rows.
         removeButton.setOnMouseClicked(mouseEvent ->
@@ -66,24 +52,27 @@ public class AdminController implements Initializable {
                         .removeAll(adminTableView.getSelectionModel().getSelectedItems())
         );
 
-        // Test Data
-        try {
-            Hash hash = HashingUtil.hash("password", "SHA-512", "salt");
-            Student student = new Student("username", hash, 1);
-            student.setFirstName("First");
-            student.setLastName("Last");
-            students.add(student);
-            adminTableView.getItems().addAll(students);
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-        }
-
         // TODO: Load Students Into Observable List.
     }
 
-    private void displayCreateStudent() {
-        // TODO: Launch CreateStudent.fxml.
-        // TODO: Use returned data to add new student to table view.
+    private TableRow<Student> buildRowWithEvent() {
+        TableRow<Student> row = new TableRow<>();
+        row.setOnMouseClicked(mouseEvent -> {
+            if (mouseEvent.getClickCount() == 2 && !row.isEmpty()) {
+                Student student = row.getItem();
+                // TODO: Open Student View Using The Newly Selected Student Object.
+            }
+        });
+        return row;
     }
 
+    private void openCreateStudent() {
+        Stage stage = new Stage();
+        stage.setTitle("Create Student");
+        stage.initModality(Modality.APPLICATION_MODAL);
+        CreateStudentController controller = WindowUtil.showWindowAndWait("/fxml/CreateStudent.fxml", stage);
+        if (controller != null && controller.getCreatedStudent() != null) {
+            adminTableView.getItems().add(controller.getCreatedStudent());
+        }
+    }
 }

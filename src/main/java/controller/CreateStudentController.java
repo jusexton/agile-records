@@ -1,14 +1,18 @@
 package main.java.controller;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import main.java.users.students.Course;
+import main.java.users.students.Student;
+import main.java.util.WindowUtil;
+import main.java.util.security.Hash;
+import main.java.util.security.HashingUtil;
 
 import java.net.URL;
+import java.security.NoSuchAlgorithmException;
+import java.util.Random;
 import java.util.ResourceBundle;
 
 /**
@@ -42,7 +46,7 @@ public class CreateStudentController implements Initializable {
     @FXML
     private Button cancelButton;
 
-    private ObservableList courses = FXCollections.observableArrayList();
+    private Student createdStudent;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -62,6 +66,38 @@ public class CreateStudentController implements Initializable {
                         .removeAll(courseTableView.getSelectionModel().getSelectedItems())
         );
 
-        // TODO: Create event handlers for buttons.
+        // Closes window after storing created student object;
+        createButton.setOnMouseClicked(mouseEvent -> {
+            createStudent();
+            WindowUtil.closeWindow(mouseEvent);
+        });
+
+        // Closes window
+        cancelButton.setOnMouseClicked(mouseEvent -> {
+            createdStudent = null;
+            WindowUtil.closeWindow(mouseEvent);
+        });
+    }
+
+    private void createStudent() {
+        // Make sure required fields are filled.
+        if (usernameTextField.getText() == null || passwordField.getText() == null) {
+            return;
+        }
+
+        try {
+            String salt = HashingUtil.generateSalt(20, new Random());
+            Hash hash = HashingUtil.hash(passwordField.getText(), "SHA-512", salt);
+            createdStudent = new Student(usernameTextField.getText(), hash);
+            createdStudent.setFirstName(firstNameTextField.getText());
+            createdStudent.setLastName(lastNameTextField.getText());
+            createdStudent.setEmail(emailTextField.getText());
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public Student getCreatedStudent() {
+        return createdStudent;
     }
 }

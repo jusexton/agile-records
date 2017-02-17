@@ -7,7 +7,7 @@ import main.java.util.security.Hash;
  * Class that represents students on the sql server.
  */
 public class Student extends User {
-    public Student(String userName, Hash password, int ID) {
-        super(userName, password, ID);
+    public Student(String userName, Hash password) {
+        super(userName, password);
     }
 }
