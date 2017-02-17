@@ -32,6 +32,8 @@ public class LoginController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         preferences = Preferences.userRoot().node(this.getClass().getName());
         textField.setText(preferences.get("Last Username", ""));
+
+        loginButton.setOnMouseClicked(mouseEvent -> attemptLogin());
     }
 
     /**
@@ -40,7 +42,6 @@ public class LoginController implements Initializable {
      *
      * @return Whether the login was successful or not.
      */
-    @FXML
     private boolean attemptLogin() {
         // Tests for content in text fields before connecting to database.
         if (textField.getText().equals("") || passwordField.getText().equals("")) {

@@ -46,10 +46,22 @@ public class CreateStudentController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        // Allows cells to determine where each student property should be placed.
         crnTableColumn.setCellValueFactory(new PropertyValueFactory<>("CRN"));
         nameTableColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
         creditsTableColumn.setCellValueFactory(new PropertyValueFactory<>("creditHours"));
-    }
 
-    // TODO: Create event handlers for buttons.
+        // When clicked, opens window that allows user to create a course object
+        addButton.setOnMouseClicked(mouseEvent -> {
+            // TODO: Add Button Functionality
+        });
+
+        // When clicked, removes selected rows.
+        removeButton.setOnMouseClicked(mouseEvent ->
+                courseTableView.getItems()
+                        .removeAll(courseTableView.getSelectionModel().getSelectedItems())
+        );
+
+        // TODO: Create event handlers for buttons.
+    }
 }

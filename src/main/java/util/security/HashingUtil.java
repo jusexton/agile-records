@@ -16,12 +16,11 @@ public abstract class HashingUtil {
      * @param content   The content that will be hashed.
      * @param algorithm The algorithm that will be used to hash the content.
      * @return The hashed content.
-     * @throws UnsupportedEncodingException Exception
-     * @throws NoSuchAlgorithmException     Exception
+     * @throws NoSuchAlgorithmException Exception
      */
 
     public static Hash hash(final String content, final String algorithm)
-            throws UnsupportedEncodingException, NoSuchAlgorithmException {
+            throws NoSuchAlgorithmException {
         return hash(content, algorithm, "");
     }
 
@@ -32,19 +31,25 @@ public abstract class HashingUtil {
      * @param algorithm The algorithm that will be used to hash the content.
      * @param salt      The salt that will be applied with the content when hashing.
      * @return The hashed content.
-     * @throws NoSuchAlgorithmException     Exception
-     * @throws UnsupportedEncodingException Exception
+     * @throws NoSuchAlgorithmException Exception
      */
     public static Hash hash(final String content, final String algorithm, final String salt)
-            throws NoSuchAlgorithmException, UnsupportedEncodingException {
-        MessageDigest md = MessageDigest.getInstance(algorithm);
-        md.update(salt.getBytes("UTF-8"));
-        byte[] bytes = md.digest(content.getBytes("UTF-8"));
-        StringBuilder sb = new StringBuilder();
-        for (byte aByte : bytes) {
-            sb.append(Integer.toString((aByte & 0xff) + 0x100, 16).substring(1));
+            throws NoSuchAlgorithmException {
+        Hash hash = null;
+
+        try {
+            MessageDigest md = MessageDigest.getInstance(algorithm);
+            md.update(salt.getBytes("UTF-8"));
+            byte[] bytes = md.digest(content.getBytes("UTF-8"));
+            StringBuilder sb = new StringBuilder();
+            for (byte aByte : bytes) {
+                sb.append(Integer.toString((aByte & 0xff) + 0x100, 16).substring(1));
+            }
+            hash = new Hash(sb.toString(), salt, algorithm);
+        } catch (UnsupportedEncodingException ignored) {
+            // This exception will never be caught.
         }
-        return new Hash(sb.toString(), salt, algorithm);
+        return hash;
     }
 
     /**
