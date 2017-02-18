@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox alignment="TOP_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.java.controller.AdminController">
+<VBox alignment="TOP_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.java.controller.AdminController">
     <children>
         <TableView fx:id="adminTableView" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
             <columns>
@@ -25,8 +25,8 @@
         </ButtonBar>
       <Pane>
          <children>
-            <Label fx:id="statusLabel" layoutY="3.0" text="Label" />
-            <Label fx:id="loggedInAsLabel" layoutX="478.0" layoutY="2.0" text="Label" />
+            <Label fx:id="statusLabel" layoutY="2.0" text="Status: " />
+            <Label fx:id="loggedInAsLabel" layoutX="440.0" layoutY="2.0" text="Logged In As: " />
          </children>
       </Pane>
     </children>
