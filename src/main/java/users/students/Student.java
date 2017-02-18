@@ -18,15 +18,14 @@ public class Student extends User {
     }
 
     public double getGPA() {
-        int hours = 0;
         int totalHours = 0;
-        double total = 0;
-        for (Course registeredCourse : this.courses) {
-            hours = registeredCourse.getCreditHours();
-            total += registeredCourse.getAverage() * hours;
+        double totalScore = 0;
+        for (Course course : this.courses) {
+            int hours = course.getCreditHours();
+            totalScore += course.getAverage() * hours;
             totalHours += hours;
         }
-        return total / totalHours;
+        return totalScore / totalHours;
     }
 
     public List<Course> getCourses() {
