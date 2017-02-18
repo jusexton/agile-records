@@ -1,6 +1,7 @@
 package main.java.users.students;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -17,6 +18,7 @@ public class Course {
         this.name = name;
         this.creditHours = creditHours;
         this.CRN = CRN;
+        this.grades = new ArrayList<>();
     }
 
     public int getAverage() {

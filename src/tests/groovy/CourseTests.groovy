@@ -1,4 +1,4 @@
-package test.groovy
+package tests.groovy
 
 /**
  * Contains all course tests.
