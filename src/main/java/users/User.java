@@ -13,6 +13,10 @@ public abstract class User {
     private String lastName;
     private String email;
 
+    public User(){
+
+    }
+
     public User(String userName, Hash password) {
         this.userName = userName;
         this.password = password;
