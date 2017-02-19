@@ -13,7 +13,8 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("/fxml/Login.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/CreateStudent.fxml"));
+        Parent root = fxmlLoader.load();
         primaryStage.setTitle("Agile Records");
         primaryStage.setResizable(false);
         primaryStage.setScene(new Scene(root));

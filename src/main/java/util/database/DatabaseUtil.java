@@ -1,4 +1,4 @@
-package main.java.util;
+package main.java.util.database;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

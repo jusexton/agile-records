@@ -1,6 +1,6 @@
 package tests.groovy
 
-import main.java.util.DatabaseUtil
+import main.java.util.database.DatabaseUtil
 
 import java.sql.Connection
 

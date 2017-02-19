@@ -4,9 +4,10 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyCode;
+import main.java.util.window.WindowUtil;
 import main.java.users.students.Course;
 import main.java.users.students.Student;
-import main.java.util.WindowUtil;
 import main.java.util.security.Hash;
 import main.java.util.security.HashingUtil;
 
@@ -55,30 +56,12 @@ public class CreateStudentController implements Initializable {
         nameTableColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
         creditsTableColumn.setCellValueFactory(new PropertyValueFactory<>("creditHours"));
 
-        // When clicked, opens window that allows user to create a course object
-        addButton.setOnMouseClicked(mouseEvent -> {
-            // TODO: Add Button Functionality
-        });
-
-        // When clicked, removes selected rows.
-        removeButton.setOnMouseClicked(mouseEvent ->
-                courseTableView.getItems()
-                        .removeAll(courseTableView.getSelectionModel().getSelectedItems())
-        );
-
-        // Closes window after storing created student object;
-        createButton.setOnMouseClicked(mouseEvent -> {
-            createStudent();
-            WindowUtil.closeWindow(mouseEvent);
-        });
-
-        // Closes window
-        cancelButton.setOnMouseClicked(mouseEvent -> {
-            createdStudent = null;
-            WindowUtil.closeWindow(mouseEvent);
-        });
+        setHandlers();
     }
 
+    /**
+     * Builds student object then sets the createdStudent object.
+     */
     private void createStudent() {
         // Make sure required fields are filled.
         if (usernameTextField.getText() == null || passwordField.getText() == null) {
@@ -95,6 +78,64 @@ public class CreateStudentController implements Initializable {
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
         }
+    }
+
+    private void removeSelected() {
+        courseTableView.getItems()
+                .removeAll(courseTableView.getSelectionModel().getSelectedItems());
+    }
+
+    // TODO: Look for more efficient way of declaring all these handlers.
+    private void setHandlers() {
+        // When clicked, opens window that allows user to create a course object
+        addButton.setOnMouseClicked(mouseEvent -> {
+            // TODO: Add Button Functionality
+        });
+
+        // When enter is pressed,opens window that allows user to create a course object
+        addButton.setOnKeyPressed(keyEvent -> {
+            if (keyEvent.getCode() == KeyCode.ENTER) {
+                // TODO: Add Button Functionality
+            }
+        });
+
+        // When clicked, removes selected rows.
+        removeButton.setOnMouseClicked(mouseEvent -> removeSelected());
+
+        // When enter is pressed, removed selected rows.
+        removeButton.setOnKeyPressed(keyEvent -> {
+            if (keyEvent.getCode() == KeyCode.ENTER) {
+                removeSelected();
+            }
+        });
+
+        // When clicked, closes window after storing created student object;
+        createButton.setOnAction(event -> {
+            createStudent();
+            WindowUtil.closeWindow(event);
+        });
+
+        // When enter is pressed, closes window after string created student object.
+        createButton.setOnKeyPressed(keyEvent -> {
+            if (keyEvent.getCode() == KeyCode.ENTER) {
+                createStudent();
+                WindowUtil.closeWindow(keyEvent);
+            }
+        });
+
+        // When clicked, closes window
+        cancelButton.setOnMouseClicked(mouseEvent -> {
+            createdStudent = null;
+            WindowUtil.closeWindow(mouseEvent);
+        });
+
+        // When enter is pressed, closes window.
+        cancelButton.setOnKeyPressed(keyEvent -> {
+            if (keyEvent.getCode() == KeyCode.ENTER) {
+                createdStudent = null;
+                WindowUtil.closeWindow(keyEvent);
+            }
+        });
     }
 
     public Student getCreatedStudent() {
