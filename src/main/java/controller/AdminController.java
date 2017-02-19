@@ -6,8 +6,9 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import main.java.users.User;
 import main.java.users.students.Student;
-import main.java.util.WindowUtil;
+import main.java.util.window.WindowUtil;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -33,6 +34,18 @@ public class AdminController implements Initializable {
     @FXML
     private Label loggedInAsLabel;
 
+    private User loggedInUser;
+
+    /**
+     * Builds AdminController with a given logged in user.
+     *
+     * @param loggedInUser The user the window will be fitted too.
+     */
+    public AdminController(User loggedInUser) {
+        this.loggedInUser = loggedInUser;
+        loggedInAsLabel.setText(loggedInUser.getUserName());
+    }
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         // Allows cells to determine where each student property should be placed.
@@ -55,6 +68,12 @@ public class AdminController implements Initializable {
         // TODO: Load Students Into Observable List.
     }
 
+    /**
+     * Builds row with mouse event attached that listens
+     * for double click.
+     *
+     * @return The newly built row.
+     */
     private TableRow<Student> buildRowWithEvent() {
         TableRow<Student> row = new TableRow<>();
         row.setOnMouseClicked(mouseEvent -> {
@@ -66,6 +85,9 @@ public class AdminController implements Initializable {
         return row;
     }
 
+    /**
+     * Opens CreateStudent.fxml.
+     */
     private void openCreateStudent() {
         Stage stage = new Stage();
         stage.setTitle("Create Student");
@@ -74,5 +96,9 @@ public class AdminController implements Initializable {
         if (controller != null && controller.getCreatedStudent() != null) {
             adminTableView.getItems().add(controller.getCreatedStudent());
         }
+    }
+
+    public User getLoggedInUser() {
+        return this.loggedInUser;
     }
 }
