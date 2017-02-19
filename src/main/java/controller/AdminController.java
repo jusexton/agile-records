@@ -1,5 +1,6 @@
 package main.java.controller;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
@@ -18,6 +19,8 @@ import java.util.ResourceBundle;
  * Controller responsible for Admin.fxml backend and logic.
  */
 public class AdminController implements Initializable {
+    private Admin loggedInAdmin;
+
     @FXML
     private TableView<Student> adminTableView;
     @FXML
@@ -35,7 +38,28 @@ public class AdminController implements Initializable {
     @FXML
     private Label loggedInAsLabel;
 
-    private Admin loggedInAdmin;
+    /**
+     * Opens CreateStudent.fxml.
+     */
+    @FXML
+    private void handleAddButtonAction(ActionEvent event) {
+        Stage stage = new Stage();
+        stage.setTitle("Create Student");
+        stage.initModality(Modality.APPLICATION_MODAL);
+        CreateStudentController controller = WindowUtil.showWindowAndWait("/fxml/CreateStudent.fxml", stage);
+        if (controller != null && controller.getCreatedStudent() != null) {
+            adminTableView.getItems().add(controller.getCreatedStudent());
+        }
+    }
+
+    /**
+     * Removes all selected items from the table view.
+     */
+    @FXML
+    private void handleRemoveButtonAction(ActionEvent event) {
+        adminTableView.getItems()
+                .removeAll(adminTableView.getSelectionModel().getSelectedItems());
+    }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -55,7 +79,7 @@ public class AdminController implements Initializable {
      *
      * @param admin The admin object that will be logged into the application.
      */
-    public void init(Admin admin){
+    public void init(Admin admin) {
         this.loggedInAdmin = admin;
         loggedInAsLabel.setText(admin.getUserName());
     }
@@ -75,29 +99,6 @@ public class AdminController implements Initializable {
             }
         });
         return row;
-    }
-
-    /**
-     * Opens CreateStudent.fxml.
-     */
-    @FXML
-    private void openCreateStudent() {
-        Stage stage = new Stage();
-        stage.setTitle("Create Student");
-        stage.initModality(Modality.APPLICATION_MODAL);
-        CreateStudentController controller = WindowUtil.showWindowAndWait("/fxml/CreateStudent.fxml", stage);
-        if (controller != null && controller.getCreatedStudent() != null) {
-            adminTableView.getItems().add(controller.getCreatedStudent());
-        }
-    }
-
-    /**
-     * Removes all selected items from the table view.
-     */
-    @FXML
-    private void removeSelected() {
-        adminTableView.getItems()
-                .removeAll(adminTableView.getSelectionModel().getSelectedItems());
     }
 
     public User getLoggedInAdmin() {

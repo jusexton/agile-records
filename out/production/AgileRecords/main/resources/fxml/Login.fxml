@@ -15,6 +15,6 @@
         <Button fx:id="loginButton" layoutX="313.0" layoutY="111.0" mnemonicParsing="false" onAction="#handleLoginAction" prefHeight="25.0" prefWidth="56.0" text="Login" />
         <Label layoutX="35.0" layoutY="37.0" text="Username:" />
         <Label layoutX="35.0" layoutY="77.0" text="Password:" />
-        <Label fx:id="loginFailLabel" layoutX="35.0" layoutY="143.0" text="Username Or Password Incorrect" textFill="RED" visible="false" />
+        <Label fx:id="loginFailLabel" layoutX="35.0" layoutY="143.0" text="Username Or Password Incorrect !" textFill="RED" visible="false" />
     </children>
 </Pane>

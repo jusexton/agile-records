@@ -1,15 +1,15 @@
 package main.java.controller;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.input.KeyCode;
-import main.java.util.window.WindowUtil;
 import main.java.users.students.Course;
 import main.java.users.students.Student;
 import main.java.util.security.Hash;
 import main.java.util.security.HashingUtil;
+import main.java.util.window.WindowUtil;
 
 import java.net.URL;
 import java.security.NoSuchAlgorithmException;
@@ -20,6 +20,8 @@ import java.util.ResourceBundle;
  * Controller responsible for CreateStudent.fxml backend and logic.
  */
 public class CreateStudentController implements Initializable {
+    private Student createdStudent;
+
     @FXML
     private TextField usernameTextField;
     @FXML
@@ -46,8 +48,36 @@ public class CreateStudentController implements Initializable {
     private Button createButton;
     @FXML
     private Button cancelButton;
+    @FXML
+    private Label createFailLabel;
 
-    private Student createdStudent;
+    @FXML
+    private void handleAddButtonAction(ActionEvent event) {
+        // TODO: Add functionality
+    }
+
+    @FXML
+    private void handleRemoveButtonAction(ActionEvent event) {
+        courseTableView.getItems()
+                .removeAll(courseTableView.getSelectionModel().getSelectedItems());
+    }
+
+    @FXML
+    private void handleCreateButtonAction(ActionEvent event) {
+        // Make sure required fields are filled.
+        if (usernameTextField.getText().isEmpty() || passwordField.getText().isEmpty()) {
+            createFailLabel.setVisible(true);
+        } else {
+            createStudent();
+            WindowUtil.closeWindow(event);
+        }
+    }
+
+    @FXML
+    private void handleCancelButtonAction(ActionEvent event) {
+        createdStudent = null;
+        WindowUtil.closeWindow(event);
+    }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -55,19 +85,12 @@ public class CreateStudentController implements Initializable {
         crnTableColumn.setCellValueFactory(new PropertyValueFactory<>("CRN"));
         nameTableColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
         creditsTableColumn.setCellValueFactory(new PropertyValueFactory<>("creditHours"));
-
-        setHandlers();
     }
 
     /**
      * Builds student object then sets the createdStudent object.
      */
     private void createStudent() {
-        // Make sure required fields are filled.
-        if (usernameTextField.getText() == null || passwordField.getText() == null) {
-            return;
-        }
-
         try {
             String salt = HashingUtil.generateSalt(20, new Random());
             Hash hash = HashingUtil.hash(passwordField.getText(), "SHA-512", salt);
@@ -78,64 +101,6 @@ public class CreateStudentController implements Initializable {
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
         }
-    }
-
-    private void removeSelected() {
-        courseTableView.getItems()
-                .removeAll(courseTableView.getSelectionModel().getSelectedItems());
-    }
-
-    // TODO: Look for more efficient way of declaring all these handlers.
-    private void setHandlers() {
-        // When clicked, opens window that allows user to create a course object
-        addButton.setOnMouseClicked(mouseEvent -> {
-            // TODO: Add Button Functionality
-        });
-
-        // When enter is pressed,opens window that allows user to create a course object
-        addButton.setOnKeyPressed(keyEvent -> {
-            if (keyEvent.getCode() == KeyCode.ENTER) {
-                // TODO: Add Button Functionality
-            }
-        });
-
-        // When clicked, removes selected rows.
-        removeButton.setOnMouseClicked(mouseEvent -> removeSelected());
-
-        // When enter is pressed, removed selected rows.
-        removeButton.setOnKeyPressed(keyEvent -> {
-            if (keyEvent.getCode() == KeyCode.ENTER) {
-                removeSelected();
-            }
-        });
-
-        // When clicked, closes window after storing created student object;
-        createButton.setOnAction(event -> {
-            createStudent();
-            WindowUtil.closeWindow(event);
-        });
-
-        // When enter is pressed, closes window after string created student object.
-        createButton.setOnKeyPressed(keyEvent -> {
-            if (keyEvent.getCode() == KeyCode.ENTER) {
-                createStudent();
-                WindowUtil.closeWindow(keyEvent);
-            }
-        });
-
-        // When clicked, closes window
-        cancelButton.setOnMouseClicked(mouseEvent -> {
-            createdStudent = null;
-            WindowUtil.closeWindow(mouseEvent);
-        });
-
-        // When enter is pressed, closes window.
-        cancelButton.setOnKeyPressed(keyEvent -> {
-            if (keyEvent.getCode() == KeyCode.ENTER) {
-                createdStudent = null;
-                WindowUtil.closeWindow(keyEvent);
-            }
-        });
     }
 
     public Student getCreatedStudent() {
