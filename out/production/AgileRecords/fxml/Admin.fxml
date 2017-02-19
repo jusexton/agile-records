@@ -26,8 +26,8 @@
         <Pane>
             <children>
                 <Label fx:id="statusLabel" layoutY="2.0" text="Status: " />
-                <Label layoutX="417.0" layoutY="2.0" text="Logged In As: " />
-            <Label fx:id="loggedInAsLabel" layoutX="492.0" layoutY="1.0" />
+                <Label layoutX="416.0" layoutY="2.0" text="Logged In As: " />
+            <Label fx:id="loggedInAsLabel" layoutX="492.0" layoutY="1.0" prefHeight="17.0" prefWidth="0.0" />
             </children>
         </Pane>
     </children>

@@ -11,6 +11,7 @@ import java.util.List;
  */
 public class Student extends User {
     private List<Course> courses;
+    private Major major;
 
     public Student(String userName, Hash password) {
         super(userName, password);
@@ -34,5 +35,13 @@ public class Student extends User {
 
     public void setCourses(List<Course> courses) {
         this.courses = courses;
+    }
+
+    public Major getMajor() {
+        return major;
+    }
+
+    public void setMajor(Major major) {
+        this.major = major;
     }
 }

@@ -10,7 +10,7 @@ import java.util.List;
 public class Course {
     private int CRN;
     private String name;
-    private List<Double> grades;
+    private List<Grade> grades;
     private int creditHours;
     private LocalDateTime time;
 
@@ -23,8 +23,8 @@ public class Course {
 
     public int getAverage() {
         double total = 0;
-        for (double grade : grades) {
-            total += grade;
+        for (Grade grade : grades) {
+            total += grade.getScore();
         }
 
         total /= grades.size();
@@ -57,11 +57,11 @@ public class Course {
         this.name = name;
     }
 
-    public List<Double> getGrades() {
+    public List<Grade> getGrades() {
         return grades;
     }
 
-    public void setGrades(List<Double> grades) {
+    public void setGrades(List<Grade> grades) {
         this.grades = grades;
     }
 
