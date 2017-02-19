@@ -13,7 +13,8 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/CreateStudent.fxml"));
+        // Launches application login screen.
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/Login.fxml"));
         Parent root = fxmlLoader.load();
         primaryStage.setTitle("Agile Records");
         primaryStage.setResizable(false);

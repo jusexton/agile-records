@@ -6,6 +6,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import main.java.users.Admin;
 import main.java.users.User;
 import main.java.users.students.Student;
 import main.java.util.window.WindowUtil;
@@ -34,17 +35,7 @@ public class AdminController implements Initializable {
     @FXML
     private Label loggedInAsLabel;
 
-    private User loggedInUser;
-
-    /**
-     * Builds AdminController with a given logged in user.
-     *
-     * @param loggedInUser The user the window will be fitted too.
-     */
-    public AdminController(User loggedInUser) {
-        this.loggedInUser = loggedInUser;
-        loggedInAsLabel.setText(loggedInUser.getUserName());
-    }
+    private Admin loggedInAdmin;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -56,16 +47,17 @@ public class AdminController implements Initializable {
         // Allows application to detect when rows are double clicked.
         adminTableView.setRowFactory(tableView -> buildRowWithEvent());
 
-        // When clicked, opens window that allows user to create a student object
-        addButton.setOnMouseClicked(mouseEvent -> openCreateStudent());
-
-        // When clicked, removes selected rows.
-        removeButton.setOnMouseClicked(mouseEvent ->
-                adminTableView.getItems()
-                        .removeAll(adminTableView.getSelectionModel().getSelectedItems())
-        );
-
         // TODO: Load Students Into Observable List.
+    }
+
+    /**
+     * Initializes any data the controller needs before launch.
+     *
+     * @param admin The admin object that will be logged into the application.
+     */
+    public void init(Admin admin){
+        this.loggedInAdmin = admin;
+        loggedInAsLabel.setText(admin.getUserName());
     }
 
     /**
@@ -88,6 +80,7 @@ public class AdminController implements Initializable {
     /**
      * Opens CreateStudent.fxml.
      */
+    @FXML
     private void openCreateStudent() {
         Stage stage = new Stage();
         stage.setTitle("Create Student");
@@ -98,7 +91,16 @@ public class AdminController implements Initializable {
         }
     }
 
-    public User getLoggedInUser() {
-        return this.loggedInUser;
+    /**
+     * Removes all selected items from the table view.
+     */
+    @FXML
+    private void removeSelected() {
+        adminTableView.getItems()
+                .removeAll(adminTableView.getSelectionModel().getSelectedItems());
+    }
+
+    public User getLoggedInAdmin() {
+        return this.loggedInAdmin;
     }
 }
