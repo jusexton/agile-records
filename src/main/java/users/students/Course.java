@@ -13,6 +13,7 @@ public class Course {
     private String name;
     private List<Grade> grades;
     private int creditHours;
+    // TODO: Rework course schedule
     private Interval time;
 
     public Course(String name, int creditHours, int CRN) {

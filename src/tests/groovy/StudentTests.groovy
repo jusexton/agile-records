@@ -1,6 +1,8 @@
 package tests.groovy
 
 import main.java.users.students.Course
+import main.java.users.students.Grade
+import main.java.users.students.GradeType
 import main.java.users.students.Student
 import main.java.util.security.HashingUtil
 
@@ -11,13 +13,13 @@ class StudentTests extends GroovyTestCase {
     static Student getTestStudent() {
         // Create test course one.
         Course courseOne = new Course("Math 2302", 4, 12345)
-        courseOne.getGrades().add(90d)
-        courseOne.getGrades().add(85d)
+        courseOne.getGrades().add(new Grade(90, GradeType.Test))
+        courseOne.getGrades().add(new Grade(85, GradeType.Test))
 
         // Create test course two.
         Course courseTwo = new Course("Math 2304", 4, 54321)
-        courseTwo.getGrades().add(100d)
-        courseTwo.getGrades().add(95d)
+        courseTwo.getGrades().add(new Grade(100, GradeType.Test))
+        courseTwo.getGrades().add(new Grade(95, GradeType.Test))
 
         // Add them to list.
         List<Course> courses = new ArrayList<>()
