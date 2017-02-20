@@ -1,6 +1,7 @@
 package main.java.users.students;
 
-import java.time.LocalDateTime;
+import org.joda.time.Interval;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,7 +13,7 @@ public class Course {
     private String name;
     private List<Grade> grades;
     private int creditHours;
-    private LocalDateTime time;
+    private Interval time;
 
     public Course(String name, int creditHours, int CRN) {
         this.name = name;
@@ -73,11 +74,11 @@ public class Course {
         this.creditHours = creditHours;
     }
 
-    public LocalDateTime getTime() {
+    public Interval getTime() {
         return time;
     }
 
-    public void setTime(LocalDateTime time) {
+    public void setTime(Interval time) {
         this.time = time;
     }
 }
