@@ -11,24 +11,30 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" exported="" name="Arquillian JUnit:Release" level="project" />
-    <orderEntry type="library" exported="" name="mysql-connector-java-5.1.40-bin" level="project" />
-    <orderEntry type="library" exported="" name="gson-2.8.0" level="project" />
+    <orderEntry type="library" name="Arquillian JUnit:Release" level="project" />
     <orderEntry type="library" name="groovy-2.4.8" level="application" />
-    <orderEntry type="library" exported="" name="groovy-2.4.8" level="project" />
-    <orderEntry type="module-library" exported="">
+    <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$APPLICATION_HOME_DIR$/redist/annotations-java8.jar!/" />
+          <root url="jar://$MODULE_DIR$/libs/gson-2.8.0.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
       </library>
     </orderEntry>
-    <orderEntry type="module-library" exported="">
+    <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$USER_HOME$/Downloads/joda-time-2.9.7-dist/joda-time-2.9.7/joda-time-2.9.7.jar!/" />
+          <root url="jar://$MODULE_DIR$/libs/joda-time-2.9.7.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/libs/mysql-connector-java-5.1.40-bin.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />

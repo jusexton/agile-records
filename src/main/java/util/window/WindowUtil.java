@@ -6,7 +6,6 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import org.jetbrains.annotations.Nullable;
 
 import java.io.IOException;
 
@@ -21,7 +20,7 @@ public abstract class WindowUtil {
      * @param stage The stage that will be used to display the window.
      * @return The controller of the window.
      */
-    @Nullable
+
     public static <T> T showWindowAndWait(final String path, final Stage stage) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(WindowUtil.class.getResource(path));
@@ -44,7 +43,6 @@ public abstract class WindowUtil {
      * @param <T>
      * @return The controller of the stage.
      */
-    @Nullable
     public static <T> T showWindowAndWait(final String path, final Stage stage, final T controller) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(WindowUtil.class.getResource(path));
