@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.Pane?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Label layoutX="104.0" layoutY="98.0" prefHeight="28.0" prefWidth="29.0" text="ID: " />
+      <TextField layoutX="143.0" layoutY="53.0" />
+      <Label layoutX="48.0" layoutY="57.0" text="Student Name: " />
+      <TextField layoutX="143.0" layoutY="99.0" />
+      <Label layoutX="328.0" layoutY="314.0" text="Semester GPA:" />
+      <TextField layoutX="416.0" layoutY="310.0" />
+      <TableView layoutX="38.0" layoutY="142.0" prefHeight="159.0" prefWidth="528.0">
+        <columns>
+          <TableColumn prefWidth="76.0" text="ID" />
+          <TableColumn prefWidth="77.0" text="CRN" />
+            <TableColumn prefWidth="214.0" text="Course Name" />
+            <TableColumn prefWidth="74.0" text="Time" />
+            <TableColumn prefWidth="86.0" text="Credit Hours" />
+        </columns>
+      </TableView>
+      <Button layoutX="38.0" layoutY="361.0" mnemonicParsing="false" text="Add" visible="false" />
+      <Button layoutX="104.0" layoutY="361.0" mnemonicParsing="false" text="Remove" visible="false" />
+   </children>
+</Pane>
