@@ -4,27 +4,42 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Label layoutX="104.0" layoutY="98.0" prefHeight="28.0" prefWidth="29.0" text="ID: " />
-      <TextField layoutX="143.0" layoutY="53.0" />
-      <Label layoutX="48.0" layoutY="57.0" text="Student Name: " />
-      <TextField layoutX="143.0" layoutY="99.0" />
-      <Label layoutX="328.0" layoutY="314.0" text="Semester GPA:" />
-      <TextField layoutX="416.0" layoutY="310.0" />
-      <TableView layoutX="38.0" layoutY="142.0" prefHeight="159.0" prefWidth="528.0">
+      <Label layoutX="112.0" layoutY="95.0" prefHeight="25.0" prefWidth="20.0" text="ID: ">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font></Label>
+      <Label layoutX="48.0" layoutY="57.0" text="Student Name: ">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font></Label>
+      <Label layoutX="414.0" layoutY="334.0" text="Semester GPA:">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font></Label>
+      <TableView layoutX="36.0" layoutY="124.0" prefHeight="200.0" prefWidth="528.0">
         <columns>
           <TableColumn prefWidth="77.0" text="CRN" />
             <TableColumn prefWidth="190.0" text="Course Name" />
-            <TableColumn prefWidth="81.0" text="Time" />
-            <TableColumn prefWidth="89.0" text="Credit Hours" />
-            <TableColumn prefWidth="97.0" text="Grades" />
+            <TableColumn prefWidth="98.0" text="Time" />
+            <TableColumn prefWidth="79.0" text="Credit Hours" />
+            <TableColumn prefWidth="90.0" text="Grades" />
         </columns>
       </TableView>
       <Button layoutX="38.0" layoutY="361.0" mnemonicParsing="false" text="Add" visible="false" />
       <Button layoutX="104.0" layoutY="361.0" mnemonicParsing="false" text="Remove" visible="false" />
+      <Label layoutX="139.0" layoutY="57.0" prefHeight="17.0" prefWidth="59.0" text="nameLabel" />
+      <Label layoutX="133.0" layoutY="99.0" prefHeight="17.0" prefWidth="46.0" text="IDLabel" />
+      <Label layoutX="505.0" layoutY="334.0" prefHeight="17.0" prefWidth="59.0" text="GPAlabel" />
+      <Label layoutX="92.0" layoutY="78.0" text="Major: ">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Label>
+      <Label layoutX="133.0" layoutY="78.0" text="MajorLabel" />
    </children>
 </Pane>
