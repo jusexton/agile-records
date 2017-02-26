@@ -1,6 +1,6 @@
 package tests.groovy
 
-import main.java.util.database.DatabaseUtil
+import main.java.util.database.SQLConnection
 
 import java.sql.Connection
 
@@ -14,7 +14,7 @@ class DatabaseTests extends GroovyTestCase {
         final String password = "txscypaa_agile"
         final String dbName = "4@lq^tsFiI0b"
 
-        Connection connection = DatabaseUtil.getConnection(host, password, dbName)
+        Connection connection = SQLConnection.establishConnection(host, password, dbName)
         assertNotNull connection
     }
 
