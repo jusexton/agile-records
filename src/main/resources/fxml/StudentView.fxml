@@ -21,30 +21,30 @@
          <font>
             <Font name="System Bold" size="12.0" />
          </font></Label>
-      <TableView layoutX="36.0" layoutY="124.0" prefHeight="200.0" prefWidth="528.0">
+      <TableView fx:id="studentViewTable" layoutX="36.0" layoutY="124.0" prefHeight="200.0" prefWidth="528.0">
         <columns>
-          <TableColumn prefWidth="77.0" text="CRN" />
-            <TableColumn prefWidth="207.0" text="Course Name" />
-            <TableColumn prefWidth="81.0" text="Time" />
-            <TableColumn prefWidth="162.0" text="Credit Hours" />
+          <TableColumn fx:id="crnColumn" prefWidth="77.0" text="CRN" />
+            <TableColumn fx:id="courseColumn" prefWidth="207.0" text="Course Name" />
+            <TableColumn fx:id="timeColumn" prefWidth="81.0" text="Time" />
+            <TableColumn fx:id="creditHrsColumn" prefWidth="162.0" text="Credit Hours" />
         </columns>
       </TableView>
-      <Button layoutX="38.0" layoutY="361.0" mnemonicParsing="false" text="Add" visible="false" />
-      <Button layoutX="104.0" layoutY="361.0" mnemonicParsing="false" text="Remove" visible="false" />
-      <Label layoutX="139.0" layoutY="57.0" prefHeight="17.0" prefWidth="59.0" text="nameLabel" />
-      <Label layoutX="133.0" layoutY="99.0" prefHeight="17.0" prefWidth="46.0" text="IDLabel" />
-      <Label layoutX="505.0" layoutY="334.0" prefHeight="17.0" prefWidth="59.0" text="GPAlabel" />
+      <Button fx:id="addButton" layoutX="38.0" layoutY="361.0" mnemonicParsing="false" text="Add" visible="false" />
+      <Button fx:id="removeButton" layoutX="104.0" layoutY="361.0" mnemonicParsing="false" text="Remove" visible="false" />
+      <Label fx:id="nameLabel" layoutX="139.0" layoutY="57.0" prefHeight="17.0" prefWidth="59.0" text="nameLabel" />
+      <Label fx:id="idLabel" layoutX="133.0" layoutY="99.0" prefHeight="17.0" prefWidth="46.0" text="IDLabel" />
+      <Label fx:id="gpaLabel" layoutX="505.0" layoutY="334.0" prefHeight="17.0" prefWidth="59.0" text="GPAlabel" />
       <Label layoutX="92.0" layoutY="78.0" text="Major: ">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
       </Label>
-      <Label layoutX="133.0" layoutY="78.0" text="MajorLabel" />
+      <Label fx:id="majorLabel" layoutX="133.0" layoutY="78.0" text="MajorLabel" />
       <Label layoutX="37.0" layoutY="334.0" text="Logged in as: ">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
       </Label>
-      <Label layoutX="122.0" layoutY="334.0" text="LoggedLabel" />
+      <Label fx:id="logLabel" layoutX="122.0" layoutY="334.0" text="LoggedLabel" />
    </children>
 </Pane>
