@@ -24,10 +24,9 @@
       <TableView layoutX="36.0" layoutY="124.0" prefHeight="200.0" prefWidth="528.0">
         <columns>
           <TableColumn prefWidth="77.0" text="CRN" />
-            <TableColumn prefWidth="190.0" text="Course Name" />
-            <TableColumn prefWidth="98.0" text="Time" />
-            <TableColumn prefWidth="79.0" text="Credit Hours" />
-            <TableColumn prefWidth="90.0" text="Grades" />
+            <TableColumn prefWidth="207.0" text="Course Name" />
+            <TableColumn prefWidth="81.0" text="Time" />
+            <TableColumn prefWidth="162.0" text="Credit Hours" />
         </columns>
       </TableView>
       <Button layoutX="38.0" layoutY="361.0" mnemonicParsing="false" text="Add" visible="false" />
