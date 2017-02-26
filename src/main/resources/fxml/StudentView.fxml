@@ -40,5 +40,11 @@
          </font>
       </Label>
       <Label layoutX="133.0" layoutY="78.0" text="MajorLabel" />
+      <Label layoutX="37.0" layoutY="334.0" text="Logged in as: ">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Label>
+      <Label layoutX="122.0" layoutY="334.0" text="LoggedLabel" />
    </children>
 </Pane>
