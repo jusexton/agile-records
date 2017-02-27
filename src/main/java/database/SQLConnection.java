@@ -93,18 +93,17 @@ public class SQLConnection {
         return nextID;
     }
 
-    /*
+    public boolean isUnique(String username){
+        String result = getAllUsers().stream()
+                .map(User::getUserName)
+                .filter(name -> name.equals(username))
+                .findFirst()
+                .orElse("");
 
-    TODO: Check for duplicate username as part of addUser
+        return result.equals("");
+    }
 
-     */
-
-    public void addUser(User newUser) {
-
-        Gson gson = new GsonBuilder().create();
-        String userData = gson.toJson(newUser);
-
-     /*   boolean isUniqueUsername = true;
+    /*   boolean isUniqueUsername = true;
 
         if (newUser instanceof Student) {
 
@@ -127,8 +126,17 @@ public class SQLConnection {
 
         }
 
-        if(isUniqueUsername) {
         */
+
+    public boolean addUser(User newUser) {
+        // Makes sure the username is unique, and not blank.
+        String username = newUser.getUserName();
+        if (!isUnique(username) && !username.equals("")){
+            return false;
+        }
+
+        Gson gson = new GsonBuilder().create();
+        String userData = gson.toJson(newUser);
 
         String group;
         String type;
@@ -145,7 +153,6 @@ public class SQLConnection {
                 type);
 
         try {
-            // create the mysql insert prepared statement
             PreparedStatement preparedStmt = connection.prepareStatement(query);
 
             preparedStmt.setInt(1, getNextID());
@@ -157,14 +164,8 @@ public class SQLConnection {
             System.out.println("Connection Failed! Check output console");
             e.printStackTrace();
         }
+        return true;
     }
-
-
-        /*
-        else {
-            System.out.println("The username already exists.");
-        }
-    }*/
 
     public Student getStudent(int id) {
         Student student = null;
@@ -262,6 +263,13 @@ public class SQLConnection {
             e.printStackTrace();
         }
         return allAdmins;
+    }
+
+    public List<User> getAllUsers(){
+        List<User> allUsers = new ArrayList<>();
+        allUsers.addAll(getAllStudents());
+        allUsers.addAll(getAllAdmins());
+        return allUsers;
     }
 
     public boolean updateStudent(int id, Student student) {
