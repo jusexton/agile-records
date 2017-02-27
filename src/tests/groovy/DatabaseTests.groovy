@@ -87,6 +87,11 @@ class DatabaseTests extends GroovyTestCase {
     }
 
     @Test
+    void testGetAllUsers(){
+        testConnection.getAllUsers().entrySet().forEach { key -> key.getValue().forEach { e -> println(e.getFirstName())} }
+    }
+
+    @Test
     void testGetAllStudents() {
         List<Student> allStudents = testConnection.getAllStudents()
         // WARNING: THIS ASSERT CHANGES FREQUENTLY

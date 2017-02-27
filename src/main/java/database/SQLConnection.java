@@ -12,6 +12,7 @@ import java.lang.reflect.Type;
 import java.security.NoSuchAlgorithmException;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -130,7 +131,7 @@ public class SQLConnection {
         }
     }
 
-    private User getTableMember(String query, String data, Type type){
+    private User getTableMember(String query, String data, Type type) {
         User user = null;
 
         try {
@@ -152,40 +153,52 @@ public class SQLConnection {
     public User getUser(int id) {
         String query = String.format("SELECT `studentData` FROM `txscypaa_agilerecords`.`students`  WHERE  `id` = '%d'", id);
         User user = getTableMember(query, "studentData", Student.class);
-        if (user != null){
+        if (user != null) {
             return user;
         }
 
         query = String.format("SELECT `adminData` FROM `txscypaa_agilerecords`.`administrators`  WHERE  `id` = '%d'", id);
         user = getTableMember(query, "adminData", Student.class);
-        if (user != null){
+        if (user != null) {
             return user;
         }
 
         return null;
     }
 
-    public List<Student> getAllStudents() {
-        List<Student> allStudents = new ArrayList<>();
+    public HashMap<String, List<User>> getAllUsers() {
+        HashMap<String, List<User>> allUsers = new HashMap<>();
 
         try {
-            String query = "SELECT `studentData` FROM `txscypaa_agilerecords`.`students`  WHERE  1";
+            String query = "SELECT `studentData` FROM `txscypaa_agilerecords`.`students`";
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(query);
 
-            // create the mysql insert prepared statement
-            Statement st = connection.createStatement();
-            ResultSet rs = st.executeQuery(query);
-
+            List<User> allStudents = new ArrayList<>();
             Gson gson = new GsonBuilder().create();
-            while (rs.next()) {
-                String studentData = rs.getString("studentData");
+            while (resultSet.next()) {
+                String studentData = resultSet.getString("studentData");
                 allStudents.add(gson.fromJson(studentData, Student.class));
             }
+            allUsers.put("students", allStudents);
+
+            query = "SELECT `adminData` FROM `txscypaa_agilerecords`.`administrators`";
+            resultSet = statement.executeQuery(query);
+
+            List<User> allAdmins = new ArrayList<>();
+            while (resultSet.next()) {
+                String studentData = resultSet.getString("adminData");
+                allAdmins.add(gson.fromJson(studentData, Admin.class));
+            }
+            allUsers.put("admins", allAdmins);
+
         } catch (SQLException e) {
             System.out.println("Connection Failed! Check output console");
             e.printStackTrace();
         }
-        return allStudents;
+        return allUsers;
     }
+
 
     public boolean updateStudent(int id, Student student) {
         try {
@@ -252,7 +265,7 @@ public class SQLConnection {
             e.printStackTrace();
         }
 
-       throw new FailedLoginException("Login failed, username does not exist");
+        throw new FailedLoginException("Login failed, username does not exist");
     }
 
     private boolean checkPassword(Hash hash, String password) {
