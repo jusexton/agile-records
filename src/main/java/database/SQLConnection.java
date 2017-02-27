@@ -106,7 +106,7 @@ public class SQLConnection {
                 .flatMap(entry -> entry.getValue().stream())
                 .map(User::getUserName)
                 .filter(name -> name.equals(username))
-                .findAny()
+                .findFirst()
                 .orElse("");
 
         return result.equals("");
