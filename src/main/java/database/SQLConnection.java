@@ -1,4 +1,4 @@
-package main.java.util.database;
+package main.java.database;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -14,10 +14,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Holds tools used for reading and writing to a specified database.
+ * Represents a connection to a sql database.
  */
+// TODO: Clean up code, optimize.
 public class SQLConnection {
-
     private Connection connection;
     private String host;
     private String password;
@@ -58,160 +58,108 @@ public class SQLConnection {
         return connection;
     }
 
-    public int getNextID(){
-
+    public int getNextID() {
         int nextID;
         String studentIDQuery = "SELECT `auto_increment` FROM INFORMATION_SCHEMA.TABLES WHERE table_name = 'students'";
         String adminIDQuery = "SELECT `auto_increment` FROM INFORMATION_SCHEMA.TABLES WHERE table_name = 'administrators'";
 
+        int nextStudentID = getAutoIncrement(studentIDQuery);
+        int nextAdminID = getAutoIncrement(adminIDQuery);
+        nextID = Math.max(nextStudentID, nextAdminID);
+        return nextID;
+    }
+
+    /**
+     * Helper function for getNextID, given a table query.
+     *
+     * @param query The query that will be performed.
+     * @return The next id available.
+     */
+    private int getAutoIncrement(String query) {
+        int nextID;
         try {
-
-            // create the mysql insert preparedstatement
-            Statement st1 = connection.createStatement();
-
-            ResultSet rs1 = st1.executeQuery(studentIDQuery);
-
-            int nextStudentID = -1;
-
-            rs1.first();
-            nextStudentID =  rs1.getInt("auto_increment");
-
-            Statement st2 = connection.createStatement();
-
-            ResultSet rs2 = st2.executeQuery(adminIDQuery);
-
-            int nextAdminID = -1;
-
-            rs2.first();
-            nextAdminID =  rs2.getInt("auto_increment");
-
-            nextID = Math.max(nextStudentID,nextAdminID);
-
-
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(query);
+            resultSet.first();
+            nextID = resultSet.getInt("auto_increment");
         } catch (SQLException e) {
-            System.out.println("Connection Failed! Check output console");
-            e.printStackTrace();
-            return -1;
+            nextID = -1;
         }
-
-
         return nextID;
     }
 
 
-    public void addUser(User newUser){
-
-        Gson gsonData = new GsonBuilder().create();
-        String userData  = gsonData.toJson(newUser);
+    public void addUser(User newUser) {
+        Gson gson = new GsonBuilder().create();
+        String userData = gson.toJson(newUser);
 
         String query;
-
-        if(newUser instanceof Student){
-
+        if (newUser instanceof Student) {
             query = "INSERT INTO `txscypaa_agilerecords`.`students` (`id`,`username`, `studentData`) VALUES  (?,?,?)";
-
-        }
-        else {
+        } else {
             query = "INSERT INTO `txscypaa_agilerecords`.`administrators` (`id`, `username`,`adminData`) VALUES  (?,?,?)";
         }
 
-
         try {
-
-            // create the mysql insert preparedstatement
+            // create the mysql insert prepared statement
             PreparedStatement preparedStmt = connection.prepareStatement(query);
 
-           // preparedStmt.setString (1, "");
-            preparedStmt.setInt(1,getNextID());
-            preparedStmt.setString (2, newUser.getUserName());
-            preparedStmt.setString (3, userData);
+            preparedStmt.setInt(1, getNextID());
+            preparedStmt.setString(2, newUser.getUserName());
+            preparedStmt.setString(3, userData);
 
-            // execute the preparedstatement
             preparedStmt.execute();
-
-
         } catch (SQLException e) {
             System.out.println("Connection Failed! Check output console");
             e.printStackTrace();
-            //return;
         }
-
-
     }
 
-    public Student getStudent(int id){
-
+    public Student getStudent(int id) {
+        Student student = null;
         try {
-
             String query = "SELECT `studentData` FROM `txscypaa_agilerecords`.`students`  WHERE  `id` ='" + id + "'";
 
-            // create the mysql insert preparedstatement
+            // create the mysql insert prepared statement
             Statement st = connection.createStatement();
-
             ResultSet rs = st.executeQuery(query);
+            if (rs.first()){
+                String studentData = rs.getString("studentData");
 
-            String studentData = "";
-
-            rs.first();
-            studentData =  rs.getString("studentData");
-
-            Gson gsonData = new GsonBuilder().create();
-            Student theStudent = gsonData.fromJson(studentData,Student.class);
-
-            //System.out.println(studentData);
-
-            return theStudent;
-
-
+                Gson gson = new GsonBuilder().create();
+                student = gson.fromJson(studentData, Student.class);
+            }
         } catch (SQLException e) {
             System.out.println("Connection Failed! Check output console");
             e.printStackTrace();
-            return null;
         }
-
+        return student;
     }
 
-    public User getUser(int id){
-
-        String query;
-
+    public User getUser(int id) {
         try {
+            String query = "SELECT `studentData` FROM `txscypaa_agilerecords`.`students`  WHERE  `id` ='" + id + "'";
 
-            query = "SELECT `studentData` FROM `txscypaa_agilerecords`.`students`  WHERE  `id` ='" + id + "'";
-
-            // create the mysql insert preparedstatement
+            // create the mysql insert prepared statement
             Statement st = connection.createStatement();
-
             ResultSet rs = st.executeQuery(query);
 
-            String studentData = "";
-
-            if(rs.first()) {
-                studentData = rs.getString("studentData");
-
-                Gson gsonData = new GsonBuilder().create();
-                Student theStudent = gsonData.fromJson(studentData, Student.class);
-
+            if (rs.first()) {
+                String studentData = rs.getString("studentData");
+                Gson gson = new GsonBuilder().create();
                 //System.out.println(studentData);
+                return gson.fromJson(studentData, Student.class);
+            } else {
 
-                return theStudent;
-            }
-            else {
-
+                // TODO: This query is never used, handle accordingly.
                 query = "SELECT `studentData` FROM `txscypaa_agilerecords`.`administrators`  WHERE  `id` ='" + id + "'";
 
-                String adminData = "";
-
                 if (rs.first()) {
-                    adminData = rs.getString("adminData");
+                    String adminData = rs.getString("adminData");
 
-                    Gson gsonData = new GsonBuilder().create();
-                    Admin theAdmin = gsonData.fromJson(adminData, Admin.class);
-
-                    //System.out.println(studentData);
-
+                    Gson gson = new GsonBuilder().create();
+                    Admin theAdmin = gson.fromJson(adminData, Admin.class);
                     return theAdmin;
-
                 }
             }
 
@@ -222,145 +170,94 @@ public class SQLConnection {
         }
 
         return null;
-
     }
 
-    public List<Student> getAllStudents(){
-
+    public List<Student> getAllStudents() {
         List<Student> allStudents = new ArrayList<>();
 
         try {
-
             String query = "SELECT `studentData` FROM `txscypaa_agilerecords`.`students`  WHERE  1";
 
-            // create the mysql insert preparedstatement
+            // create the mysql insert prepared statement
             Statement st = connection.createStatement();
-
             ResultSet rs = st.executeQuery(query);
 
-            String studentData = "";
-
-            while(rs.next()) {
-
-                studentData = rs.getString("studentData");
-                Gson gsonData = new GsonBuilder().create();
-                Student theStudent = gsonData.fromJson(studentData,Student.class);
-               // System.out.println(studentData);
-                allStudents.add(theStudent);
+            Gson gson = new GsonBuilder().create();
+            while (rs.next()) {
+                String studentData = rs.getString("studentData");
+                allStudents.add(gson.fromJson(studentData, Student.class));
             }
-            return allStudents;
-
-
         } catch (SQLException e) {
             System.out.println("Connection Failed! Check output console");
             e.printStackTrace();
-            return null;
         }
-
+        return allStudents;
     }
 
-    public boolean updateStudent(int id, Student student){
-
-
+    public boolean updateStudent(int id, Student student) {
         try {
-
-            Gson gsonData = new GsonBuilder().create();
-            String studentData  = gsonData.toJson(student);
-
-           // System.out.println(studentData);
-
+            Gson gson = new GsonBuilder().create();
+            String studentData = gson.toJson(student);
 
             String query = "UPDATE `txscypaa_agilerecords`.`students` SET `studentData` = ? WHERE `students`.`id` = ?";
 
-            // create the mysql insert preparedstatement
+            // create the mysql insert prepared statement
             PreparedStatement preparedStmt = connection.prepareStatement(query);
 
             // preparedStmt.setString (1, "");
-            preparedStmt.setString (1, studentData);
-            preparedStmt.setInt (2, id);
+            preparedStmt.setString(1, studentData);
+            preparedStmt.setInt(2, id);
 
-            // execute the preparedstatement
-            if(preparedStmt.execute())
-                return true;
-
-
+            // execute the prepared statement
+            return preparedStmt.execute();
         } catch (SQLException e) {
             System.out.println("Connection Failed! Check output console");
             e.printStackTrace();
-            return false;
         }
         return false;
     }
 
     /*
-
         TODO : Is Username Unique
 
         public boolean isUniqueUsername(String username)
-
      */
 
-    public User doLogin(String username, String password){
-
-
+    // TODO: Update function to be able to login administrators aswell.
+    public User attemptLogin(String username, String password) {
         try {
-
             String query = "SELECT `studentData` FROM `txscypaa_agilerecords`.`students`  WHERE  `username` ='" + username + "'";
 
-            // create the mysql insert preparedstatement
+            // create the mysql insert prepared statement
             Statement st = connection.createStatement();
-
             ResultSet rs = st.executeQuery(query);
 
-            String studentData = "";
-
-            if(rs.first()){
-
-
-                studentData =  rs.getString("studentData");
-
-                Gson gsonData = new GsonBuilder().create();
-                Student theStudent = gsonData.fromJson(studentData,Student.class);
+            if (rs.first()) {
+                String studentData = rs.getString("studentData");
+                Gson gson = new GsonBuilder().create();
+                Student theStudent = gson.fromJson(studentData, Student.class);
 
                 Hash hash = theStudent.getPassword();
-
-
-
-                try{
-
-
-                    if(hash.equals(HashingUtil.hash(password,hash.getAlgorithm(),hash.getSalt())))
-                    {
+                try {
+                    if (hash.equals(HashingUtil.hash(password, hash.getAlgorithm(), hash.getSalt()))) {
                         return theStudent;
                     }
-
-
-                }
-                catch (NoSuchAlgorithmException e)
-                {
+                } catch (NoSuchAlgorithmException e) {
                     e.printStackTrace();
                 }
-
             }
-
-            return null;
-
-
         } catch (SQLException e) {
             System.out.println("Connection Failed! Check output console");
             e.printStackTrace();
-            return null;
         }
-
-
-
+        return null;
     }
 
     /*
 
      TODO: Login Method
 
-     public User doLogin(String username, String password)
+     public User attemptLogin(String username, String password)
 
      password needs to be hashed and compared to the hash in the DB
 
@@ -372,7 +269,7 @@ public class SQLConnection {
 
       */
 
-    public Connection establishConnection() {
+    public Connection getConnection() {
         return connection;
     }
 
