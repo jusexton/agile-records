@@ -200,18 +200,23 @@ public class SQLConnection {
     }
 
 
-    public boolean updateStudent(int id, Student student) {
+    public boolean updateUser(int id, User user) {
         try {
             Gson gson = new GsonBuilder().create();
-            String studentData = gson.toJson(student);
+            String userData = gson.toJson(user);
 
-            String query = "UPDATE `txscypaa_agilerecords`.`students` SET `studentData` = ? WHERE `students`.`id` = ?";
+            String query;
+            if (user instanceof Student) {
+                query = "UPDATE `txscypaa_agilerecords`.`students` SET `studentData` = ? WHERE `students`.`id` = ?";
+            } else {
+                query = "UPDATE `txscypaa_agilerecords`.`administrators` SET `adminData` = ? WHERE `administrators`.`id` = ?";
+            }
 
             // create the mysql insert prepared statement
             PreparedStatement preparedStmt = connection.prepareStatement(query);
 
             // preparedStmt.setString (1, "");
-            preparedStmt.setString(1, studentData);
+            preparedStmt.setString(1, userData);
             preparedStmt.setInt(2, id);
 
             // execute the prepared statement

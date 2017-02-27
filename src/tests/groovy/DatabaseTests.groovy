@@ -100,7 +100,7 @@ class DatabaseTests extends GroovyTestCase {
 
     @Test
     void testUpdateStudent() {
-        testConnection.updateStudent(24, createTestStudent())
+        testConnection.updateUser(24, createTestStudent())
     }
 
     @Test
