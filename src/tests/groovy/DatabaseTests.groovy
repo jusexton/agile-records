@@ -122,12 +122,10 @@ class DatabaseTests extends GroovyTestCase {
 
         User theStudent = testConnection.attemptLogin("mschultz", "123456")
         println(theStudent.getFirstName())
-        println(theStudent.getID())
-       // theStudent.getCourses().forEach {it -> println(it)
+        theStudent.getCourses().forEach {it -> println(it)
 
         User theAdmin = testConnection.attemptLogin("adminuser", "123456")
         println(theAdmin.getFirstName())
-        println(theAdmin.getID())
 
     }
 }
