@@ -16,7 +16,7 @@ import java.util.List;
 /**
  * Represents a connection to a sql database.
  */
-// TODO: Clean up code, optimize.
+// TODO: Clean up code, optimize. NOTE: Functions with written documentation will be considered clean and stable.
 public class SQLConnection {
     private Connection connection;
     private String host;
@@ -58,25 +58,29 @@ public class SQLConnection {
         return connection;
     }
 
+    /**
+     * Determines the next unique ID in the database.
+     *
+     * @return The next unique ID.
+     */
+    // TODO: Determine if we need to check for both ID's being -1.
     public int getNextID() {
-        int nextID;
-        String studentIDQuery = "SELECT `auto_increment` FROM INFORMATION_SCHEMA.TABLES WHERE table_name = 'students'";
-        String adminIDQuery = "SELECT `auto_increment` FROM INFORMATION_SCHEMA.TABLES WHERE table_name = 'administrators'";
-
-        int nextStudentID = getAutoIncrement(studentIDQuery);
-        int nextAdminID = getAutoIncrement(adminIDQuery);
-        nextID = Math.max(nextStudentID, nextAdminID);
-        return nextID;
+        int nextStudentID = getAutoIncrement("students");
+        int nextAdminID = getAutoIncrement("administrators");
+        return Math.max(nextStudentID, nextAdminID);
     }
 
     /**
      * Helper function for getNextID, given a table query.
      *
-     * @param query The query that will be performed.
+     * @param tableName The name of the table that will be access for its auto increment.
      * @return The next id available.
      */
-    private int getAutoIncrement(String query) {
+    private int getAutoIncrement(String tableName) {
         int nextID;
+        String query = String.format(
+                "SELECT `auto_increment` FROM INFORMATION_SCHEMA.TABLES WHERE table_name = '%s'",
+                tableName);
         try {
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(query);
@@ -150,7 +154,6 @@ public class SQLConnection {
                 //System.out.println(studentData);
                 return gson.fromJson(studentData, Student.class);
             } else {
-
                 // TODO: This query is never used, handle accordingly.
                 query = "SELECT `studentData` FROM `txscypaa_agilerecords`.`administrators`  WHERE  `id` ='" + id + "'";
 
@@ -162,13 +165,11 @@ public class SQLConnection {
                     return theAdmin;
                 }
             }
-
         } catch (SQLException e) {
             System.out.println("Connection Failed! Check output console");
             e.printStackTrace();
             return null;
         }
-
         return null;
     }
 

@@ -17,6 +17,7 @@ import java.sql.Connection
 /**
  * Contains all tests involving the database
  */
+// TODO: Write more stable and consistent tests.
 @RunWith(JUnit4.class)
 class DatabaseTests extends GroovyTestCase {
     final static String host = "jdbc:mysql://gator4196.hostgator.com:3306/txscypaa_agilerecords"
