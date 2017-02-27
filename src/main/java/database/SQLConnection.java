@@ -72,15 +72,16 @@ public class SQLConnection {
 
     /**
      * Helper function for getNextID, given a table query.
+     * Returns -1 if the table does not exist.
      *
      * @param tableName The name of the table that will be access for its auto increment.
      * @return The next id available.
      */
     private int getAutoIncrement(String tableName) {
-        int nextID;
         String query = String.format(
                 "SELECT `auto_increment` FROM INFORMATION_SCHEMA.TABLES WHERE table_name = '%s'",
                 tableName);
+        int nextID;
         try {
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(query);
