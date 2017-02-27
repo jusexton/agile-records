@@ -95,14 +95,36 @@ public class SQLConnection {
         return nextID;
     }
 
+    /**
+     * Determines if a given username is unique on the SQL server.
+     *
+     * @param username The username that needs to be checked for uniqueness
+     * @return Whether the username is unique or not.
+     */
+    public boolean isUnique(String username) {
+        String result = getAllUsers().entrySet().stream()
+                .flatMap(entry -> entry.getValue().stream())
+                .map(User::getUserName)
+                .filter(name -> name.equals(username))
+                .findAny()
+                .orElse("");
+
+        return result.equals("");
+    }
 
     /**
      * Adds user data to the correct data depending on whether the user
      * is an Admin or Student.
      *
      * @param newUser The user instance that will be added.
+     * @return Whether adding the user was successful or not.
      */
-    public void addUser(User newUser) {
+    public boolean addUser(User newUser) {
+        String username = newUser.getUserName();
+        if (!isUnique(username) || !username.equals("")) {
+            return false;
+        }
+
         Gson gson = new GsonBuilder().create();
         String userData = gson.toJson(newUser);
 
@@ -129,9 +151,10 @@ public class SQLConnection {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        return true;
     }
 
-    private User getTableMember(String query, String data, Type type) {
+    private User getUserByQuery(String query, String data, Type type) {
         User user = null;
 
         try {
@@ -152,13 +175,13 @@ public class SQLConnection {
 
     public User getUser(int id) {
         String query = String.format("SELECT `studentData` FROM `txscypaa_agilerecords`.`students`  WHERE  `id` = '%d'", id);
-        User user = getTableMember(query, "studentData", Student.class);
+        User user = getUserByQuery(query, "studentData", Student.class);
         if (user != null) {
             return user;
         }
 
         query = String.format("SELECT `adminData` FROM `txscypaa_agilerecords`.`administrators`  WHERE  `id` = '%d'", id);
-        user = getTableMember(query, "adminData", Student.class);
+        user = getUserByQuery(query, "adminData", Student.class);
         if (user != null) {
             return user;
         }
@@ -166,39 +189,34 @@ public class SQLConnection {
         return null;
     }
 
-    public HashMap<String, List<User>> getAllUsers() {
-        HashMap<String, List<User>> allUsers = new HashMap<>();
-
+    private List<User> getAllByQuery(String query, String wantedData, Type type) {
+        List<User> users = new ArrayList<>();
         try {
-            String query = "SELECT `studentData` FROM `txscypaa_agilerecords`.`students`";
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(query);
 
-            List<User> allStudents = new ArrayList<>();
             Gson gson = new GsonBuilder().create();
             while (resultSet.next()) {
-                String studentData = resultSet.getString("studentData");
-                allStudents.add(gson.fromJson(studentData, Student.class));
+                String userData = resultSet.getString(wantedData);
+                users.add(gson.fromJson(userData, type));
             }
-            allUsers.put("students", allStudents);
-
-            query = "SELECT `adminData` FROM `txscypaa_agilerecords`.`administrators`";
-            resultSet = statement.executeQuery(query);
-
-            List<User> allAdmins = new ArrayList<>();
-            while (resultSet.next()) {
-                String studentData = resultSet.getString("adminData");
-                allAdmins.add(gson.fromJson(studentData, Admin.class));
-            }
-            allUsers.put("admins", allAdmins);
-
         } catch (SQLException e) {
-            System.out.println("Connection Failed! Check output console");
             e.printStackTrace();
         }
-        return allUsers;
+        return users;
     }
 
+    public HashMap<String, List<User>> getAllUsers() {
+        HashMap<String, List<User>> allUsers = new HashMap<>();
+
+        String query = "SELECT `studentData` FROM `txscypaa_agilerecords`.`students`";
+        allUsers.put("students", getAllByQuery(query, "studentData", Student.class));
+
+        query = "SELECT `adminData` FROM `txscypaa_agilerecords`.`administrators`";
+        allUsers.put("admins", getAllByQuery(query, "adminData", Admin.class));
+
+        return allUsers;
+    }
 
     public boolean updateUser(int id, User user) {
         try {
@@ -227,12 +245,6 @@ public class SQLConnection {
         }
         return false;
     }
-
-    /*
-        TODO : Is Username Unique
-
-        public boolean isUniqueUsername(String username)
-     */
 
     public User attemptLogin(String username, String password) throws FailedLoginException {
         try {
@@ -282,22 +294,6 @@ public class SQLConnection {
         }
         return pass;
     }
-
-    /*
-
-     TODO: Login Method
-
-     public User attemptLogin(String username, String password)
-
-     password needs to be hashed and compared to the hash in the DB
-
-     getSalt
-
-     Go until you find the username
-
-     add username field to database
-
-      */
 
     public Connection getConnection() {
         return connection;
