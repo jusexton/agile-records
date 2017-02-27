@@ -93,10 +93,42 @@ public class SQLConnection {
         return nextID;
     }
 
+    /*
+
+    TODO: Check for duplicate username as part of addUser
+
+     */
 
     public void addUser(User newUser) {
+
         Gson gson = new GsonBuilder().create();
         String userData = gson.toJson(newUser);
+
+     /*   boolean isUniqueUsername = true;
+
+        if (newUser instanceof Student) {
+
+            List<Student> allStudents = getAllStudents();
+            int iterator = 0;
+            while(allStudents.size()<iterator){
+                if(allStudents.get(iterator).getUserName().equals(newUser.getUserName()))
+                {
+                    System.out.println(allStudents.get(iterator).getUserName());
+                    isUniqueUsername = false;
+                    System.out.println("The username already exists.");
+                }
+                else
+                    iterator++;
+
+            }
+
+        }
+        else {
+
+        }
+
+        if(isUniqueUsername) {
+        */
 
         String query;
         if (newUser instanceof Student) {
@@ -119,6 +151,13 @@ public class SQLConnection {
             e.printStackTrace();
         }
     }
+
+
+        /*
+        else {
+            System.out.println("The username already exists.");
+        }
+    }*/
 
     public Student getStudent(int id) {
         Student student = null;
@@ -196,6 +235,28 @@ public class SQLConnection {
         return allStudents;
     }
 
+    public List<Admin> getAllAdmins() {
+        List<Admin> allAdmins = new ArrayList<>();
+
+        try {
+            String query = "SELECT `adminData` FROM `txscypaa_agilerecords`.`administrators`  WHERE  1";
+
+            // create the mysql insert prepared statement
+            Statement st = connection.createStatement();
+            ResultSet rs = st.executeQuery(query);
+
+            Gson gson = new GsonBuilder().create();
+            while (rs.next()) {
+                String adminData = rs.getString("adminData");
+                allAdmins.add(gson.fromJson(adminData, Admin.class));
+            }
+        } catch (SQLException e) {
+            System.out.println("Connection Failed! Check output console");
+            e.printStackTrace();
+        }
+        return allAdmins;
+    }
+
     public boolean updateStudent(int id, Student student) {
         try {
             Gson gson = new GsonBuilder().create();
@@ -219,14 +280,11 @@ public class SQLConnection {
         return false;
     }
 
-    /*
-        TODO : Is Username Unique
 
-        public boolean isUniqueUsername(String username)
-     */
 
-    // TODO: Update function to be able to login administrators aswell.
     public User attemptLogin(String username, String password) {
+
+        //Check if the user is a Student
         try {
             String query = "SELECT `studentData` FROM `txscypaa_agilerecords`.`students`  WHERE  `username` ='" + username + "'";
 
@@ -252,24 +310,34 @@ public class SQLConnection {
             System.out.println("Connection Failed! Check output console");
             e.printStackTrace();
         }
+        //Check if the user is an Admin
+        try {
+            String query = "SELECT `adminData` FROM `txscypaa_agilerecords`.`administrators`  WHERE  `username` ='" + username + "'";
+
+            // create the mysql insert prepared statement
+            Statement st = connection.createStatement();
+            ResultSet rs = st.executeQuery(query);
+
+            if (rs.first()) {
+                String adminData = rs.getString("adminData");
+                Gson gson = new GsonBuilder().create();
+                Admin theAdmin = gson.fromJson(adminData, Admin.class);
+
+                Hash hash = theAdmin.getPassword();
+                try {
+                    if (hash.equals(HashingUtil.hash(password, hash.getAlgorithm(), hash.getSalt()))) {
+                        return theAdmin ;
+                    }
+                } catch (NoSuchAlgorithmException e) {
+                    e.printStackTrace();
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println("Connection Failed! Check output console");
+            e.printStackTrace();
+        }
         return null;
     }
-
-    /*
-
-     TODO: Login Method
-
-     public User attemptLogin(String username, String password)
-
-     password needs to be hashed and compared to the hash in the DB
-
-     getSalt
-
-     Go until you find the username
-
-     add username field to database
-
-      */
 
     public Connection getConnection() {
         return connection;
