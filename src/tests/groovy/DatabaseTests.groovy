@@ -77,11 +77,6 @@ class DatabaseTests extends GroovyTestCase {
     }
 
     @Test
-    void testGetStudent() {
-        testConnection.getStudent(24)
-    }
-
-    @Test
     void testGetNextID() {
         System.out.println(testConnection.getNextID())
     }
@@ -110,7 +105,7 @@ class DatabaseTests extends GroovyTestCase {
     }
 
     @Test
-    void testDoLogin() {
+    void testAttemptLogin() {
         Student theStudent = testConnection.attemptLogin("mschultz", "123456")
         println(theStudent.getFirstName())
         theStudent.getCourses().forEach {it -> println(it) }
