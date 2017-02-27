@@ -81,14 +81,15 @@ public class SQLConnection {
         String query = String.format(
                 "SELECT `auto_increment` FROM INFORMATION_SCHEMA.TABLES WHERE table_name = '%s'",
                 tableName);
-        int nextID;
+        int nextID = -1;
         try {
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(query);
-            resultSet.next();
-            nextID = resultSet.getInt("auto_increment");
+            if (resultSet.isBeforeFirst()) {
+                nextID = resultSet.getInt("auto_increment");
+            }
         } catch (SQLException e) {
-            nextID = -1;
+            e.printStackTrace();
         }
         return nextID;
     }
@@ -137,7 +138,6 @@ public class SQLConnection {
                 "INSERT INTO `txscypaa_agilerecords`.`%s` (`id`,`username`, `studentData`) VALUES  (?,?,?)",
                 type);
 
-        // Prepares statement and executes.
         try {
             PreparedStatement preparedStmt = connection.prepareStatement(query);
 
@@ -173,13 +173,17 @@ public class SQLConnection {
     }
 
     public User getUser(int id) {
-        String query = String.format("SELECT `studentData` FROM `txscypaa_agilerecords`.`students`  WHERE  `id` = '%d'", id);
+        String query = String.format(
+                "SELECT `studentData` FROM `txscypaa_agilerecords`.`students`  WHERE  `id` = '%d'",
+                id);
         User user = getUserByQuery(query, "studentData", Student.class);
         if (user != null) {
             return user;
         }
 
-        query = String.format("SELECT `adminData` FROM `txscypaa_agilerecords`.`administrators`  WHERE  `id` = '%d'", id);
+        query = String.format(
+                "SELECT `adminData` FROM `txscypaa_agilerecords`.`administrators`  WHERE  `id` = '%d'",
+                id);
         user = getUserByQuery(query, "adminData", Student.class);
         if (user != null) {
             return user;
@@ -229,14 +233,11 @@ public class SQLConnection {
                 query = "UPDATE `txscypaa_agilerecords`.`administrators` SET `adminData` = ? WHERE `administrators`.`id` = ?";
             }
 
-            // create the mysql insert prepared statement
             PreparedStatement preparedStmt = connection.prepareStatement(query);
 
-            // preparedStmt.setString (1, "");
             preparedStmt.setString(1, userData);
             preparedStmt.setInt(2, id);
 
-            // execute the prepared statement
             return preparedStmt.execute();
         } catch (SQLException e) {
             System.out.println("Connection Failed! Check output console");
@@ -246,15 +247,19 @@ public class SQLConnection {
     }
 
     public User attemptLogin(String username, String password) throws FailedLoginException {
-        String query = String.format("SELECT `studentData` FROM `txscypaa_agilerecords`.`students`  WHERE  `username` = '%s'", username);
+        String query = String.format(
+                "SELECT `studentData` FROM `txscypaa_agilerecords`.`students`  WHERE  `username` = '%s'",
+                username);
         User user = loginByQuery(query, password, "studentData", Student.class);
-        if (user != null){
+        if (user != null) {
             return user;
         }
 
-        query = String.format("SELECT `adminData` FROM `txscypaa_agilerecords`.`administrators`  WHERE  `username` = '%s'", username);
+        query = String.format(
+                "SELECT `adminData` FROM `txscypaa_agilerecords`.`administrators`  WHERE  `username` = '%s'",
+                username);
         user = loginByQuery(query, password, "adminData", Admin.class);
-        if(user != null){
+        if (user != null) {
             return user;
         }
 
