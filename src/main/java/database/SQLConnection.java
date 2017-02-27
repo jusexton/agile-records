@@ -21,14 +21,14 @@ public class SQLConnection {
     private Connection connection;
     private String host;
     private String password;
-    private String dbName;
+    private String dataBaseName;
 
-    public SQLConnection(String host, String password, String dbName) {
+    public SQLConnection(String host, String password, String dataBaseName) {
         this.host = host;
         this.password = password;
-        this.dbName = dbName;
+        this.dataBaseName = dataBaseName;
 
-        this.connection = establishConnection(host, password, dbName);
+        this.connection = establishConnection(host, password, dataBaseName);
     }
 
     /**
@@ -93,7 +93,7 @@ public class SQLConnection {
         return nextID;
     }
 
-    public boolean isUnique(String username){
+    public boolean isUnique(String username) {
         String result = getAllUsers().stream()
                 .map(User::getUserName)
                 .filter(name -> name.equals(username))
@@ -131,7 +131,7 @@ public class SQLConnection {
     public boolean addUser(User newUser) {
         // Makes sure the username is unique, and not blank.
         String username = newUser.getUserName();
-        if (!isUnique(username) && !username.equals("")){
+        if (!isUnique(username) && !username.equals("")) {
             return false;
         }
 
@@ -175,7 +175,7 @@ public class SQLConnection {
             // create the mysql insert prepared statement
             Statement st = connection.createStatement();
             ResultSet rs = st.executeQuery(query);
-            if (rs.first()){
+            if (rs.first()) {
                 String studentData = rs.getString("studentData");
 
                 Gson gson = new GsonBuilder().create();
@@ -265,7 +265,7 @@ public class SQLConnection {
         return allAdmins;
     }
 
-    public List<User> getAllUsers(){
+    public List<User> getAllUsers() {
         List<User> allUsers = new ArrayList<>();
         allUsers.addAll(getAllStudents());
         allUsers.addAll(getAllAdmins());
@@ -294,7 +294,6 @@ public class SQLConnection {
         }
         return false;
     }
-
 
 
     public User attemptLogin(String username, String password) {
@@ -341,7 +340,7 @@ public class SQLConnection {
                 Hash hash = theAdmin.getPassword();
                 try {
                     if (hash.equals(HashingUtil.hash(password, hash.getAlgorithm(), hash.getSalt()))) {
-                        return theAdmin ;
+                        return theAdmin;
                     }
                 } catch (NoSuchAlgorithmException e) {
                     e.printStackTrace();
@@ -378,11 +377,11 @@ public class SQLConnection {
         this.password = password;
     }
 
-    public String getDbName() {
-        return dbName;
+    public String getDataBaseName() {
+        return dataBaseName;
     }
 
-    public void setDbName(String dbName) {
-        this.dbName = dbName;
+    public void setDataBaseName(String dataBaseName) {
+        this.dataBaseName = dataBaseName;
     }
 }
