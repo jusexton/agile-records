@@ -130,12 +130,19 @@ public class SQLConnection {
         if(isUniqueUsername) {
         */
 
-        String query;
+        String group;
+        String type;
         if (newUser instanceof Student) {
-            query = "INSERT INTO `txscypaa_agilerecords`.`students` (`id`,`username`, `studentData`) VALUES  (?,?,?)";
+            group = "students";
+            type = "studentData";
         } else {
-            query = "INSERT INTO `txscypaa_agilerecords`.`administrators` (`id`, `username`,`adminData`) VALUES  (?,?,?)";
+            group = "administrators";
+            type = "adminData";
         }
+        String query = String.format(
+                "INSERT INTO `txscypaa_agilerecords`.`%s` (`id`, `username`,`%s`) VALUES  (?,?,?)",
+                group,
+                type);
 
         try {
             // create the mysql insert prepared statement
