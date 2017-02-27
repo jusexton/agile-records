@@ -1,6 +1,7 @@
 package tests.groovy
 
 import main.java.users.Admin
+import main.java.users.User
 import main.java.users.students.Course
 import main.java.users.students.Major
 import main.java.users.students.Student
@@ -51,7 +52,8 @@ class DatabaseTests extends GroovyTestCase {
     }
 
     static Admin createTestAdmin() {
-        Admin testAdmin = new Admin("adminuser", new Hash("111111", "222222", "333333"))
+        Hash hash = HashingUtil.hash("123456", "SHA-256")
+        Admin testAdmin = new Admin("adminuser", hash)
         testAdmin.setEmail("admin@schultz.ms")
         testAdmin.setFirstName("Admin")
         testAdmin.setLastName("User")
@@ -97,6 +99,12 @@ class DatabaseTests extends GroovyTestCase {
         // WARNING: THIS ASSERT CHANGES FREQUENTLY
         // assertEquals(allStudents.size(), 3)
     }
+    @Test
+    void testGetAllAdmins() {
+        List<Admin> allAdmins = testConnection.getAllAdmins()
+        // WARNING: THIS ASSERT CHANGES FREQUENTLY
+         assertEquals(allAdmins.size(), 3)
+    }
 
     @Test
     void testUpdateStudent() {
@@ -111,8 +119,15 @@ class DatabaseTests extends GroovyTestCase {
 
     @Test
     void testDoLogin() {
-        Student theStudent = testConnection.attemptLogin("mschultz", "123456")
+
+        User theStudent = testConnection.attemptLogin("mschultz", "123456")
         println(theStudent.getFirstName())
-        theStudent.getCourses().forEach {it -> println(it) }
+        println(theStudent.getID())
+       // theStudent.getCourses().forEach {it -> println(it)
+
+        User theAdmin = testConnection.attemptLogin("adminuser", "123456")
+        println(theAdmin.getFirstName())
+        println(theAdmin.getID())
+
     }
 }
