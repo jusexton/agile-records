@@ -40,9 +40,7 @@ public class SQLConnection {
      *
      * @return The sql connection.
      */
-    public static Connection establishConnection(final String host,
-                                                 final String password,
-                                                 final String dbName) {
+    public static Connection establishConnection(String host, String password, String dbName) {
         try {
             Class.forName("com.mysql.jdbc.Driver");
         } catch (ClassNotFoundException e) {
@@ -79,7 +77,7 @@ public class SQLConnection {
      * @param tableName The name of the table that will be access for its auto increment.
      * @return The next id available.
      */
-    private int getAutoIncrement(String tableName) {
+    public int getAutoIncrement(String tableName) {
         String query = String.format(
                 "SELECT `auto_increment` FROM INFORMATION_SCHEMA.TABLES WHERE table_name = '%s'",
                 tableName);
@@ -150,11 +148,12 @@ public class SQLConnection {
             preparedStmt.execute();
         } catch (SQLException e) {
             e.printStackTrace();
+            return false;
         }
         return true;
     }
 
-    private User getUserByQuery(String query, String data, Type type) {
+    public User getUserByQuery(String query, String data, Type type) {
         User user = null;
 
         try {
@@ -189,7 +188,7 @@ public class SQLConnection {
         return null;
     }
 
-    private List<User> getAllByQuery(String query, String wantedData, Type type) {
+    public List<User> getAllByQuery(String query, String wantedData, Type type) {
         List<User> users = new ArrayList<>();
         try {
             Statement statement = connection.createStatement();
@@ -247,42 +246,42 @@ public class SQLConnection {
     }
 
     public User attemptLogin(String username, String password) throws FailedLoginException {
+        String query = String.format("SELECT `studentData` FROM `txscypaa_agilerecords`.`students`  WHERE  `username` = '%s'", username);
+        User user = loginByQuery(query, password, "studentData", Student.class);
+        if (user != null){
+            return user;
+        }
+
+        query = String.format("SELECT `adminData` FROM `txscypaa_agilerecords`.`administrators`  WHERE  `username` = '%s'", username);
+        user = loginByQuery(query, password, "adminData", Admin.class);
+        if(user != null){
+            return user;
+        }
+
+        throw new FailedLoginException("Login Failed");
+    }
+
+    public User loginByQuery(String query,
+                             String password,
+                             String wantedData,
+                             Type type) throws FailedLoginException {
         try {
-            String query = String.format("SELECT `studentData` FROM `txscypaa_agilerecords`.`students`  WHERE  `username` = '%s'", username);
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(query);
 
             Gson gson = new GsonBuilder().create();
             if (resultSet.isBeforeFirst()) {
-                String studentData = resultSet.getString("studentData");
-                Student theStudent = gson.fromJson(studentData, Student.class);
+                String userData = resultSet.getString(wantedData);
+                User user = gson.fromJson(userData, type);
 
-                if (checkPassword(theStudent.getPassword(), password)) {
-                    return theStudent;
-                } else {
-                    throw new FailedLoginException("Login failed, incorrect student password");
-                }
-            }
-
-            query = String.format("SELECT `adminData` FROM `txscypaa_agilerecords`.`administrators`  WHERE  `username` = '%s'", username);
-            resultSet = statement.executeQuery(query);
-
-            if (resultSet.isBeforeFirst()) {
-                String adminData = resultSet.getString("adminData");
-                Admin theAdmin = gson.fromJson(adminData, Admin.class);
-
-                if (checkPassword(theAdmin.getPassword(), password)) {
-                    return theAdmin;
-                } else {
-                    throw new FailedLoginException("Login failed, incorrect admin password");
+                if (checkPassword(user.getPassword(), password)) {
+                    return user;
                 }
             }
         } catch (SQLException e) {
-            System.out.println("Connection Failed! Check output console");
             e.printStackTrace();
         }
-
-        throw new FailedLoginException("Login failed, username does not exist");
+        throw new FailedLoginException("Login Failed");
     }
 
     private boolean checkPassword(Hash hash, String password) {
