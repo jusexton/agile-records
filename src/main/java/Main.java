@@ -14,7 +14,7 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         // Launches application login screen.
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/StudentView.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/AdminView.fxml"));
         Parent root = fxmlLoader.load();
         primaryStage.setTitle("Agile Records");
         primaryStage.setResizable(false);

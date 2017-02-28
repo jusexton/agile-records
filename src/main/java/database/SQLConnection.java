@@ -23,14 +23,10 @@ public class SQLConnection {
     private Connection connection;
     private String host;
     private String password;
-    private String dbName;
+    private String databaseName;
 
-    public SQLConnection(String host, String password, String dbName) {
-        this.host = host;
-        this.password = password;
-        this.dbName = dbName;
-
-        this.connection = establishConnection(host, password, dbName);
+    public SQLConnection(String host, String password, String databaseName) {
+        this.setConnection(host, password, databaseName);
     }
 
     /**
@@ -65,8 +61,8 @@ public class SQLConnection {
      */
     // TODO: Determine if we need to check for both ID's being -1.
     public int getNextID() {
-        int nextStudentID = getAutoIncrement("students");
-        int nextAdminID = getAutoIncrement("administrators");
+        int nextStudentID = getNextAutoID("students");
+        int nextAdminID = getNextAutoID("administrators");
         return Math.max(nextStudentID, nextAdminID);
     }
 
@@ -77,15 +73,14 @@ public class SQLConnection {
      * @param tableName The name of the table that will be access for its auto increment.
      * @return The next id available.
      */
-    public int getAutoIncrement(String tableName) {
+    public int getNextAutoID(String tableName) {
         String query = String.format(
                 "SELECT `auto_increment` FROM INFORMATION_SCHEMA.TABLES WHERE table_name = '%s'",
                 tableName);
         int nextID = -1;
-        try {
-            Statement statement = connection.createStatement();
+        try (Statement statement = connection.createStatement()) {
             ResultSet resultSet = statement.executeQuery(query);
-            if (resultSet.isBeforeFirst()) {
+            if (resultSet.next()){
                 nextID = resultSet.getInt("auto_increment");
             }
         } catch (SQLException e) {
@@ -119,48 +114,56 @@ public class SQLConnection {
      * @return Whether adding the user was successful or not.
      */
     public boolean addUser(User newUser) {
+        // Make sure username is unique and not empty.
         String username = newUser.getUserName();
-        if (!isUnique(username) || !username.equals("")) {
+        if (!isUnique(username) || username.equals("")) {
             return false;
         }
+
+        String group;
+        String type;
+        if (newUser instanceof Student) {
+            group = "students";
+            type = "studentData";
+        } else {
+            group = "administrators";
+            type = "adminData";
+        }
+        String query = String.format(
+                "INSERT INTO `txscypaa_agilerecords`.`%s` (`id`, `username`,`%s`) VALUES  (?,?,?)",
+                group,
+                type);
 
         Gson gson = new GsonBuilder().create();
         String userData = gson.toJson(newUser);
-
-        String type;
-        if (newUser instanceof Student) {
-            type = "students";
-        } else {
-            type = "administrators";
-        }
-
-        String query = String.format(
-                "INSERT INTO `txscypaa_agilerecords`.`%s` (`id`,`username`, `studentData`) VALUES  (?,?,?)",
-                type);
-
         try {
             PreparedStatement preparedStmt = connection.prepareStatement(query);
-
             preparedStmt.setInt(1, getNextID());
             preparedStmt.setString(2, newUser.getUserName());
             preparedStmt.setString(3, userData);
-
             preparedStmt.execute();
+            return true;
         } catch (SQLException e) {
             e.printStackTrace();
-            return false;
         }
-        return true;
+        return false;
     }
 
-    public User getUserByQuery(String query, String data, Type type) {
+    /**
+     * Helper function for getUser.
+     *
+     * @param query
+     * @param data
+     * @param type
+     * @return
+     */
+    private User getUserByQuery(String query, String data, Type type) {
         User user = null;
 
-        try {
-            Statement statement = connection.createStatement();
+        try (Statement statement = connection.createStatement()) {
             ResultSet resultSet = statement.executeQuery(query);
 
-            if (resultSet.isBeforeFirst()) {
+            if (resultSet.next()) {
                 Gson gson = new GsonBuilder().create();
                 String userData = resultSet.getString(data);
                 user = gson.fromJson(userData, type);
@@ -172,6 +175,12 @@ public class SQLConnection {
         return user;
     }
 
+    /**
+     * Returns the user in the database with the matching given ID.
+     *
+     * @param id The ID that will be used to find the wanted user.
+     * @return The found user object.
+     */
     public User getUser(int id) {
         String query = String.format(
                 "SELECT `studentData` FROM `txscypaa_agilerecords`.`students`  WHERE  `id` = '%d'",
@@ -192,10 +201,18 @@ public class SQLConnection {
         return null;
     }
 
-    public List<User> getAllByQuery(String query, String wantedData, Type type) {
+    /**
+     * Helper function for getAllUsers.
+     *
+     * @param query
+     * @param wantedData
+     * @param type
+     * @return
+     */
+    private List<User> getAllByQuery(String query, String wantedData, Type type) {
         List<User> users = new ArrayList<>();
-        try {
-            Statement statement = connection.createStatement();
+
+        try (Statement statement = connection.createStatement()) {
             ResultSet resultSet = statement.executeQuery(query);
 
             Gson gson = new GsonBuilder().create();
@@ -209,6 +226,10 @@ public class SQLConnection {
         return users;
     }
 
+    /**
+     * Collectors all records from each table and organizes each user by which table they belong too.
+     * @return The hash map containing all users.
+     */
     public HashMap<String, List<User>> getAllUsers() {
         HashMap<String, List<User>> allUsers = new HashMap<>();
 
@@ -221,20 +242,19 @@ public class SQLConnection {
         return allUsers;
     }
 
+    // TODO: Look over updateUser logic for bugs and optimizations.
     public boolean updateUser(int id, User user) {
-        try {
-            Gson gson = new GsonBuilder().create();
-            String userData = gson.toJson(user);
+        Gson gson = new GsonBuilder().create();
+        String userData = gson.toJson(user);
 
-            String query;
-            if (user instanceof Student) {
-                query = "UPDATE `txscypaa_agilerecords`.`students` SET `studentData` = ? WHERE `students`.`id` = ?";
-            } else {
-                query = "UPDATE `txscypaa_agilerecords`.`administrators` SET `adminData` = ? WHERE `administrators`.`id` = ?";
-            }
+        String query;
+        if (user instanceof Student) {
+            query = "UPDATE `txscypaa_agilerecords`.`students` SET `studentData` = ? WHERE `students`.`id` = ?";
+        } else {
+            query = "UPDATE `txscypaa_agilerecords`.`administrators` SET `adminData` = ? WHERE `administrators`.`id` = ?";
+        }
 
-            PreparedStatement preparedStmt = connection.prepareStatement(query);
-
+        try (PreparedStatement preparedStmt = connection.prepareStatement(query)) {
             preparedStmt.setString(1, userData);
             preparedStmt.setInt(2, id);
 
@@ -266,16 +286,26 @@ public class SQLConnection {
         throw new FailedLoginException("Login Failed");
     }
 
-    public User loginByQuery(String query,
+    /**
+     * Helper function for attemptLogin.
+     *
+     *
+     * @param query
+     * @param password
+     * @param wantedData
+     * @param type
+     * @return
+     * @throws FailedLoginException
+     */
+    private User loginByQuery(String query,
                              String password,
                              String wantedData,
                              Type type) throws FailedLoginException {
-        try {
-            Statement statement = connection.createStatement();
+        try (Statement statement = connection.createStatement()) {
             ResultSet resultSet = statement.executeQuery(query);
 
             Gson gson = new GsonBuilder().create();
-            if (resultSet.isBeforeFirst()) {
+            if (resultSet.next()) {
                 String userData = resultSet.getString(wantedData);
                 User user = gson.fromJson(userData, type);
 
@@ -289,6 +319,14 @@ public class SQLConnection {
         throw new FailedLoginException("Login Failed");
     }
 
+    /**
+     * Helper function for loginByQuery.
+     * Checks to see if a given password is equal to a given hash.
+     *
+     * @param hash The hash object that will be compared.
+     * @param password The string password that will be compared.
+     * @return Whether they were equal or not.
+     */
     private boolean checkPassword(Hash hash, String password) {
         boolean pass = false;
         try {
@@ -299,35 +337,26 @@ public class SQLConnection {
         return pass;
     }
 
-    public Connection getConnection() {
-        return connection;
+    public void setConnection(String host, String password, String databaseName) {
+        this.host = host;
+        this.password = password;
+        this.databaseName = databaseName;
+        this.connection = establishConnection(host, password, databaseName);
     }
 
-    public void setConnection(Connection connection) {
-        this.connection = connection;
+    public Connection getConnection() {
+        return connection;
     }
 
     public String getHost() {
         return host;
     }
 
-    public void setHost(String host) {
-        this.host = host;
-    }
-
     public String getPassword() {
         return password;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String getDbName() {
-        return dbName;
-    }
-
-    public void setDbName(String dbName) {
-        this.dbName = dbName;
+    public String getDatabaseName() {
+        return databaseName;
     }
 }

@@ -1,10 +1,11 @@
 package tests.groovy
 
+import main.java.database.SQLConnection
 import main.java.users.Admin
+import main.java.users.User
 import main.java.users.students.Course
 import main.java.users.students.Major
 import main.java.users.students.Student
-import main.java.database.SQLConnection
 import main.java.util.security.Hash
 import main.java.util.security.HashingUtil
 import org.junit.BeforeClass
@@ -27,7 +28,7 @@ class DatabaseTests extends GroovyTestCase {
     static SQLConnection testConnection
 
     @BeforeClass
-    static void initialSetUp(){
+    static void initialSetUp() {
         testConnection = new SQLConnection(host, password, dbName)
     }
 
@@ -60,59 +61,53 @@ class DatabaseTests extends GroovyTestCase {
         return testAdmin
     }
 
+    // Passed
     @Test
     void testEstablishConnection() {
         Connection connection = SQLConnection.establishConnection(host, password, dbName)
         assertNotNull(connection)
     }
 
+    // Passed
+    // WARNING: Test will change frequently
     @Test
     void testAddStudent() {
-        testConnection.addUser(createTestStudent())
+        Admin testAdmin = createTestAdmin()
+        testAdmin.setUserName("SuperUniqueAdminName")
+        boolean result = testConnection.addUser(testAdmin)
+        assertTrue(result)
     }
 
+    // Passed
     @Test
-    void testAddAdmin() {
-        testConnection.addUser(createTestAdmin())
+    void testIsUnique() {
+        assertTrue(testConnection.isUnique("TestUsername"))
+        assertFalse(testConnection.isUnique("adminuser"))
     }
 
+    // Passed
+    // WARNING: Test will change frequently
     @Test
-    void testGetNextID() {
-        System.out.println(testConnection.getNextID())
+    void testGetNextAutoID(){
+        assertEquals(testConnection.getNextAutoID("students"), 47)
+        assertEquals(testConnection.getNextAutoID("administrators"), 51)
     }
 
+    // Passed
     @Test
-    void testGetUser() {
-        testConnection.getUser(24)
+    void testGetUser(){
+        User user = testConnection.getUser(50)
+        assertNotNull(user)
+        println(user.toString())
     }
 
+    // Passed
     @Test
     void testGetAllUsers(){
-        testConnection.getAllUsers().entrySet().forEach { key -> key.getValue().forEach { e -> println(e.getFirstName())} }
-    }
-
-    @Test
-    void testGetAllStudents() {
-        List<Student> allStudents = testConnection.getAllStudents()
-        // WARNING: THIS ASSERT CHANGES FREQUENTLY
-        // assertEquals(allStudents.size(), 3)
-    }
-
-    @Test
-    void testUpdateStudent() {
-        testConnection.updateUser(24, createTestStudent())
-    }
-
-    @Test
-    void testAddUser() {
-        testConnection.addUser(createTestStudent())
-        // testConnection.addUser(createTestAdmin())
-    }
-
-    @Test
-    void testAttemptLogin() {
-        Student theStudent = testConnection.attemptLogin("mschultz", "123456")
-        println(theStudent.getFirstName())
-        theStudent.getCourses().forEach {it -> println(it) }
+        def allUsers = testConnection.getAllUsers()
+        allUsers.entrySet().stream()
+                .flatMap { entry -> entry.getValue().stream() }
+                .map { user -> user.getUserName() }
+                .forEach { username -> println(username) }
     }
 }
