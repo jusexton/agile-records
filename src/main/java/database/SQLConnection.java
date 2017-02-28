@@ -305,12 +305,12 @@ public class SQLConnection {
     /**
      * Helper function for attemptLogin.
      *
-     * @param query
-     * @param password
-     * @param wantedData
-     * @param type
-     * @return
-     * @throws FailedLoginException
+     * @param query      The query that will be performed.
+     * @param password   The password that will be used to attempt login
+     * @param wantedData The data field that will be accessed.
+     * @param type       The data type of the retrieved data.
+     * @return The user retrieved
+     * @throws FailedLoginException Thrown when login fails
      */
     @Nullable
     private User loginByQuery(String query,
