@@ -1,5 +1,6 @@
 package tests.groovy
 
+import main.java.database.FailedLoginException
 import main.java.database.SQLConnection
 import main.java.users.Admin
 import main.java.users.User
@@ -69,7 +70,7 @@ class DatabaseTests extends GroovyTestCase {
     }
 
     // Passed
-    // WARNING: Test will change frequently
+    // WARNING: Make sure the username is unique before running test.
     @Test
     void testAddStudent() {
         Admin testAdmin = createTestAdmin()
@@ -79,6 +80,7 @@ class DatabaseTests extends GroovyTestCase {
     }
 
     // Passed
+    // WARNING: Test may change frequently.
     @Test
     void testIsUnique() {
         assertTrue(testConnection.isUnique("TestUsername"))
@@ -86,7 +88,7 @@ class DatabaseTests extends GroovyTestCase {
     }
 
     // Passed
-    // WARNING: Test will change frequently
+    // WARNING: Test may change frequently.
     @Test
     void testGetNextAutoID(){
         assertEquals(testConnection.getNextAutoID("students"), 47)
@@ -109,5 +111,27 @@ class DatabaseTests extends GroovyTestCase {
                 .flatMap { entry -> entry.getValue().stream() }
                 .map { user -> user.getUserName() }
                 .forEach { username -> println(username) }
+    }
+
+    // Passed
+    @Test
+    void testCorrectLogin(){
+        // Correct login credentials
+        User user = testConnection.attemptLogin("mschultz", "123456")
+        assertNotNull(user)
+        assertTrue(user instanceof Student)
+        assertFalse(user instanceof Admin)
+    }
+
+    // Passed
+    @Test(expected = FailedLoginException.class)
+    void testIncorrectPassword(){
+        testConnection.attemptLogin("mschultz", "000000")
+    }
+
+    // Passed
+    @Test(expected = FailedLoginException.class)
+    void testIncorrectUsername(){
+        testConnection.attemptLogin("Random-Username", "123456")
     }
 }

@@ -229,7 +229,7 @@ public class SQLConnection {
     }
 
     /**
-     * Collectors all records from each table and organizes each user by which table they belong too.
+     * Collects all records from each table and organizes each user by which table they belong too.
      *
      * @return The hash map containing all users.
      */
@@ -269,6 +269,15 @@ public class SQLConnection {
         return false;
     }
 
+    /**
+     * Returns a user object given the user's username and if the password matches the stored
+     * username's password.
+     *
+     * @param username The username that will be queried.
+     * @param password The password that will be compared if there is a matching username.
+     * @return The user object.
+     * @throws FailedLoginException Thrown when
+     */
     public User attemptLogin(String username, String password) throws FailedLoginException {
         String query = String.format(
                 "SELECT `studentData` FROM `txscypaa_agilerecords`.`students`  WHERE  `username` = '%s'",
@@ -313,12 +322,14 @@ public class SQLConnection {
 
                 if (checkPassword(user.getPassword(), password)) {
                     return user;
+                } else {
+                    throw new FailedLoginException("Login Failed");
                 }
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        throw new FailedLoginException("Login Failed");
+        return null;
     }
 
     /**
