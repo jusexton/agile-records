@@ -12,6 +12,7 @@ import main.java.users.User;
 import main.java.util.window.WindowUtil;
 
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 import java.util.prefs.Preferences;
 
@@ -53,12 +54,13 @@ public class LoginController implements Initializable {
             return;
         }
 
-        SQLConnection connection = new SQLConnection(HOST, PASSWORD, DATABASE_NAME);
-        try{
+        try (SQLConnection connection = new SQLConnection(HOST, PASSWORD, DATABASE_NAME)) {
             loggedInUser = connection.attemptLogin(username, password);
             WindowUtil.closeWindow(event);
         } catch(FailedLoginException ex){
             loginFailLabel.setVisible(true);
+        } catch (SQLException ex) {
+            ex.printStackTrace();
         }
 
         if (checkBox.isSelected()) {

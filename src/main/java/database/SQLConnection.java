@@ -21,7 +21,7 @@ import java.util.List;
 /**
  * Represents a connection to a sql database.
  */
-public class SQLConnection {
+public class SQLConnection implements AutoCloseable {
     private Connection connection;
     private String host;
     private String password;
@@ -29,6 +29,11 @@ public class SQLConnection {
 
     public SQLConnection(String host, String password, String databaseName) {
         this.setConnection(host, password, databaseName);
+    }
+
+    @Override
+    public void close() throws SQLException{
+        connection.close();
     }
 
     /**
@@ -358,7 +363,7 @@ public class SQLConnection {
     }
 
     // TODO: Complete removeUser function.
-    public void removeUser(int id){
+    public void removeUser(int id) {
 
     }
 
