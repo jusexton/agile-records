@@ -1,9 +1,9 @@
 package main.java.database;
 
 /**
- * Thrown in the scenario of a bad login attempt.
+ * Thrown when a login attempt is failed.
  */
-public class FailedLoginException extends Exception {
+public class FailedLoginException extends Exception{
     public FailedLoginException(String message) {
         super(message);
     }

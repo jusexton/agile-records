@@ -13,7 +13,7 @@ public abstract class User {
     private String lastName;
     private String email;
 
-    public User(){
+    public User() {
 
     }
 
@@ -68,5 +68,10 @@ public abstract class User {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    @Override
+    public String toString() {
+        return userName;
     }
 }

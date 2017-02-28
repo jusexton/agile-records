@@ -1,11 +1,12 @@
 package tests.groovy
 
+import main.java.database.FailedLoginException
+import main.java.database.SQLConnection
 import main.java.users.Admin
 import main.java.users.User
 import main.java.users.students.Course
 import main.java.users.students.Major
 import main.java.users.students.Student
-import main.java.database.SQLConnection
 import main.java.util.security.Hash
 import main.java.util.security.HashingUtil
 import org.junit.BeforeClass
@@ -18,7 +19,6 @@ import java.sql.Connection
 /**
  * Contains all tests involving the database
  */
-// TODO: Write more stable and consistent tests.
 @RunWith(JUnit4.class)
 class DatabaseTests extends GroovyTestCase {
     final static String host = "jdbc:mysql://gator4196.hostgator.com:3306/txscypaa_agilerecords"
@@ -27,8 +27,9 @@ class DatabaseTests extends GroovyTestCase {
 
     static SQLConnection testConnection
 
+    // Executed before entering testing phase.
     @BeforeClass
-    static void initialSetUp(){
+    static void initialSetUp() {
         testConnection = new SQLConnection(host, password, dbName)
     }
 
@@ -52,8 +53,7 @@ class DatabaseTests extends GroovyTestCase {
     }
 
     static Admin createTestAdmin() {
-        Hash hash = HashingUtil.hash("123456", "SHA-256")
-        Admin testAdmin = new Admin("adminuser", hash)
+        Admin testAdmin = new Admin("adminuser", new Hash("111111", "222222", "333333"))
         testAdmin.setEmail("admin@schultz.ms")
         testAdmin.setFirstName("Admin")
         testAdmin.setLastName("User")
@@ -62,70 +62,76 @@ class DatabaseTests extends GroovyTestCase {
         return testAdmin
     }
 
+    // Passed
     @Test
     void testEstablishConnection() {
         Connection connection = SQLConnection.establishConnection(host, password, dbName)
         assertNotNull(connection)
     }
 
+    // Passed
+    // WARNING: Make sure the username is unique before running test.
     @Test
     void testAddStudent() {
-        testConnection.addUser(createTestStudent())
+        Admin testAdmin = createTestAdmin()
+        testAdmin.setUserName("unique")
+        boolean result = testConnection.addUser(testAdmin)
+        assertTrue(result)
     }
 
+    // Passed
+    // WARNING: Test may change frequently.
     @Test
-    void testAddAdmin() {
-        testConnection.addUser(createTestAdmin())
+    void testIsUnique() {
+        assertTrue(testConnection.isUnique("TestUsername"))
+        assertFalse(testConnection.isUnique("adminuser"))
     }
 
+    // Passed
+    // WARNING: Test may change frequently.
     @Test
-    void testGetStudent() {
-        testConnection.getStudent(24)
+    void testGetNextAutoID() {
+        assertEquals(testConnection.getNextAutoID("students"), 47)
+        assertEquals(testConnection.getNextAutoID("administrators"), 51)
     }
 
-    @Test
-    void testGetNextID() {
-        System.out.println(testConnection.getNextID())
-    }
-
+    // Passed
     @Test
     void testGetUser() {
-        testConnection.getUser(24)
+        User user = testConnection.getUser(50)
+        assertNotNull(user)
+        println(user.toString())
     }
 
+    // Passed
     @Test
-    void testGetAllStudents() {
-        List<Student> allStudents = testConnection.getAllStudents()
-        // WARNING: THIS ASSERT CHANGES FREQUENTLY
-        // assertEquals(allStudents.size(), 3)
-    }
-    @Test
-    void testGetAllAdmins() {
-        List<Admin> allAdmins = testConnection.getAllAdmins()
-        // WARNING: THIS ASSERT CHANGES FREQUENTLY
-         assertEquals(allAdmins.size(), 3)
+    void testGetAllUsers() {
+        def allUsers = testConnection.getAllUsers()
+        allUsers.entrySet().stream()
+                .flatMap { entry -> entry.getValue().stream() }
+                .map { user -> user.getUserName() }
+                .forEach { username -> println(username) }
     }
 
+    // Passed
     @Test
-    void testUpdateStudent() {
-        testConnection.updateStudent(24, createTestStudent())
+    void testCorrectLogin() {
+        // Correct login credentials
+        User user = testConnection.attemptLogin("mschultz", "123456")
+        assertNotNull(user)
+        assertTrue(user instanceof Student)
+        assertFalse(user instanceof Admin)
     }
 
-    @Test
-    void testAddUser() {
-        testConnection.addUser(createTestStudent())
-        // testConnection.addUser(createTestAdmin())
+    // Passed
+    @Test(expected = FailedLoginException.class)
+    void testIncorrectPassword() {
+        testConnection.attemptLogin("mschultz", "000000")
     }
 
-    @Test
-    void testDoLogin() {
-
-        User theStudent = testConnection.attemptLogin("mschultz", "123456")
-        println(theStudent.getFirstName())
-        theStudent.getCourses().forEach {it -> println(it)
-
-        User theAdmin = testConnection.attemptLogin("adminuser", "123456")
-        println(theAdmin.getFirstName())
-
+    // Passed
+    @Test(expected = FailedLoginException.class)
+    void testIncorrectUsername() {
+        testConnection.attemptLogin("Random-Username", "123456")
     }
 }

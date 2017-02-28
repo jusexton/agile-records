@@ -18,7 +18,7 @@ import java.util.ResourceBundle;
 /**
  * Controller responsible for Admin.fxml backend and logic.
  */
-public class AdminController implements Initializable {
+public class AdminViewController implements Initializable {
     private Admin loggedInAdmin;
 
     @FXML
