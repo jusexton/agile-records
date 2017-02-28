@@ -118,13 +118,13 @@ public class SQLConnection implements AutoCloseable {
      * is an Admin or Student.
      *
      * @param newUser The user instance that will be added.
-     * @return Whether adding the user was successful or not.
+     * @return A User object with the ID updated from the database.
      */
-    public boolean addUser(User newUser) {
+    public User addUser(User newUser) {
         // Make sure username is unique and not empty.
         String username = newUser.getUserName();
         if (!isUnique(username) || username.equals("")) {
-            return false;
+            return null;
         }
 
         // Determines which table the user will be in and creates the query.
@@ -154,11 +154,11 @@ public class SQLConnection implements AutoCloseable {
             preparedStmt.setString(2, username);
             preparedStmt.setString(3, userData);
             preparedStmt.execute();
-            return true;
+            return newUser;
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return false;
+        return null;
     }
 
     /**
@@ -363,7 +363,28 @@ public class SQLConnection implements AutoCloseable {
     }
 
     // TODO: Complete removeUser function.
-    public void removeUser(int id) {
+    public boolean removeUser(User user) {
+
+        int ID = user.getID();
+
+        String query;
+        if (user instanceof Student) {
+            query = "DELETE FROM `txscypaa_agilerecords`.`students` WHERE `students`.`id` = ?";
+        } else {
+            query = "DELETE FROM `txscypaa_agilerecords`.`students` WHERE `students`.`id` = ?";
+        }
+
+        try {
+
+            PreparedStatement preparedStmt = connection.prepareStatement(query);
+            preparedStmt.setInt(1   , ID);
+            preparedStmt.execute();
+            return true;
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
 
     }
 
