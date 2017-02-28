@@ -53,7 +53,8 @@ class DatabaseTests extends GroovyTestCase {
     }
 
     static Admin createTestAdmin() {
-        Admin testAdmin = new Admin("adminuser", new Hash("111111", "222222", "333333"))
+        Hash hash = HashingUtil.hash("123456", "SHA-256")
+        Admin testAdmin = new Admin("adminuser", hash)
         testAdmin.setEmail("admin@schultz.ms")
         testAdmin.setFirstName("Admin")
         testAdmin.setLastName("User")
@@ -72,11 +73,23 @@ class DatabaseTests extends GroovyTestCase {
     // Passed
     // WARNING: Make sure the username is unique before running test.
     @Test
-    void testAddStudent() {
+    void testAddAdmin() {
+
         Admin testAdmin = createTestAdmin()
-        testAdmin.setUserName("unique")
-        boolean result = testConnection.addUser(testAdmin)
-        assertTrue(result)
+        testAdmin.setUserName("unique3")
+        Admin result = testConnection.addUser(testAdmin)
+        assertNotNull(result)
+    }
+
+    // Passed
+    // WARNING: Make sure the username is unique before running test.
+    @Test
+    void testAddStudent() {
+
+        Student testStudent = createTestStudent()
+        testStudent.setUserName("uniqueStudent")
+        Student result = testConnection.addUser(testStudent)
+        assertNotNull(result)
     }
 
     // Passed
@@ -133,5 +146,23 @@ class DatabaseTests extends GroovyTestCase {
     @Test(expected = FailedLoginException.class)
     void testIncorrectUsername() {
         testConnection.attemptLogin("Random-Username", "123456")
+    }
+
+    @Test
+    void testRemoveUser()
+    {
+        //Create uniqueStudent
+        Student testStudent = createTestStudent()
+        testStudent.setUserName("uniqueStudent")
+
+        Admin testAdmin = createTestAdmin()
+        testAdmin.setUserName("uniqueAdmin")
+
+        Student student = testConnection.addUser(testStudent)
+        Admin admin = testConnection.addUser(testAdmin)
+
+        //Test remove uniqueStudent, uniqueAdmin
+        assertTrue(testConnection.removeUser(student))
+        assertTrue(testConnection.removeUser(admin))
     }
 }
