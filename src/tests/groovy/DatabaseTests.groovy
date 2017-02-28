@@ -19,7 +19,6 @@ import java.sql.Connection
 /**
  * Contains all tests involving the database
  */
-// TODO: Write more stable and consistent tests.
 @RunWith(JUnit4.class)
 class DatabaseTests extends GroovyTestCase {
     final static String host = "jdbc:mysql://gator4196.hostgator.com:3306/txscypaa_agilerecords"
@@ -28,6 +27,7 @@ class DatabaseTests extends GroovyTestCase {
 
     static SQLConnection testConnection
 
+    // Executed before entering testing phase.
     @BeforeClass
     static void initialSetUp() {
         testConnection = new SQLConnection(host, password, dbName)
@@ -90,14 +90,14 @@ class DatabaseTests extends GroovyTestCase {
     // Passed
     // WARNING: Test may change frequently.
     @Test
-    void testGetNextAutoID(){
+    void testGetNextAutoID() {
         assertEquals(testConnection.getNextAutoID("students"), 47)
         assertEquals(testConnection.getNextAutoID("administrators"), 51)
     }
 
     // Passed
     @Test
-    void testGetUser(){
+    void testGetUser() {
         User user = testConnection.getUser(50)
         assertNotNull(user)
         println(user.toString())
@@ -105,7 +105,7 @@ class DatabaseTests extends GroovyTestCase {
 
     // Passed
     @Test
-    void testGetAllUsers(){
+    void testGetAllUsers() {
         def allUsers = testConnection.getAllUsers()
         allUsers.entrySet().stream()
                 .flatMap { entry -> entry.getValue().stream() }
@@ -115,7 +115,7 @@ class DatabaseTests extends GroovyTestCase {
 
     // Passed
     @Test
-    void testCorrectLogin(){
+    void testCorrectLogin() {
         // Correct login credentials
         User user = testConnection.attemptLogin("mschultz", "123456")
         assertNotNull(user)
@@ -125,13 +125,13 @@ class DatabaseTests extends GroovyTestCase {
 
     // Passed
     @Test(expected = FailedLoginException.class)
-    void testIncorrectPassword(){
+    void testIncorrectPassword() {
         testConnection.attemptLogin("mschultz", "000000")
     }
 
     // Passed
     @Test(expected = FailedLoginException.class)
-    void testIncorrectUsername(){
+    void testIncorrectUsername() {
         testConnection.attemptLogin("Random-Username", "123456")
     }
 }
