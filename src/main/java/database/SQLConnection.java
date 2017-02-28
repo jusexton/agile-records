@@ -7,6 +7,7 @@ import main.java.users.User;
 import main.java.users.students.Student;
 import main.java.util.security.Hash;
 import main.java.util.security.HashingUtil;
+import org.jetbrains.annotations.Nullable;
 
 import java.lang.reflect.Type;
 import java.security.NoSuchAlgorithmException;
@@ -15,10 +16,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+// TODO: Add deleteUser method.
+// TODO: Implement multiple ways to access users if necessary. (ex. by id, by username)
+
 /**
  * Represents a connection to a sql database.
  */
-// TODO: Clean up code, optimize. NOTE: Functions with written documentation will be considered clean and stable.
 public class SQLConnection {
     private Connection connection;
     private String host;
@@ -154,10 +157,10 @@ public class SQLConnection {
     /**
      * Helper function for getUser.
      *
-     * @param query
-     * @param data
-     * @param type
-     * @return
+     * @param query The query that will be performed.
+     * @param data  The data field that will be accessed.
+     * @param type  The data type of the retrieved data.
+     * @return User retrieved with the given query.
      */
     private User getUserByQuery(String query, String data, Type type) {
         User user = null;
@@ -206,10 +209,10 @@ public class SQLConnection {
     /**
      * Helper function for getAllUsers.
      *
-     * @param query
-     * @param wantedData
-     * @param type
-     * @return
+     * @param query      The query that will be performed.
+     * @param wantedData The data field that will be accessed.
+     * @param type       The data type of the retrieved data.
+     * @return List of users retrieved with the given query.
      */
     private List<User> getAllByQuery(String query, String wantedData, Type type) {
         List<User> users = new ArrayList<>();
@@ -246,6 +249,7 @@ public class SQLConnection {
     }
 
     // TODO: Look over updateUser logic for bugs and optimizations.
+    // TODO: Unit test updateUser.
     public boolean updateUser(int id, User user) {
         Gson gson = new GsonBuilder().create();
         String userData = gson.toJson(user);
@@ -308,6 +312,7 @@ public class SQLConnection {
      * @return
      * @throws FailedLoginException
      */
+    @Nullable
     private User loginByQuery(String query,
                               String password,
                               String wantedData,
