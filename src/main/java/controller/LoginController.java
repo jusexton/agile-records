@@ -6,6 +6,10 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import main.java.database.FailedLoginException;
+import main.java.database.SQLConnection;
+import main.java.users.User;
+import main.java.util.window.WindowUtil;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -15,6 +19,10 @@ import java.util.prefs.Preferences;
  * Controller responsible for login.fxml backend and logic.
  */
 public class LoginController implements Initializable {
+    private final String HOST = "jdbc:mysql://gator4196.hostgator.com:3306/txscypaa_agilerecords";
+    private final String PASSWORD = "txscypaa_agile";
+    private final String DATABASE_NAME = "4@lq^tsFiI0b";
+
     private Preferences preferences;
 
     @FXML
@@ -28,6 +36,8 @@ public class LoginController implements Initializable {
     @FXML
     private Label loginFailLabel;
 
+    private User loggedInUser;
+
     /**
      * The login process that will take place when the
      * user prompts the system for login.
@@ -36,11 +46,20 @@ public class LoginController implements Initializable {
      */
     @FXML
     private void handleLoginAction(ActionEvent event) {
-        if (textField.getText().equals("") || passwordField.getText().equals("")) {
+        String username = textField.getText();
+        String password = passwordField.getText();
+        if (username.equals("") || password.equals("")) {
             loginFailLabel.setVisible(true);
+            return;
         }
 
-        // TODO: Add login logic
+        SQLConnection connection = new SQLConnection(HOST, PASSWORD, DATABASE_NAME);
+        try{
+            loggedInUser = connection.attemptLogin(username, password);
+            WindowUtil.closeWindow(event);
+        } catch(FailedLoginException ex){
+            loginFailLabel.setVisible(true);
+        }
 
         if (checkBox.isSelected()) {
             preferences.put("Last Username", textField.getText());
@@ -66,5 +85,9 @@ public class LoginController implements Initializable {
         preferences = Preferences.userRoot().node(this.getClass().getName());
         textField.setText(preferences.get("Last Username", ""));
         checkBox.setSelected(preferences.getBoolean("Use Username", false));
+    }
+
+    public User getLoggedInUser(){
+        return this.loggedInUser;
     }
 }
