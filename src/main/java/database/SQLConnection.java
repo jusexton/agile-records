@@ -16,7 +16,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-// TODO: Add deleteUser method.
 // TODO: Implement multiple ways to access users if necessary. (ex. by id, by username)
 
 /**
@@ -123,6 +122,7 @@ public class SQLConnection {
             return false;
         }
 
+        // Determines which table the user will be in and creates the query.
         String group;
         String type;
         if (newUser instanceof Student) {
@@ -137,14 +137,16 @@ public class SQLConnection {
                 group,
                 type);
 
+        // Serializes userData into Json
+        // Creates query statement will all needed data.
+        // Inserts data into database.
         int ID = getNextID();
         newUser.setID(ID);
         Gson gson = new GsonBuilder().create();
         String userData = gson.toJson(newUser);
-        try {
-            PreparedStatement preparedStmt = connection.prepareStatement(query);
+        try (PreparedStatement preparedStmt = connection.prepareStatement(query)) {
             preparedStmt.setInt(1, ID);
-            preparedStmt.setString(2, newUser.getUserName());
+            preparedStmt.setString(2, username);
             preparedStmt.setString(3, userData);
             preparedStmt.execute();
             return true;
@@ -353,6 +355,11 @@ public class SQLConnection {
             e.printStackTrace();
         }
         return pass;
+    }
+
+    // TODO: Complete removeUser function.
+    public void removeUser(int id){
+
     }
 
     public void setConnection(String host, String password, String databaseName) {

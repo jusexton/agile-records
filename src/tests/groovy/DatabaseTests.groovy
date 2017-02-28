@@ -74,7 +74,7 @@ class DatabaseTests extends GroovyTestCase {
     @Test
     void testAddStudent() {
         Admin testAdmin = createTestAdmin()
-        testAdmin.setUserName("SuperUniqueAdminName")
+        testAdmin.setUserName("unique")
         boolean result = testConnection.addUser(testAdmin)
         assertTrue(result)
     }
