@@ -74,10 +74,9 @@ class DatabaseTests extends GroovyTestCase {
     // WARNING: Make sure the username is unique before running test.
     @Test
     void testAddAdmin() {
-
         Admin testAdmin = createTestAdmin()
         testAdmin.setUserName("unique3")
-        Admin result = testConnection.addUser(testAdmin)
+        Admin result = (Admin) testConnection.addUser(testAdmin)
         assertNotNull(result)
     }
 
@@ -85,10 +84,9 @@ class DatabaseTests extends GroovyTestCase {
     // WARNING: Make sure the username is unique before running test.
     @Test
     void testAddStudent() {
-
         Student testStudent = createTestStudent()
         testStudent.setUserName("uniqueStudent")
-        Student result = testConnection.addUser(testStudent)
+        Student result = (Student) testConnection.addUser(testStudent)
         assertNotNull(result)
     }
 
