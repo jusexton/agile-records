@@ -80,7 +80,7 @@ public class SQLConnection {
         int nextID = -1;
         try (Statement statement = connection.createStatement()) {
             ResultSet resultSet = statement.executeQuery(query);
-            if (resultSet.next()){
+            if (resultSet.next()) {
                 nextID = resultSet.getInt("auto_increment");
             }
         } catch (SQLException e) {
@@ -134,11 +134,13 @@ public class SQLConnection {
                 group,
                 type);
 
+        int ID = getNextID();
+        newUser.setID(ID);
         Gson gson = new GsonBuilder().create();
         String userData = gson.toJson(newUser);
         try {
             PreparedStatement preparedStmt = connection.prepareStatement(query);
-            preparedStmt.setInt(1, getNextID());
+            preparedStmt.setInt(1, ID);
             preparedStmt.setString(2, newUser.getUserName());
             preparedStmt.setString(3, userData);
             preparedStmt.execute();
@@ -228,6 +230,7 @@ public class SQLConnection {
 
     /**
      * Collectors all records from each table and organizes each user by which table they belong too.
+     *
      * @return The hash map containing all users.
      */
     public HashMap<String, List<User>> getAllUsers() {
@@ -289,7 +292,6 @@ public class SQLConnection {
     /**
      * Helper function for attemptLogin.
      *
-     *
      * @param query
      * @param password
      * @param wantedData
@@ -298,9 +300,9 @@ public class SQLConnection {
      * @throws FailedLoginException
      */
     private User loginByQuery(String query,
-                             String password,
-                             String wantedData,
-                             Type type) throws FailedLoginException {
+                              String password,
+                              String wantedData,
+                              Type type) throws FailedLoginException {
         try (Statement statement = connection.createStatement()) {
             ResultSet resultSet = statement.executeQuery(query);
 
@@ -323,7 +325,7 @@ public class SQLConnection {
      * Helper function for loginByQuery.
      * Checks to see if a given password is equal to a given hash.
      *
-     * @param hash The hash object that will be compared.
+     * @param hash     The hash object that will be compared.
      * @param password The string password that will be compared.
      * @return Whether they were equal or not.
      */
