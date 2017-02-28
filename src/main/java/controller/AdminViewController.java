@@ -70,8 +70,6 @@ public class AdminViewController implements Initializable {
 
         // Allows application to detect when rows are double clicked.
         adminTableView.setRowFactory(tableView -> buildRowWithEvent());
-
-        // TODO: Load Students Into Observable List.
     }
 
     /**

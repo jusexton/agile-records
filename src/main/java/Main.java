@@ -25,9 +25,11 @@ public class Main extends Application {
 
         // If login was successful, open the correct primary window.
         User loggedInUser = controller != null ? controller.getLoggedInUser() : null;
-        if(loggedInUser != null){
+        if (loggedInUser != null) {
             String path = loggedInUser instanceof Student ?
                     "/fxml/StudentView.fxml" : "/fxml/AdminView.fxml";
+
+            // TODO: Allow controller to initialize user object before executing.
 
             FXMLLoader loader = new FXMLLoader(getClass().getResource(path));
             Parent root = loader.load();
