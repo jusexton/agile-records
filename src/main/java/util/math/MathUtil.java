@@ -5,7 +5,7 @@ import java.math.RoundingMode;
 
 /**
  */
-public class MathUtil {
+public abstract class MathUtil {
     /**
      * Rounds a double value to the wanted place.
      *
