@@ -7,18 +7,24 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import main.java.database.SQLConnection;
 import main.java.users.Admin;
 import main.java.users.User;
 import main.java.users.students.Student;
 import main.java.util.window.WindowUtil;
 
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 /**
  * Controller responsible for Admin.fxml backend and logic.
  */
 public class AdminViewController implements Initializable {
+    private final String HOST = "jdbc:mysql://gator4196.hostgator.com:3306/txscypaa_agilerecords";
+    private final String PASSWORD = "txscypaa_agile";
+    private final String DATABASE_NAME = "4@lq^tsFiI0b";
+
     private Admin loggedInAdmin;
 
     @FXML
@@ -70,6 +76,15 @@ public class AdminViewController implements Initializable {
 
         // Allows application to detect when rows are double clicked.
         adminTableView.setRowFactory(tableView -> buildRowWithEvent());
+
+        // Populates table on load.
+        try (SQLConnection connection = new SQLConnection(HOST, PASSWORD, DATABASE_NAME)){
+            connection.getAllUsers()
+                    .get("students")
+                    .forEach(user -> adminTableView.getItems().add((Student) user));
+        }catch(SQLException ex){
+            ex.printStackTrace();
+        }
     }
 
     /**

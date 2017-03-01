@@ -5,7 +5,10 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import main.java.controller.AdminViewController;
 import main.java.controller.LoginController;
+import main.java.controller.StudentViewController;
+import main.java.users.Admin;
 import main.java.users.User;
 import main.java.users.students.Student;
 import main.java.util.window.WindowUtil;
@@ -29,10 +32,13 @@ public class Main extends Application {
             String path = loggedInUser instanceof Student ?
                     "/fxml/StudentView.fxml" : "/fxml/AdminView.fxml";
 
-            // TODO: Allow controller to initialize user object before executing.
-
             FXMLLoader loader = new FXMLLoader(getClass().getResource(path));
             Parent root = loader.load();
+            if (loggedInUser instanceof Student){
+                loader.<StudentViewController>getController().init((Student) loggedInUser);
+            } else {
+                loader.<AdminViewController>getController().init((Admin) loggedInUser);
+            }
             primaryStage.setTitle("Agile Records");
             primaryStage.setScene(new Scene(root));
             primaryStage.show();
