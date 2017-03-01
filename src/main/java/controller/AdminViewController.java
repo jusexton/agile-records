@@ -48,7 +48,7 @@ public class AdminViewController implements Initializable {
     @FXML
     private Label statusLabel;
     @FXML
-    private Label loggedInAsLabel;
+    private Label usernameLabel;
 
     /**
      * Opens CreateStudent.fxml.
@@ -56,6 +56,7 @@ public class AdminViewController implements Initializable {
     @FXML
     private void handleAddButtonAction(ActionEvent event) {
         Stage stage = new Stage();
+        stage.setResizable(false);
         stage.setTitle("Create Student");
         stage.initModality(Modality.APPLICATION_MODAL);
         CreateStudentController controller = WindowUtil.showWindowAndWait("/fxml/CreateStudent.fxml", stage);
@@ -104,7 +105,7 @@ public class AdminViewController implements Initializable {
      */
     public void init(Admin admin) {
         this.loggedInAdmin = admin;
-        loggedInAsLabel.setText(admin.getUserName());
+        usernameLabel.setText(admin.getUserName());
     }
 
     /**

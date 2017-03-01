@@ -5,19 +5,19 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
-<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox alignment="TOP_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="455.0" prefWidth="713.0" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.java.controller.AdminViewController">
+<VBox alignment="TOP_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="523.0" prefWidth="855.0" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.java.controller.AdminViewController">
     <children>
         <TableView fx:id="adminTableView" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
             <columns>
                 <TableColumn fx:id="idTableColumn" prefWidth="61.0" text="ID" />
-            <TableColumn fx:id="usernameTableColumn" prefWidth="115.0" text="Username" />
+                <TableColumn fx:id="usernameTableColumn" prefWidth="115.0" text="Username" />
                 <TableColumn fx:id="firstNameTableColumn" prefWidth="100.0" text="First Name" />
                 <TableColumn fx:id="lastNameTableColumn" prefWidth="100.0" text="Last Name" />
-            <TableColumn fx:id="majorTableColumn" prefWidth="150.0" text="Major" />
-            <TableColumn fx:id="GPATableColumn" prefWidth="43.0" text="GPA" />
+                <TableColumn fx:id="majorTableColumn" prefWidth="150.0" text="Major" />
+                <TableColumn fx:id="GPATableColumn" prefWidth="43.0" text="GPA" />
             </columns>
         </TableView>
         <ButtonBar prefHeight="40.0" prefWidth="200.0">
@@ -26,13 +26,13 @@
                 <Button fx:id="removeButton" mnemonicParsing="false" onAction="#handleRemoveButtonAction" text="Remove" ButtonBar.buttonData="LEFT" />
             </buttons>
         </ButtonBar>
-        <Pane>
+        <AnchorPane>
             <children>
-                <Label fx:id="statusLabel" layoutY="2.0" text="Status:  " />
-                <Label layoutX="416.0" layoutY="2.0" text="Logged In As:  " />
-            <Label fx:id="statusLabel" layoutX="42.0" layoutY="2.0" text="Status" />
-            <Label fx:id="loggedInAsLabel" layoutX="495.0" layoutY="2.0" text="Username" />
+                <Label text="Status: " />
+                <Label fx:id="statusLabel" layoutX="39.0" text="Status" />
+                <Label fx:id="usernameLabel" layoutX="659.0" text="Username" AnchorPane.rightAnchor="0.0" />
+                <Label layoutX="599.0" text="Username: " AnchorPane.rightAnchor="54.0" />
             </children>
-        </Pane>
+        </AnchorPane>
     </children>
 </VBox>
