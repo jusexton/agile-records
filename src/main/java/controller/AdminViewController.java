@@ -78,8 +78,10 @@ public class AdminViewController implements Initializable {
 
     @FXML
     private void handleRefreshButton(ActionEvent event){
+        statusLabel.setText("Working...");
         adminTableView.getItems().clear();
         syncTable();
+        statusLabel.setText("Done");
     }
 
     @Override
@@ -95,8 +97,10 @@ public class AdminViewController implements Initializable {
 
         // Allows application to detect when rows are double clicked.
         adminTableView.setRowFactory(tableView -> buildRowWithEvent());
+        adminTableView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 
         syncTable();
+        statusLabel.setText("Done");
     }
 
     /**

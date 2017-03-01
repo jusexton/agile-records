@@ -6,6 +6,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import main.java.users.students.Course;
+import main.java.users.students.Major;
 import main.java.users.students.Student;
 import main.java.util.security.Hash;
 import main.java.util.security.HashingUtil;
@@ -13,6 +14,7 @@ import main.java.util.window.WindowUtil;
 
 import java.net.URL;
 import java.security.NoSuchAlgorithmException;
+import java.util.Arrays;
 import java.util.Random;
 import java.util.ResourceBundle;
 
@@ -50,6 +52,8 @@ public class CreateStudentController implements Initializable {
     private Button cancelButton;
     @FXML
     private Label createFailLabel;
+    @FXML
+    private ComboBox<String> majorComboBox;
 
     @FXML
     private void handleAddButtonAction(ActionEvent event) {
@@ -65,7 +69,9 @@ public class CreateStudentController implements Initializable {
     @FXML
     private void handleCreateButtonAction(ActionEvent event) {
         // Make sure required fields are filled.
-        if (usernameTextField.getText().isEmpty() || passwordField.getText().isEmpty()) {
+        if (usernameTextField.getText().isEmpty() ||
+                passwordField.getText().isEmpty() ||
+                majorComboBox.getSelectionModel().isEmpty()) {
             createFailLabel.setVisible(true);
         } else {
             createStudent();
@@ -85,6 +91,9 @@ public class CreateStudentController implements Initializable {
         crnTableColumn.setCellValueFactory(new PropertyValueFactory<>("CRN"));
         nameTableColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
         creditsTableColumn.setCellValueFactory(new PropertyValueFactory<>("creditHours"));
+
+        Arrays.asList(Major.values())
+                .forEach(value -> majorComboBox.getItems().add(value.toString()));
     }
 
     /**
@@ -98,6 +107,7 @@ public class CreateStudentController implements Initializable {
             createdStudent.setFirstName(firstNameTextField.getText());
             createdStudent.setLastName(lastNameTextField.getText());
             createdStudent.setEmail(emailTextField.getText());
+            createdStudent.setMajor(Major.valueOf(majorComboBox.getSelectionModel().getSelectedItem()));
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
         }

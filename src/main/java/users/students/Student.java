@@ -20,6 +20,10 @@ public class Student extends User {
     }
 
     public double getGPA() {
+        if(courses.size() == 0){
+            return 0.0;
+        }
+
         int totalHours = 0;
         double totalScore = 0;
         for (Course course : this.courses) {

@@ -8,5 +8,6 @@ public enum Major {
     ComputerScience,
     SoftwareEngineer,
     Mathematics,
-    Physics
+    Physics,
+    Undecided
 }
