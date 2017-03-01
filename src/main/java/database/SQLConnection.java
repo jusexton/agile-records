@@ -205,7 +205,7 @@ public class SQLConnection implements AutoCloseable {
         query = String.format(
                 "SELECT `adminData` FROM `txscypaa_agilerecords`.`administrators`  WHERE  `id` = '%d'",
                 id);
-        user = getUserByQuery(query, "adminData", Student.class);
+        user = getUserByQuery(query, "adminData", Admin.class);
         if (user != null) {
             return user;
         }
@@ -255,8 +255,13 @@ public class SQLConnection implements AutoCloseable {
         return allUsers;
     }
 
-    // TODO: Look over updateUser logic for bugs and optimizations.
-    // TODO: Unit test updateUser.
+    /**
+     * Updates a given id with a given user object.
+     *
+     * @param id The id the user belongs too.
+     * @param user The new user instance that will be written to the database.
+     * @return Whether the update was successful or not.
+     */
     public boolean updateUser(int id, User user) {
         Gson gson = new GsonBuilder().create();
         String userData = gson.toJson(user);
@@ -271,8 +276,8 @@ public class SQLConnection implements AutoCloseable {
         try (PreparedStatement preparedStmt = connection.prepareStatement(query)) {
             preparedStmt.setString(1, userData);
             preparedStmt.setInt(2, id);
-
-            return preparedStmt.execute();
+            preparedStmt.execute();
+            return true;
         } catch (SQLException e) {
             System.out.println("Connection Failed! Check output console");
             e.printStackTrace();
@@ -362,30 +367,35 @@ public class SQLConnection implements AutoCloseable {
         return pass;
     }
 
-    // TODO: Complete removeUser function.
-    public boolean removeUser(User user) {
+    /**
+     * Removes user by id.
+     *
+     * @param id The id'd user that will be removed.
+     * @return Whether the deletion was successful or not.
+     */
+    public boolean removeUser(int id) {
+        User user = getUser(id);
 
-        int ID = user.getID();
-
-        String query;
+        String group;
         if (user instanceof Student) {
-            query = "DELETE FROM `txscypaa_agilerecords`.`students` WHERE `students`.`id` = ?";
+            group = "students";
         } else {
-            query = "DELETE FROM `txscypaa_agilerecords`.`students` WHERE `students`.`id` = ?";
+            group = "administrators";
         }
+        String query = String.format(
+                "DELETE FROM `txscypaa_agilerecords`.`%1$s` WHERE `%1$s`.`id` = ?",
+                group);
 
         try {
-
             PreparedStatement preparedStmt = connection.prepareStatement(query);
-            preparedStmt.setInt(1   , ID);
+            preparedStmt.setInt(1, id);
             preparedStmt.execute();
             return true;
         }
         catch (SQLException e) {
             e.printStackTrace();
-            return false;
         }
-
+        return false;
     }
 
     public void setConnection(String host, String password, String databaseName) {

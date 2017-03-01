@@ -146,21 +146,25 @@ class DatabaseTests extends GroovyTestCase {
         testConnection.attemptLogin("Random-Username", "123456")
     }
 
+    // Passed
     @Test
-    void testRemoveUser()
-    {
-        //Create uniqueStudent
-        Student testStudent = createTestStudent()
-        testStudent.setUserName("uniqueStudent")
+    void testUpdateUser() {
+        Student student = createTestStudent()
+        student.lastName = "Sexton"
+        assertTrue(testConnection.updateUser(44, student))
+    }
 
-        Admin testAdmin = createTestAdmin()
-        testAdmin.setUserName("uniqueAdmin")
+    // Passed
+    // WARNING: Test may change frequently.
+    @Test
+    void testRemoveStudent() {
+        assertTrue(testConnection.removeUser(46))
+    }
 
-        Student student = testConnection.addUser(testStudent)
-        Admin admin = testConnection.addUser(testAdmin)
-
-        //Test remove uniqueStudent, uniqueAdmin
-        assertTrue(testConnection.removeUser(student))
-        assertTrue(testConnection.removeUser(admin))
+    // Passed
+    // WARNING: Test may change frequently.
+    @Test
+    void testRemoveAdmin() {
+        assertTrue(testConnection.removeUser(60))
     }
 }
