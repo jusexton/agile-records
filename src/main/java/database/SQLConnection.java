@@ -32,7 +32,7 @@ public class SQLConnection implements AutoCloseable {
     }
 
     @Override
-    public void close() throws SQLException{
+    public void close() throws SQLException {
         connection.close();
     }
 
@@ -258,7 +258,7 @@ public class SQLConnection implements AutoCloseable {
     /**
      * Updates a given id with a given user object.
      *
-     * @param id The id the user belongs too.
+     * @param id   The id the user belongs too.
      * @param user The new user instance that will be written to the database.
      * @return Whether the update was successful or not.
      */
@@ -376,12 +376,7 @@ public class SQLConnection implements AutoCloseable {
     public boolean removeUser(int id) {
         User user = getUser(id);
 
-        String group;
-        if (user instanceof Student) {
-            group = "students";
-        } else {
-            group = "administrators";
-        }
+        String group = user instanceof Student ? "students" : "administrators";
         String query = String.format(
                 "DELETE FROM `txscypaa_agilerecords`.`%1$s` WHERE `%1$s`.`id` = ?",
                 group);
@@ -391,8 +386,7 @@ public class SQLConnection implements AutoCloseable {
             preparedStmt.setInt(1, id);
             preparedStmt.execute();
             return true;
-        }
-        catch (SQLException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         return false;
