@@ -19,11 +19,8 @@ class CourseTests extends GroovyTestCase{
         return testCourse
     }
 
-    void testCourseSerializationPerformance() {
-
-    }
-
-    void testCourseDeserializationPerformance() {
-
+    // Passed
+    void testCourseAverage(){
+        assertEquals(getTestCourse().getAverage(), 4)
     }
 }

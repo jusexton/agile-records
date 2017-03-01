@@ -46,6 +46,8 @@ public class AdminViewController implements Initializable {
     @FXML
     private Button removeButton;
     @FXML
+    private Button refreshButton;
+    @FXML
     private Label statusLabel;
     @FXML
     private Label usernameLabel;
@@ -74,6 +76,12 @@ public class AdminViewController implements Initializable {
                 .removeAll(adminTableView.getSelectionModel().getSelectedItems());
     }
 
+    @FXML
+    private void handleRefreshButton(ActionEvent event){
+        adminTableView.getItems().clear();
+        syncTable();
+    }
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         // Allows cells to determine where each student property should be placed.
@@ -88,14 +96,7 @@ public class AdminViewController implements Initializable {
         // Allows application to detect when rows are double clicked.
         adminTableView.setRowFactory(tableView -> buildRowWithEvent());
 
-        // Populates table on load.
-        try (SQLConnection connection = new SQLConnection(HOST, PASSWORD, DATABASE_NAME)){
-            connection.getAllUsers()
-                    .get("students")
-                    .forEach(user -> adminTableView.getItems().add((Student) user));
-        }catch(SQLException ex){
-            ex.printStackTrace();
-        }
+        syncTable();
     }
 
     /**
@@ -123,6 +124,17 @@ public class AdminViewController implements Initializable {
             }
         });
         return row;
+    }
+
+    private void syncTable(){
+        // Populates table on load.
+        try (SQLConnection connection = new SQLConnection(HOST, PASSWORD, DATABASE_NAME)){
+            connection.getAllUsers()
+                    .get("students")
+                    .forEach(user -> adminTableView.getItems().add((Student) user));
+        }catch(SQLException ex){
+            ex.printStackTrace();
+        }
     }
 
     public User getLoggedInAdmin() {

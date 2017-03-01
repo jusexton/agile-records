@@ -13,18 +13,42 @@ class StudentTests extends GroovyTestCase {
     static Student getTestStudent() {
         // Create test course one.
         Course courseOne = new Course("Math 2302", 4, 12345)
-        courseOne.getGrades().add(new Grade(90, GradeType.Test))
-        courseOne.getGrades().add(new Grade(85, GradeType.Test))
+        courseOne.getGrades().add(new Grade(60, GradeType.Test))
+        courseOne.getGrades().add(new Grade(70, GradeType.Test))
+        courseOne.getGrades().add(new Grade(50, GradeType.Test))
+        courseOne.getGrades().add(new Grade(40, GradeType.Test))
+        courseOne.getGrades().add(new Grade(30, GradeType.Test))
+        courseOne.getGrades().add(new Grade(20, GradeType.Test))
+        courseOne.getGrades().add(new Grade(10, GradeType.Test))
+        courseOne.getGrades().add(new Grade(60, GradeType.Test))
 
         // Create test course two.
-        Course courseTwo = new Course("Math 2304", 4, 54321)
-        courseTwo.getGrades().add(new Grade(100, GradeType.Test))
-        courseTwo.getGrades().add(new Grade(95, GradeType.Test))
+        Course courseTwo = new Course("Math 2304", 3, 54321)
+        courseOne.getGrades().add(new Grade(50, GradeType.Test))
+        courseOne.getGrades().add(new Grade(40, GradeType.Test))
+        courseOne.getGrades().add(new Grade(30, GradeType.Test))
+        courseOne.getGrades().add(new Grade(52, GradeType.Test))
+        courseOne.getGrades().add(new Grade(68, GradeType.Test))
+        courseOne.getGrades().add(new Grade(26, GradeType.Test))
+        courseOne.getGrades().add(new Grade(30, GradeType.Test))
+        courseOne.getGrades().add(new Grade(10, GradeType.Test))
+
+        // Create test course three.
+        Course courseThree = new Course("Math 2305", 4, 53621)
+        courseOne.getGrades().add(new Grade(20, GradeType.Test))
+        courseOne.getGrades().add(new Grade(30, GradeType.Test))
+        courseOne.getGrades().add(new Grade(40, GradeType.Test))
+        courseOne.getGrades().add(new Grade(60, GradeType.Test))
+        courseOne.getGrades().add(new Grade(50, GradeType.Test))
+        courseOne.getGrades().add(new Grade(30, GradeType.Test))
+        courseOne.getGrades().add(new Grade(20, GradeType.Test))
+        courseOne.getGrades().add(new Grade(65, GradeType.Test))
 
         // Add them to list.
         List<Course> courses = new ArrayList<>()
         courses.add(courseOne)
         courses.add(courseTwo)
+        courses.add(courseThree)
 
         // Create test student and return the object.
         Student testStudent = new Student("testStudent", HashingUtil.hash("password", "SHA-256"))
@@ -32,8 +56,9 @@ class StudentTests extends GroovyTestCase {
         return testStudent
     }
 
+    // Passed
     void testGpaAverage() {
         Student testStudent = getTestStudent()
-        assertEquals(testStudent.getGPA(), 3.5)
+        assertEquals(testStudent.getGPA(), 0.0)
     }
 }
