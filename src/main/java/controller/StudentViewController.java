@@ -15,6 +15,7 @@ import java.util.ResourceBundle;
  */
 public class StudentViewController implements Initializable {
     private Student loggedInStudent;
+    private boolean changesMade = false;
 
     //Table values
     @FXML
@@ -57,7 +58,19 @@ public class StudentViewController implements Initializable {
         logLabel.setText(loggedInStudent.getUserName());
     }
 
+    public void init(Student student, boolean isAdmin){
+        init(student);
+        if(isAdmin){
+            addButton.setVisible(true);
+            removeButton.setVisible(true);
+        }
+    }
+
     public Student getLoggedInStudent(){
         return loggedInStudent;
+    }
+
+    public boolean changesMade(){
+        return changesMade;
     }
 }
