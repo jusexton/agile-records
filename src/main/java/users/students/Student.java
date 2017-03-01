@@ -1,6 +1,7 @@
 package main.java.users.students;
 
 import main.java.users.User;
+import main.java.util.math.MathUtil;
 import main.java.util.security.Hash;
 
 import java.util.ArrayList;
@@ -26,7 +27,7 @@ public class Student extends User {
             totalScore += course.getAverage() * hours;
             totalHours += hours;
         }
-        return totalScore / totalHours;
+        return MathUtil.round(totalScore / totalHours, 2);
     }
 
     public List<Course> getCourses() {

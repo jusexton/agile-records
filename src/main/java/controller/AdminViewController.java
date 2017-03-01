@@ -32,9 +32,15 @@ public class AdminViewController implements Initializable {
     @FXML
     private TableColumn<Student, Integer> idTableColumn;
     @FXML
+    private TableColumn<Student, String> usernameTableColumn;
+    @FXML
     private TableColumn<Student, String> firstNameTableColumn;
     @FXML
     private TableColumn<Student, String> lastNameTableColumn;
+    @FXML
+    private TableColumn<Student, String> majorTableColumn;
+    @FXML
+    private TableColumn<Student, String> GPATableColumn;
     @FXML
     private Button addButton;
     @FXML
@@ -71,8 +77,12 @@ public class AdminViewController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         // Allows cells to determine where each student property should be placed.
         idTableColumn.setCellValueFactory(new PropertyValueFactory<>("ID"));
+        usernameTableColumn.setCellValueFactory(new PropertyValueFactory<>("userName"));
         firstNameTableColumn.setCellValueFactory(new PropertyValueFactory<>("firstName"));
         lastNameTableColumn.setCellValueFactory(new PropertyValueFactory<>("lastName"));
+        majorTableColumn.setCellValueFactory(new PropertyValueFactory<>("major"));
+        // TODO: Make sure GPA is displayed properly.
+        GPATableColumn.setCellValueFactory(new PropertyValueFactory<>("GPA"));
 
         // Allows application to detect when rows are double clicked.
         adminTableView.setRowFactory(tableView -> buildRowWithEvent());

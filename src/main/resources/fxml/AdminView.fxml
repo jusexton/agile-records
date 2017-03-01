@@ -8,13 +8,16 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox alignment="TOP_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.java.controller.AdminViewController">
+<VBox alignment="TOP_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="455.0" prefWidth="713.0" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.java.controller.AdminViewController">
     <children>
         <TableView fx:id="adminTableView" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
             <columns>
-                <TableColumn fx:id="idTableColumn" prefWidth="75.0" text="ID" />
-                <TableColumn fx:id="firstNameTableColumn" prefWidth="75.0" text="First Name" />
-                <TableColumn fx:id="lastNameTableColumn" prefWidth="75.0" text="Last Name" />
+                <TableColumn fx:id="idTableColumn" prefWidth="61.0" text="ID" />
+            <TableColumn fx:id="usernameTableColumn" prefWidth="115.0" text="Username" />
+                <TableColumn fx:id="firstNameTableColumn" prefWidth="100.0" text="First Name" />
+                <TableColumn fx:id="lastNameTableColumn" prefWidth="100.0" text="Last Name" />
+            <TableColumn fx:id="majorTableColumn" prefWidth="150.0" text="Major" />
+            <TableColumn fx:id="GPATableColumn" prefWidth="43.0" text="GPA" />
             </columns>
         </TableView>
         <ButtonBar prefHeight="40.0" prefWidth="200.0">
