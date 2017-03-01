@@ -5,6 +5,8 @@ import main.java.database.SQLConnection
 import main.java.users.Admin
 import main.java.users.User
 import main.java.users.students.Course
+import main.java.users.students.Grade
+import main.java.users.students.GradeType
 import main.java.users.students.Major
 import main.java.users.students.Student
 import main.java.util.security.Hash
@@ -37,10 +39,54 @@ class DatabaseTests extends GroovyTestCase {
         Hash hash = HashingUtil.hash("123456", "SHA-256")
         Student testStudent = new Student("mschultz", hash)
 
+        //CS 3420 Grades
+        Course cs3420 = new Course("CS 3420",4,10426)
+
+        List cs3420Grades = new ArrayList()
+        cs3420Grades.add(new Grade(100,GradeType.Homework))
+        cs3420Grades.add(new Grade(90,GradeType.Homework))
+        cs3420Grades.add(new Grade(85,GradeType.Homework))
+        cs3420Grades.add(new Grade(72,GradeType.Midterm))
+        cs3420Grades.add(new Grade(90,GradeType.Test))
+        cs3420Grades.add(new Grade(80,GradeType.Test))
+        cs3420Grades.add(new Grade(88,GradeType.Final))
+        cs3420Grades.add(new Grade(94,GradeType.Project))
+
+        //CS 3306 Grades
+        Course cs3306 = new Course("CS 3306",3,10515)
+
+        List cs3306Grades = new ArrayList()
+        cs3306Grades.add(new Grade(90,GradeType.Homework))
+        cs3306Grades.add(new Grade(80,GradeType.Homework))
+        cs3306Grades.add(new Grade(75,GradeType.Homework))
+        cs3306Grades.add(new Grade(90,GradeType.Midterm))
+        cs3306Grades.add(new Grade(60,GradeType.Test))
+        cs3306Grades.add(new Grade(66,GradeType.Test))
+        cs3306Grades.add(new Grade(87,GradeType.Final))
+        cs3306Grades.add(new Grade(95,GradeType.Project))
+
+        //CS 2410 Grades
+        Course cs2410 = new Course("CS 2410",4,10818)
+
+        List cs2410Grades = new ArrayList()
+        cs2410Grades.add(new Grade(20,GradeType.Homework))
+        cs2410Grades.add(new Grade(40,GradeType.Homework))
+        cs2410Grades.add(new Grade(60,GradeType.Homework))
+        cs2410Grades.add(new Grade(80,GradeType.Midterm))
+        cs2410Grades.add(new Grade(100,GradeType.Test))
+        cs2410Grades.add(new Grade(80,GradeType.Test))
+        cs2410Grades.add(new Grade(60,GradeType.Final))
+        cs2410Grades.add(new Grade(40,GradeType.Project))
+
+        cs3420.setGrades(cs3420Grades)
+        cs3306.setGrades(cs3306Grades)
+        cs2410.setGrades(cs2410Grades)
+
+
         List courses = new ArrayList()
-        courses.add(new Course("CS 3420", 3, 10426))
-        courses.add(new Course("CS 3306", 3, 10515))
-        courses.add(new Course("CS 2410", 4, 10818))
+        courses.add(cs3420)
+        courses.add(cs3306)
+        courses.add(cs2410)
 
         testStudent.setCourses(courses)
         testStudent.setMajor(Major.ComputerScience)
@@ -75,7 +121,7 @@ class DatabaseTests extends GroovyTestCase {
     @Test
     void testAddAdmin() {
         Admin testAdmin = createTestAdmin()
-        testAdmin.setUserName("unique3")
+        testAdmin.setUserName("admin")
         Admin result = (Admin) testConnection.addUser(testAdmin)
         assertNotNull(result)
     }
@@ -85,7 +131,7 @@ class DatabaseTests extends GroovyTestCase {
     @Test
     void testAddStudent() {
         Student testStudent = createTestStudent()
-        testStudent.setUserName("uniqueStudent")
+      //  testStudent.setUserName("student")
         Student result = (Student) testConnection.addUser(testStudent)
         assertNotNull(result)
     }
