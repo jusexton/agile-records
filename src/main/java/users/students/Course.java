@@ -1,5 +1,6 @@
 package main.java.users.students;
 
+
 import org.joda.time.Interval;
 
 import java.util.ArrayList;
@@ -81,5 +82,11 @@ public class Course {
 
     public void setTime(Interval time) {
         this.time = time;
+    }
+    public void addGrade(double score, GradeType type, String name){
+        Grade addedGrade = new Grade(score, type);
+        addedGrade.setName(name);
+        this.grades.add(addedGrade);
+        
     }
 }
