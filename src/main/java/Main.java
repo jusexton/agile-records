@@ -13,6 +13,8 @@ import main.java.users.User;
 import main.java.users.students.Student;
 import main.java.util.window.WindowUtil;
 
+// TODO: Find icon for application
+
 public class Main extends Application {
     public static void main(String[] args) {
         launch(args);

@@ -11,7 +11,7 @@
     <children>
         <TextField fx:id="textField" layoutX="104.0" layoutY="33.0" onAction="#handleLoginAction" prefHeight="25.0" prefWidth="265.0" />
         <PasswordField fx:id="passwordField" layoutX="104.0" layoutY="73.0" onAction="#handleLoginAction" prefHeight="25.0" prefWidth="265.0" />
-        <CheckBox fx:id="checkBox" layoutX="35.0" layoutY="115.0" mnemonicParsing="false" onAction="#flipSelected" onKeyPressed="#flipSelected" text="Remember Username" />
+        <CheckBox fx:id="checkBox" layoutX="35.0" layoutY="115.0" mnemonicParsing="false" onKeyPressed="#flipSelected" text="Remember Username" />
         <Button fx:id="loginButton" layoutX="313.0" layoutY="111.0" mnemonicParsing="false" onAction="#handleLoginAction" prefHeight="25.0" prefWidth="56.0" text="Login" />
         <Label layoutX="35.0" layoutY="37.0" text="Username:" />
         <Label layoutX="35.0" layoutY="77.0" text="Password:" />
