@@ -24,10 +24,6 @@ import java.util.ResourceBundle;
  * Controller responsible for Admin.fxml backend and logic.
  */
 public class AdminViewController implements Initializable {
-    private final String HOST = "jdbc:mysql://gator4196.hostgator.com:3306/txscypaa_agilerecords";
-    private final String PASSWORD = "txscypaa_agile";
-    private final String DATABASE_NAME = "4@lq^tsFiI0b";
-
     private Admin loggedInAdmin;
 
     @FXML
@@ -59,32 +55,56 @@ public class AdminViewController implements Initializable {
 
     /**
      * Opens CreateStudent.fxml, adds the optional result to the table view
-     * if it is present.
+     * if it is present and adds the Student to the database.
      */
     @FXML
     private void handleAddButtonAction(ActionEvent event) {
+        statusLabel.setText("Adding Student...");
+
+        // Display CreateStudent Window
         Stage stage = new Stage();
         stage.setResizable(false);
         stage.setTitle("Create Student");
         stage.initModality(Modality.APPLICATION_MODAL);
         CreateStudentController controller = WindowUtil.showWindowAndWait("/fxml/CreateStudent.fxml", stage);
+
         if (controller != null && controller.getCreatedStudent().isPresent()) {
-            adminTableView.getItems().add(controller.getCreatedStudent().get());
+            Optional<ButtonType> result = displayConfirmationAlert();
+            if (result.isPresent()){
+                if(result.get() == ButtonType.OK){
+                    Student student = controller.getCreatedStudent().get();
+                    adminTableView.getItems().add(student);
+                    try (SQLConnection connection = new SQLConnection()){
+                        connection.addUser(student);
+                    } catch (SQLException ex){
+                        ex.printStackTrace();
+                    }
+                }
+            }
         }
+        statusLabel.setText("Done.");
     }
 
     /**
-     * Removes all selected items from the table view.
+     * Removes all selected items from the table view and database.
      */
     @FXML
     private void handleRemoveButtonAction(ActionEvent event) {
-        adminTableView.getItems()
-                .removeAll(adminTableView.getSelectionModel().getSelectedItems());
+        statusLabel.setText("Removing Student(s)...");
+        // TODO: Add Confirmation Alert
+        List<Student> selectedStudents = adminTableView.getSelectionModel().getSelectedItems();
+        try (SQLConnection connection = new SQLConnection()){
+            selectedStudents.forEach(student -> connection.removeUser(student.getID()));
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        adminTableView.getItems().removeAll(selectedStudents);
+        statusLabel.setText("Done.");
     }
 
     @FXML
     private void handleRefreshButton(ActionEvent event){
-        statusLabel.setText("Working...");
+        statusLabel.setText("Refreshing...");
         adminTableView.getItems().clear();
         syncTable();
         statusLabel.setText("Done");
@@ -135,9 +155,17 @@ public class AdminViewController implements Initializable {
         return row;
     }
 
+    private Optional<ButtonType> displayConfirmationAlert(){
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Commit");
+        alert.setHeaderText("Commit Change?");
+        alert.setContentText("Executing this action will edit the database and will not be reversible.");
+        return alert.showAndWait();
+    }
+
     private void syncTable(){
         // Populates table on load.
-        try (SQLConnection connection = new SQLConnection(HOST, PASSWORD, DATABASE_NAME)){
+        try (SQLConnection connection = new SQLConnection()){
             connection.getAllUsers()
                     .get("students")
                     .forEach(user -> adminTableView.getItems().add((Student) user));

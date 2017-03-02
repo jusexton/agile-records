@@ -5,6 +5,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import main.java.database.SQLConnection;
 import main.java.users.students.Course;
 import main.java.users.students.Major;
 import main.java.users.students.Student;
@@ -14,6 +15,7 @@ import main.java.util.window.WindowUtil;
 
 import java.net.URL;
 import java.security.NoSuchAlgorithmException;
+import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.Optional;
 import java.util.Random;
@@ -52,7 +54,7 @@ public class CreateStudentController implements Initializable {
     @FXML
     private Button cancelButton;
     @FXML
-    private Label createFailLabel;
+    private Label errorLabel;
     @FXML
     private ComboBox<String> majorComboBox;
 
@@ -73,10 +75,14 @@ public class CreateStudentController implements Initializable {
         if (usernameTextField.getText().isEmpty() ||
                 passwordField.getText().isEmpty() ||
                 majorComboBox.getSelectionModel().isEmpty()) {
-            createFailLabel.setVisible(true);
+            displayErrorLabel("Required Field(s) Blank");
         } else {
-            createStudent();
-            WindowUtil.closeWindow(event);
+            if (usernameIsAvailable()) {
+                createStudent();
+                WindowUtil.closeWindow(event);
+            } else {
+                displayErrorLabel("Username Taken");
+            }
         }
     }
 
@@ -112,6 +118,23 @@ public class CreateStudentController implements Initializable {
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
         }
+    }
+
+    private void displayErrorLabel(String message) {
+        errorLabel.setText(message);
+        errorLabel.setVisible(true);
+    }
+
+    private boolean usernameIsAvailable() {
+        String username = usernameTextField.getText();
+        if (!username.isEmpty()) {
+            try (SQLConnection connection = new SQLConnection()) {
+                return connection.isUnique(username);
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        }
+        return false;
     }
 
     public Optional<Student> getCreatedStudent() {

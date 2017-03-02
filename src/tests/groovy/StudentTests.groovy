@@ -51,7 +51,7 @@ class StudentTests extends GroovyTestCase {
         courses.add(courseThree)
 
         // Create test student and return the object.
-        Student testStudent = new Student("testStudent", HashingUtil.hash("password", "SHA-256"))
+        Student testStudent = new Student("testStudent", HashingUtil.hash("username", "SHA-256"))
         testStudent.setCourses(courses)
         return testStudent
     }

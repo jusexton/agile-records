@@ -10,7 +10,7 @@ import main.java.util.security.HashingUtil
  */
 class AdminTests extends GroovyTestCase {
     static Admin getTestAdmin(){
-        Hash hash = HashingUtil.hash("password", "SHA-256")
+        Hash hash = HashingUtil.hash("username", "SHA-256")
         return new Admin("admin", hash)
     }
 

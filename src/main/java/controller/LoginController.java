@@ -20,10 +20,6 @@ import java.util.prefs.Preferences;
  * Controller responsible for login.fxml backend and logic.
  */
 public class LoginController implements Initializable {
-    private final String HOST = "jdbc:mysql://gator4196.hostgator.com:3306/txscypaa_agilerecords";
-    private final String PASSWORD = "txscypaa_agile";
-    private final String DATABASE_NAME = "4@lq^tsFiI0b";
-
     private Preferences preferences;
 
     @FXML
@@ -54,7 +50,7 @@ public class LoginController implements Initializable {
             return;
         }
 
-        try (SQLConnection connection = new SQLConnection(HOST, PASSWORD, DATABASE_NAME)) {
+        try (SQLConnection connection = new SQLConnection()) {
             loggedInUser = connection.attemptLogin(username, password);
             WindowUtil.closeWindow(event);
         } catch(FailedLoginException ex){

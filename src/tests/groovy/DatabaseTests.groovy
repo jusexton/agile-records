@@ -23,16 +23,12 @@ import java.sql.Connection
  */
 @RunWith(JUnit4.class)
 class DatabaseTests extends GroovyTestCase {
-    final static String host = "jdbc:mysql://gator4196.hostgator.com:3306/txscypaa_agilerecords"
-    final static String password = "txscypaa_agile"
-    final static String dbName = "4@lq^tsFiI0b"
-
     static SQLConnection testConnection
 
     // Executed before entering testing phase.
     @BeforeClass
     static void initialSetUp() {
-        testConnection = new SQLConnection(host, password, dbName)
+        testConnection = new SQLConnection()
     }
 
     static Student createTestStudent() {
@@ -112,8 +108,7 @@ class DatabaseTests extends GroovyTestCase {
     // Passed
     @Test
     void testEstablishConnection() {
-        Connection connection = SQLConnection.establishConnection(host, password, dbName)
-        assertNotNull(connection)
+        assertNotNull(testConnection)
     }
 
     // Passed

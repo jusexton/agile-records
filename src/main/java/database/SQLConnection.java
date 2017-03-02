@@ -23,12 +23,12 @@ import java.util.List;
  */
 public class SQLConnection implements AutoCloseable {
     private Connection connection;
-    private String host;
-    private String password;
-    private String databaseName;
+    private String host = "jdbc:mysql://gator4196.hostgator.com:3306/txscypaa_agilerecords";
+    private String username = "txscypaa_agile";
+    private String password = "4@lq^tsFiI0b";
 
-    public SQLConnection(String host, String password, String databaseName) {
-        this.setConnection(host, password, databaseName);
+    public SQLConnection() {
+        this.setConnection(host, username, password);
     }
 
     @Override
@@ -43,7 +43,7 @@ public class SQLConnection implements AutoCloseable {
      *
      * @return The sql connection.
      */
-    public static Connection establishConnection(String host, String password, String dbName) {
+    public static Connection establishConnection(String host, String username, String password) {
         try {
             Class.forName("com.mysql.jdbc.Driver");
         } catch (ClassNotFoundException e) {
@@ -53,7 +53,7 @@ public class SQLConnection implements AutoCloseable {
 
         Connection connection = null;
         try {
-            connection = DriverManager.getConnection(host, password, dbName);
+            connection = DriverManager.getConnection(host, username, password);
         } catch (SQLException e) {
             System.err.println("Connection Failed!");
             e.printStackTrace();
@@ -286,11 +286,11 @@ public class SQLConnection implements AutoCloseable {
     }
 
     /**
-     * Returns a user object given the user's username and if the password matches the stored
-     * username's password.
+     * Returns a user object given the user's username and if the username matches the stored
+     * username's username.
      *
      * @param username The username that will be queried.
-     * @param password The password that will be compared if there is a matching username.
+     * @param password The username that will be compared if there is a matching username.
      * @return The user object.
      * @throws FailedLoginException Thrown when
      */
@@ -318,7 +318,7 @@ public class SQLConnection implements AutoCloseable {
      * Helper function for attemptLogin.
      *
      * @param query      The query that will be performed.
-     * @param password   The password that will be used to attempt login
+     * @param password   The username that will be used to attempt login
      * @param wantedData The data field that will be accessed.
      * @param type       The data type of the retrieved data.
      * @return The user retrieved
@@ -351,10 +351,10 @@ public class SQLConnection implements AutoCloseable {
 
     /**
      * Helper function for loginByQuery.
-     * Checks to see if a given password is equal to a given hash.
+     * Checks to see if a given username is equal to a given hash.
      *
      * @param hash     The hash object that will be compared.
-     * @param password The string password that will be compared.
+     * @param password The string username that will be compared.
      * @return Whether they were equal or not.
      */
     private boolean checkPassword(Hash hash, String password) {
@@ -392,11 +392,11 @@ public class SQLConnection implements AutoCloseable {
         return false;
     }
 
-    public void setConnection(String host, String password, String databaseName) {
+    public void setConnection(String host, String username, String password) {
         this.host = host;
+        this.username = username;
         this.password = password;
-        this.databaseName = databaseName;
-        this.connection = establishConnection(host, password, databaseName);
+        this.connection = establishConnection(host, username, password);
     }
 
     public Connection getConnection() {
@@ -407,11 +407,11 @@ public class SQLConnection implements AutoCloseable {
         return host;
     }
 
-    public String getPassword() {
-        return password;
+    public String getUsername() {
+        return username;
     }
 
-    public String getDatabaseName() {
-        return databaseName;
+    public String getPassword() {
+        return password;
     }
 }
