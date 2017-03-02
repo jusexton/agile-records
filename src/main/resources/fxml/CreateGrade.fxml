@@ -6,15 +6,16 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.Pane?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="274.0" prefWidth="436.0" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.java.controller.CreateGradeController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="160.0" prefWidth="598.0" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.java.controller.CreateGradeController">
    <children>
-      <Button fx:id="addGradeButton" layoutX="45.0" layoutY="200.0" mnemonicParsing="false" onAction="#handleAddGradeButtonAction" prefHeight="52.0" prefWidth="113.0" text="Enter" />
-      <Label layoutX="36.0" layoutY="44.0" prefHeight="39.0" prefWidth="104.0" text="Grade Type: " />
-      <Label layoutX="36.0" layoutY="90.0" prefHeight="39.0" prefWidth="104.0" text="Score: " />
-      <TextField fx:id="scoreField" layoutX="140.0" layoutY="90.0" onAction="#handleAddGradeButtonAction" />
-      <Button fx:id="cancelButton" layoutX="252.0" layoutY="200.0" mnemonicParsing="false" onAction="#handleCancelButtonAction" prefHeight="52.0" prefWidth="113.0" text="Cancel" />
-      <ComboBox fx:id="gradeTypeField" layoutX="142.0" layoutY="44.0" onAction="#handleAddGradeButtonAction" prefHeight="39.0" prefWidth="224.0" />
-      <Label layoutX="36.0" layoutY="137.0" prefHeight="39.0" prefWidth="104.0" text="Name: " />
-      <TextField fx:id="nameField" layoutX="142.0" layoutY="137.0" onAction="#handleAddGradeButtonAction" />
+      <Button fx:id="createButton" layoutX="12.0" layoutY="119.0" mnemonicParsing="false" onAction="#handleCreateButtonAction" prefHeight="25.0" prefWidth="75.0" text="Create" />
+      <Label layoutX="276.0" layoutY="14.0" text="Grade Type: " />
+      <Label layoutX="13.0" layoutY="45.0" text="Score: " />
+      <TextField fx:id="scoreField" layoutX="90.0" layoutY="41.0" onAction="#handleAddGradeButtonAction" prefHeight="25.0" prefWidth="173.0" />
+      <Button fx:id="cancelButton" layoutX="102.0" layoutY="119.0" mnemonicParsing="false" onAction="#handleCancelButtonAction" prefHeight="25.0" prefWidth="75.0" text="Cancel" />
+      <ComboBox fx:id="typeComboBox" layoutX="345.0" layoutY="10.0" onAction="#handleAddGradeButtonAction" prefHeight="25.0" prefWidth="173.0" />
+      <Label layoutX="12.0" layoutY="14.0" text="Name: " />
+      <TextField fx:id="nameField" layoutX="90.0" layoutY="10.0" onAction="#handleAddGradeButtonAction" prefHeight="25.0" prefWidth="173.0" />
+      <Label fx:id="errorLabel" layoutX="88.0" layoutY="80.0" text="Error Label" textFill="RED" visible="false" />
    </children>
 </Pane>

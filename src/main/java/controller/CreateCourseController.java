@@ -45,11 +45,6 @@ public class CreateCourseController implements Initializable {
     @FXML
     private Label errorLabel;
 
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-
-    }
-
     @FXML
     private void handleAddButtonAction(ActionEvent event) {
         Stage stage = new Stage();
@@ -57,14 +52,13 @@ public class CreateCourseController implements Initializable {
         stage.initModality(Modality.APPLICATION_MODAL);
         CreateGradeController controller = WindowUtil.showWindowAndWait("/fxml/CreateGrade.fxml", stage);
         if (controller != null && controller.getCreatedGrade() != null) {
-
+            // TODO: Implement add grade logic
         }
-        //this.createdCourse.addGrade(addedGrade);
     }
 
     @FXML
     private void handleRemoveButtonAction(ActionEvent event) {
-
+        // TODO: Implement remove grade logic.
     }
 
     /**
@@ -90,6 +84,11 @@ public class CreateCourseController implements Initializable {
     private void handleCancelButtonAction(ActionEvent event) {
         createdCourse = null;
         WindowUtil.closeWindow(event);
+    }
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+
     }
 
     private void createCourse() {

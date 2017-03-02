@@ -60,6 +60,17 @@ public class CreateStudentController implements Initializable {
     @FXML
     private ComboBox<String> majorComboBox;
 
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        // Allows cells to determine where each student property should be placed.
+        crnTableColumn.setCellValueFactory(new PropertyValueFactory<>("CRN"));
+        nameTableColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
+        creditsTableColumn.setCellValueFactory(new PropertyValueFactory<>("creditHours"));
+
+        Arrays.asList(Major.values())
+                .forEach(value -> majorComboBox.getItems().add(value.toString()));
+    }
+
     @FXML
     private void handleAddButtonAction(ActionEvent event) {
         // TODO: Add functionality
@@ -94,17 +105,6 @@ public class CreateStudentController implements Initializable {
         WindowUtil.closeWindow(event);
     }
 
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-        // Allows cells to determine where each student property should be placed.
-        crnTableColumn.setCellValueFactory(new PropertyValueFactory<>("CRN"));
-        nameTableColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
-        creditsTableColumn.setCellValueFactory(new PropertyValueFactory<>("creditHours"));
-
-        Arrays.asList(Major.values())
-                .forEach(value -> majorComboBox.getItems().add(value.toString()));
-    }
-
     /**
      * Builds student object then sets the createdStudent object.
      */
@@ -116,7 +116,7 @@ public class CreateStudentController implements Initializable {
             createdStudent.setFirstName(firstNameTextField.getText());
             createdStudent.setLastName(lastNameTextField.getText());
             createdStudent.setEmail(emailTextField.getText());
-            createdStudent.setMajor(Major.valueOf(majorComboBox.getSelectionModel().getSelectedItem()));
+            createdStudent.setMajor(Major.valueOf(majorComboBox.getValue()));
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
         }

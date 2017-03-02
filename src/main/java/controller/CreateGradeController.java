@@ -1,85 +1,78 @@
 package main.java.controller;
 
 
-import javafx.fxml.FXML;
-import java.lang.*;
-
 import javafx.event.ActionEvent;
-
+import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import main.java.users.students.Grade;
 import main.java.users.students.GradeType;
-import javafx.scene.control.*;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
-import javafx.stage.Stage;
-import java.net.URL;
-import java.util.ResourceBundle;
-import java.util.prefs.Preferences;
-
-import main.java.users.students.Major;
+import main.java.util.math.MathUtil;
 import main.java.util.window.WindowUtil;
-import org.apache.tools.ant.taskdefs.condition.IsFalse;
 
 import java.net.URL;
-import java.security.NoSuchAlgorithmException;
-import java.util.Random;
+import java.util.Arrays;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 /**
  */
 public class CreateGradeController implements Initializable {
-    private Grade newGrade;
-    private GradeType gtype;
+    private Grade createdGrade;
+
     @FXML
-    private ComboBox gradeTypeField;
+    private ComboBox<String> typeComboBox;
     @FXML
     private TextField scoreField;
     @FXML
     private TextField nameField;
     @FXML
-    private Button addGradeButton;
+    private Button createeButton;
     @FXML
     private Button cancelButton;
     @FXML
-    private Label createFailLabel;
-
-
+    private Label errorLabel;
 
     @FXML
-    private void handleAddGradeButtonAction(ActionEvent event) {
-        if (this.gradeTypeField.getSelectionModel().isEmpty() || this.scoreField.getText().isEmpty()|| this.nameField.getText().isEmpty()) {
-            createFailLabel.setVisible(true);
+    private void handleCreateButtonAction(ActionEvent event) {
+        if (typeComboBox.getSelectionModel().isEmpty() ||
+                scoreField.getText().isEmpty() ||
+                nameField.getText().isEmpty()) {
+            displayErrorLabel("All Fields Are Required.");
         } else {
-            this.createGrade();
-            //return getCreatedGrade();
+            createGrade();
             WindowUtil.closeWindow(event);
         }
     }
-    @FXML
-    private void createGrade() {
 
-            double gradeScore = Double.parseDouble(this.scoreField.getText());
-            String type = this.gradeTypeField.getValue().toString();
-            this.gtype = GradeType.valueOf(type);
-            this.newGrade = new Grade(gradeScore, gtype);
-            this.newGrade.setName(this.nameField.getText());
-
-    }
-    @FXML
-    public Grade getCreatedGrade() {
-        return this.newGrade;
-    }
     @FXML
     private void handleCancelButtonAction(ActionEvent event) {
-        this.newGrade = null;
+        this.createdGrade = null;
         WindowUtil.closeWindow(event);
-
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        gradeTypeField.getItems().setAll(GradeType.values());
+        Arrays.asList(GradeType.values())
+                .forEach(type -> typeComboBox.getItems().add(type.toString()));
+    }
+
+    private void createGrade() {
+        double gradeScore = MathUtil.round(Double.parseDouble(scoreField.getText()), 2);
+        GradeType type = GradeType.valueOf(typeComboBox.getValue());
+        createdGrade = new Grade(gradeScore, type);
+        createdGrade.setName(nameField.getText());
+    }
+
+    private void displayErrorLabel(String message) {
+        errorLabel.setText(message);
+        errorLabel.setVisible(true);
+    }
+
+    public Optional<Grade> getCreatedGrade() {
+        return Optional.ofNullable(createdGrade);
     }
 }
