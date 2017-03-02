@@ -124,6 +124,7 @@ public class CreateCourseController implements Initializable {
             return;
         }
         createdCourse = new Course(name, creditHours, CRN);
+        // TODO: Need to add grades to course if any were created.
     }
 
     private void displayErrorLabel(String message) {
