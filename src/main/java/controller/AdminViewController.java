@@ -15,6 +15,8 @@ import main.java.util.window.WindowUtil;
 
 import java.net.URL;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
@@ -56,7 +58,8 @@ public class AdminViewController implements Initializable {
     private Label usernameLabel;
 
     /**
-     * Opens CreateStudent.fxml.
+     * Opens CreateStudent.fxml, adds the optional result to the table view
+     * if it is present.
      */
     @FXML
     private void handleAddButtonAction(ActionEvent event) {
@@ -80,22 +83,6 @@ public class AdminViewController implements Initializable {
     }
 
     @FXML
-    private void handleCommitButton(ActionEvent event){
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Commit");
-        alert.setHeaderText("Commit Changes?");
-        alert.setContentText("Committing your changes, will save your changes " +
-                "to the database. Are you sure you want to do this?");
-
-        Optional<ButtonType> result = alert.showAndWait();
-        if (result.isPresent()){
-            if (result.get() == ButtonType.OK){
-                // TODO: Create sync logic
-            }
-        }
-    }
-
-    @FXML
     private void handleRefreshButton(ActionEvent event){
         statusLabel.setText("Working...");
         adminTableView.getItems().clear();
@@ -111,7 +98,6 @@ public class AdminViewController implements Initializable {
         firstNameTableColumn.setCellValueFactory(new PropertyValueFactory<>("firstName"));
         lastNameTableColumn.setCellValueFactory(new PropertyValueFactory<>("lastName"));
         majorTableColumn.setCellValueFactory(new PropertyValueFactory<>("major"));
-        // TODO: Make sure GPA is displayed properly.
         GPATableColumn.setCellValueFactory(new PropertyValueFactory<>("GPA"));
 
         // Allows application to detect when rows are double clicked.

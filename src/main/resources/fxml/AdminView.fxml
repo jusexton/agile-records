@@ -22,7 +22,6 @@
                         ButtonBar.buttonData="LEFT"/>
                 <Button fx:id="removeButton" mnemonicParsing="false" onAction="#handleRemoveButtonAction" text="Remove"
                         ButtonBar.buttonData="LEFT"/>
-                <Button fx:id="commitButton" mnemonicParsing="false" onAction="#handleCommitButton" text="Commit"/>
                 <Button fx:id="refreshButton" mnemonicParsing="false" onAction="#handleRefreshButton" text="Refresh"/>
             </buttons>
         </ButtonBar>
