@@ -15,7 +15,6 @@ import main.java.util.window.WindowUtil;
 
 import java.net.URL;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -68,15 +67,18 @@ public class AdminViewController implements Initializable {
         stage.initModality(Modality.APPLICATION_MODAL);
         CreateStudentController controller = WindowUtil.showWindowAndWait("/fxml/CreateStudent.fxml", stage);
 
+        // Make sure student object was returned
         if (controller != null && controller.getCreatedStudent().isPresent()) {
+            // Confirm user decision.
             Optional<ButtonType> result = displayConfirmationAlert();
-            if (result.isPresent()){
-                if(result.get() == ButtonType.OK){
+            if (result.isPresent()) {
+                if (result.get() == ButtonType.OK) {
+                    // Commence add procedure
                     Student student = controller.getCreatedStudent().get();
                     adminTableView.getItems().add(student);
-                    try (SQLConnection connection = new SQLConnection()){
+                    try (SQLConnection connection = new SQLConnection()) {
                         connection.addUser(student);
-                    } catch (SQLException ex){
+                    } catch (SQLException ex) {
                         ex.printStackTrace();
                     }
                 }
@@ -91,19 +93,26 @@ public class AdminViewController implements Initializable {
     @FXML
     private void handleRemoveButtonAction(ActionEvent event) {
         statusLabel.setText("Removing Student(s)...");
-        // TODO: Add Confirmation Alert
-        List<Student> selectedStudents = adminTableView.getSelectionModel().getSelectedItems();
-        try (SQLConnection connection = new SQLConnection()){
-            selectedStudents.forEach(student -> connection.removeUser(student.getID()));
-        } catch (SQLException ex) {
-            ex.printStackTrace();
+
+        // Confirm user decision.
+        Optional<ButtonType> result = displayConfirmationAlert();
+        if (result.isPresent()) {
+            if (result.get() == ButtonType.OK) {
+                // Execute remove procedure
+                List<Student> selectedStudents = adminTableView.getSelectionModel().getSelectedItems();
+                try (SQLConnection connection = new SQLConnection()) {
+                    selectedStudents.forEach(student -> connection.removeUser(student.getID()));
+                } catch (SQLException ex) {
+                    ex.printStackTrace();
+                }
+                adminTableView.getItems().removeAll(selectedStudents);
+            }
         }
-        adminTableView.getItems().removeAll(selectedStudents);
         statusLabel.setText("Done.");
     }
 
     @FXML
-    private void handleRefreshButton(ActionEvent event){
+    private void handleRefreshButton(ActionEvent event) {
         statusLabel.setText("Refreshing...");
         adminTableView.getItems().clear();
         syncTable();
@@ -155,7 +164,7 @@ public class AdminViewController implements Initializable {
         return row;
     }
 
-    private Optional<ButtonType> displayConfirmationAlert(){
+    private Optional<ButtonType> displayConfirmationAlert() {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Commit");
         alert.setHeaderText("Commit Change?");
@@ -163,13 +172,13 @@ public class AdminViewController implements Initializable {
         return alert.showAndWait();
     }
 
-    private void syncTable(){
+    private void syncTable() {
         // Populates table on load.
-        try (SQLConnection connection = new SQLConnection()){
+        try (SQLConnection connection = new SQLConnection()) {
             connection.getAllUsers()
                     .get("students")
                     .forEach(user -> adminTableView.getItems().add((Student) user));
-        }catch(SQLException ex){
+        } catch (SQLException ex) {
             ex.printStackTrace();
         }
     }

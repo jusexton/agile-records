@@ -19,6 +19,7 @@
                 <Label layoutX="14.0" layoutY="50.0" text="* Username:" />
                 <TextField fx:id="usernameTextField" layoutX="91.0" layoutY="46.0" prefHeight="25.0" prefWidth="195.0" />
                 <PasswordField fx:id="passwordField" layoutX="91.0" layoutY="81.0" prefHeight="25.0" prefWidth="195.0" />
+                <ComboBox fx:id="majorComboBox" layoutX="93.0" layoutY="114.0" prefHeight="25.0" prefWidth="194.0" />
                 <Label layoutX="16.0" layoutY="85.0" text="* Password:" />
                 <TextField fx:id="firstNameTextField" layoutX="375.0" layoutY="46.0" prefWidth="195.0" />
                 <TextField fx:id="lastNameTextField" layoutX="375.0" layoutY="81.0" prefWidth="195.0" />
@@ -27,9 +28,8 @@
                 <Label layoutX="16.0" layoutY="14.0" text="Required Fields Are Marked With A *" />
                 <Label layoutX="308.0" layoutY="118.0" text="Email:" />
                 <TextField fx:id="emailTextField" layoutX="375.0" layoutY="114.0" prefWidth="195.0" />
-            <ComboBox fx:id="majorComboBox" layoutX="93.0" layoutY="114.0" prefHeight="25.0" prefWidth="194.0" />
-            <Label layoutX="16.0" layoutY="118.0" text="* Major:" />
-            <Label fx:id="errorLabel" layoutX="91.0" layoutY="159.0" textFill="RED" visible="false" />
+                <Label layoutX="16.0" layoutY="118.0" text="* Major:" />
+                <Label fx:id="errorLabel" layoutX="91.0" layoutY="159.0" textFill="RED" visible="false" />
             </children>
         </Pane>
         <TableView fx:id="courseTableView" prefHeight="200.0" prefWidth="200.0">
