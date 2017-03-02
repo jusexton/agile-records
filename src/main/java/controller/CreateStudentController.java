@@ -67,6 +67,8 @@ public class CreateStudentController implements Initializable {
         nameTableColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
         creditsTableColumn.setCellValueFactory(new PropertyValueFactory<>("creditHours"));
 
+        courseTableView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+
         Arrays.asList(Major.values())
                 .forEach(value -> majorComboBox.getItems().add(value.toString()));
     }
@@ -82,6 +84,11 @@ public class CreateStudentController implements Initializable {
                 .removeAll(courseTableView.getSelectionModel().getSelectedItems());
     }
 
+    /**
+     * Uses on screen control values to build the student object.
+     *
+     * @param event
+     */
     @FXML
     private void handleCreateButtonAction(ActionEvent event) {
         // Make sure required fields are filled.
@@ -99,6 +106,11 @@ public class CreateStudentController implements Initializable {
         }
     }
 
+    /**
+     * Closes window
+     *
+     * @param event
+     */
     @FXML
     private void handleCancelButtonAction(ActionEvent event) {
         createdStudent = null;
@@ -122,11 +134,21 @@ public class CreateStudentController implements Initializable {
         }
     }
 
+    /**
+     * Displays the error label with the passed message.
+     *
+     * @param message The message that will be displayed.
+     */
     private void displayErrorLabel(String message) {
         errorLabel.setText(message);
         errorLabel.setVisible(true);
     }
 
+    /**
+     * Calculates if the requested username is available.
+     *
+     * @return The result
+     */
     private boolean usernameIsAvailable() {
         String username = usernameTextField.getText();
         if (!username.isEmpty()) {

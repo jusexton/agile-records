@@ -4,13 +4,17 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import main.java.database.SQLConnection;
 import main.java.users.students.Course;
 import main.java.users.students.Grade;
+import main.java.users.students.Student;
 import main.java.util.window.WindowUtil;
 
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
@@ -35,6 +39,12 @@ public class CreateCourseController implements Initializable {
     @FXML
     private TableView<Grade> gradesTableView;
     @FXML
+    private TableColumn<Grade, String> nameTableColumn;
+    @FXML
+    private TableColumn<Grade, String> typeTableColumn;
+    @FXML
+    private TableColumn<Grade, String> scoreTableColumn;
+    @FXML
     private Button addButton;
     @FXML
     private Button removeButton;
@@ -47,18 +57,23 @@ public class CreateCourseController implements Initializable {
 
     @FXML
     private void handleAddButtonAction(ActionEvent event) {
+        // Launches CreateGrade window.
         Stage stage = new Stage();
         stage.setTitle("Create Grade");
         stage.initModality(Modality.APPLICATION_MODAL);
         CreateGradeController controller = WindowUtil.showWindowAndWait("/fxml/CreateGrade.fxml", stage);
-        if (controller != null && controller.getCreatedGrade() != null) {
-            // TODO: Implement add grade logic
+
+        // Handles returned information.
+        if (controller != null && controller.getCreatedGrade().isPresent()) {
+            Grade grade = controller.getCreatedGrade().get();
+            gradesTableView.getItems().add(grade);
         }
     }
 
     @FXML
     private void handleRemoveButtonAction(ActionEvent event) {
-        // TODO: Implement remove grade logic.
+        gradesTableView.getItems()
+                .removeAll(gradesTableView.getSelectionModel().getSelectedItems());
     }
 
     /**
@@ -88,7 +103,11 @@ public class CreateCourseController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        nameTableColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
+        typeTableColumn.setCellValueFactory(new PropertyValueFactory<>("type"));
+        scoreTableColumn.setCellValueFactory(new PropertyValueFactory<>("score"));
 
+        gradesTableView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
     }
 
     private void createCourse() {
