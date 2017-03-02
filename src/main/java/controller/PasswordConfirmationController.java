@@ -7,8 +7,8 @@ import java.util.ResourceBundle;
 
 /**
  */
-public class PasswordConfirmationClass implements Initializable {
-    
+public class PasswordConfirmationController implements Initializable {
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
