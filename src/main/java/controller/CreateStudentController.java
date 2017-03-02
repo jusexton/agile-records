@@ -15,6 +15,7 @@ import main.java.util.window.WindowUtil;
 import java.net.URL;
 import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
+import java.util.Optional;
 import java.util.Random;
 import java.util.ResourceBundle;
 
@@ -113,7 +114,7 @@ public class CreateStudentController implements Initializable {
         }
     }
 
-    public Student getCreatedStudent() {
-        return createdStudent;
+    public Optional<Student> getCreatedStudent() {
+        return Optional.ofNullable(createdStudent);
     }
 }

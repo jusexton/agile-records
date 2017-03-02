@@ -5,9 +5,14 @@ package main.java.users.students;
  */
 // TODO: Add more majors.
 public enum Major {
+    Accounting,
+    Business,
+    Chemistry,
     ComputerScience,
-    SoftwareEngineer,
+    CriminalJustice,
     Mathematics,
+    MechanicalEngineering,
     Physics,
+    SoftwareEngineering,
     Undecided
 }

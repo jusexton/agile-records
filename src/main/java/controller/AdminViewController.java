@@ -15,6 +15,7 @@ import main.java.util.window.WindowUtil;
 
 import java.net.URL;
 import java.sql.SQLException;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 /**
@@ -46,6 +47,8 @@ public class AdminViewController implements Initializable {
     @FXML
     private Button removeButton;
     @FXML
+    private Button commitButton;
+    @FXML
     private Button refreshButton;
     @FXML
     private Label statusLabel;
@@ -62,8 +65,8 @@ public class AdminViewController implements Initializable {
         stage.setTitle("Create Student");
         stage.initModality(Modality.APPLICATION_MODAL);
         CreateStudentController controller = WindowUtil.showWindowAndWait("/fxml/CreateStudent.fxml", stage);
-        if (controller != null && controller.getCreatedStudent() != null) {
-            adminTableView.getItems().add(controller.getCreatedStudent());
+        if (controller != null && controller.getCreatedStudent().isPresent()) {
+            adminTableView.getItems().add(controller.getCreatedStudent().get());
         }
     }
 
@@ -74,6 +77,22 @@ public class AdminViewController implements Initializable {
     private void handleRemoveButtonAction(ActionEvent event) {
         adminTableView.getItems()
                 .removeAll(adminTableView.getSelectionModel().getSelectedItems());
+    }
+
+    @FXML
+    private void handleCommitButton(ActionEvent event){
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Commit");
+        alert.setHeaderText("Commit Changes?");
+        alert.setContentText("Committing your changes, will save your changes " +
+                "to the database. Are you sure you want to do this?");
+
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.isPresent()){
+            if (result.get() == ButtonType.OK){
+                // TODO: Create sync logic
+            }
+        }
     }
 
     @FXML
