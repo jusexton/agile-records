@@ -19,4 +19,22 @@ public abstract class MathUtil {
                 .setScale(places, RoundingMode.HALF_UP)
                 .doubleValue();
     }
+
+    public static boolean isInteger(String value) {
+        try {
+            int i = Integer.parseInt(value);
+        } catch (NumberFormatException ex) {
+            return false;
+        }
+        return true;
+    }
+
+    public static boolean isDouble(String value) {
+        try {
+            double d = Double.parseDouble(value);
+        } catch (NumberFormatException ex) {
+            return false;
+        }
+        return true;
+    }
 }

@@ -7,14 +7,12 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import main.java.database.SQLConnection;
 import main.java.users.students.Course;
 import main.java.users.students.Grade;
-import main.java.users.students.Student;
+import main.java.util.math.MathUtil;
 import main.java.util.window.WindowUtil;
 
 import java.net.URL;
-import java.sql.SQLException;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
@@ -89,10 +87,18 @@ public class CreateCourseController implements Initializable {
                 CRNField.getText().isEmpty() ||
                 creditHoursField.getText().isEmpty()) {
             displayErrorLabel("Required Field(s) Blank");
-        } else {
-            createCourse();
-            WindowUtil.closeWindow(event);
+            return;
         }
+
+        // Make sure fields contain correct data.
+        if (!MathUtil.isInteger(creditHoursField.getText()) ||
+                !MathUtil.isInteger(CRNField.getText())){
+            displayErrorLabel("Incorrect Values Passed");
+            return;
+        }
+
+        createCourse();
+        WindowUtil.closeWindow(event);
     }
 
     @FXML
@@ -115,16 +121,9 @@ public class CreateCourseController implements Initializable {
         int creditHours = Integer.parseInt(creditHoursField.getText());
         int CRN = Integer.parseInt(CRNField.getText());
 
-        if (startDatePicker.getValue() != null &&
-                endDatePicker.getValue() != null &&
-                !startTimeLabel.getText().isEmpty()) {
-            // TODO: Create Time Interval
-        } else {
-            displayErrorLabel("Date Fields Missing");
-            return;
-        }
         createdCourse = new Course(name, creditHours, CRN);
-        // TODO: Need to add grades to course if any were created.
+        createdCourse.setGrades(gradesTableView.getItems());
+        // TODO: Add Time Interval Functionality.
     }
 
     private void displayErrorLabel(String message) {

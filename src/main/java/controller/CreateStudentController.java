@@ -5,8 +5,11 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 import main.java.database.SQLConnection;
 import main.java.users.students.Course;
+import main.java.users.students.Grade;
 import main.java.users.students.Major;
 import main.java.users.students.Student;
 import main.java.util.security.Hash;
@@ -75,7 +78,18 @@ public class CreateStudentController implements Initializable {
 
     @FXML
     private void handleAddButtonAction(ActionEvent event) {
-        // TODO: Add functionality
+        // Launches CreateGrade window.
+        Stage stage = new Stage();
+        stage.setTitle("Create Course");
+        stage.setResizable(false);
+        stage.initModality(Modality.APPLICATION_MODAL);
+        CreateCourseController controller = WindowUtil.showWindowAndWait("/fxml/CreateCourse.fxml", stage);
+
+        // Handles returned information.
+        if (controller != null && controller.getCreatedCourse().isPresent()) {
+            Course course = controller.getCreatedCourse().get();
+            courseTableView.getItems().add(course);
+        }
     }
 
     @FXML
@@ -129,6 +143,7 @@ public class CreateStudentController implements Initializable {
             createdStudent.setLastName(lastNameTextField.getText());
             createdStudent.setEmail(emailTextField.getText());
             createdStudent.setMajor(Major.valueOf(majorComboBox.getValue()));
+            createdStudent.setCourses(courseTableView.getItems());
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
         }

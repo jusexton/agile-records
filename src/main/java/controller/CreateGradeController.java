@@ -42,10 +42,16 @@ public class CreateGradeController implements Initializable {
                 scoreField.getText().isEmpty() ||
                 nameField.getText().isEmpty()) {
             displayErrorLabel("All Fields Are Required.");
-        } else {
-            createGrade();
-            WindowUtil.closeWindow(event);
+            return;
         }
+
+        if (MathUtil.isDouble(scoreField.getText())){
+            displayErrorLabel("Incorrect Values Passed.");
+            return;
+        }
+
+        createGrade();
+        WindowUtil.closeWindow(event);
     }
 
     @FXML
