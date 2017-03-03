@@ -5,6 +5,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseButton;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import main.java.database.SQLConnection;
@@ -106,6 +107,12 @@ public class AdminViewController implements Initializable {
         statusLabel.setText("Done.");
     }
 
+    /**
+     * Updates the tableview to reflect the current contents
+     * of the database.
+     *
+     * @param event
+     */
     @FXML
     private void handleRefreshButton(ActionEvent event) {
         statusLabel.setText("Refreshing...");
