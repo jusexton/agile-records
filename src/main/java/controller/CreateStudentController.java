@@ -9,7 +9,6 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import main.java.database.SQLConnection;
 import main.java.users.students.Course;
-import main.java.users.students.Grade;
 import main.java.users.students.Major;
 import main.java.users.students.Student;
 import main.java.util.security.Hash;
@@ -60,19 +59,6 @@ public class CreateStudentController implements Initializable {
     private Label errorLabel;
     @FXML
     private ComboBox<String> majorComboBox;
-
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-        // Allows cells to determine where each student property should be placed.
-        crnTableColumn.setCellValueFactory(new PropertyValueFactory<>("CRN"));
-        nameTableColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
-        creditsTableColumn.setCellValueFactory(new PropertyValueFactory<>("creditHours"));
-
-        courseTableView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
-
-        Arrays.asList(Major.values())
-                .forEach(value -> majorComboBox.getItems().add(value.toString()));
-    }
 
     @FXML
     private void handleAddButtonAction(ActionEvent event) {
@@ -127,6 +113,19 @@ public class CreateStudentController implements Initializable {
     private void handleCancelButtonAction(ActionEvent event) {
         createdStudent = null;
         WindowUtil.closeWindow(event);
+    }
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        // Allows cells to determine where each student property should be placed.
+        crnTableColumn.setCellValueFactory(new PropertyValueFactory<>("CRN"));
+        nameTableColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
+        creditsTableColumn.setCellValueFactory(new PropertyValueFactory<>("creditHours"));
+
+        courseTableView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+
+        Arrays.asList(Major.values())
+                .forEach(value -> majorComboBox.getItems().add(value.toString()));
     }
 
     /**
