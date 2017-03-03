@@ -6,7 +6,10 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import main.java.database.SQLConnection;
@@ -172,7 +175,7 @@ public class AdminViewController implements Initializable {
     private void displayStudent(Student student) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/StudentView.fxml"));
-            Pane root = loader.load();
+            AnchorPane root = loader.load();
             loader.<StudentViewController>getController().init(student);
             splitPane.getItems().set(1, root);
         } catch (IOException ex) {

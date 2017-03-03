@@ -43,7 +43,7 @@ public class StudentViewController implements Initializable {
     @FXML
     private Label idLabel;
     @FXML
-    private Label logLabel;
+    private Label usernameLabel;
     @FXML
     private Label gpaLabel;
 
@@ -53,24 +53,24 @@ public class StudentViewController implements Initializable {
 
     }
 
-    public void init(Student student){
+    public void init(Student student) {
         this.loggedInStudent = student;
-        logLabel.setText(loggedInStudent.getUserName());
+        usernameLabel.setText(loggedInStudent.getUserName());
     }
 
-    public void init(Student student, boolean isAdmin){
+    public void init(Student student, boolean isAdmin) {
         init(student);
-        if(isAdmin){
+        if (isAdmin) {
             addButton.setVisible(true);
             removeButton.setVisible(true);
         }
     }
 
-    public Student getLoggedInStudent(){
+    public Student getLoggedInStudent() {
         return loggedInStudent;
     }
 
-    public boolean changesMade(){
+    public boolean changesMade() {
         return changesMade;
     }
 }
