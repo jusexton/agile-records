@@ -176,7 +176,7 @@ public class AdminViewController implements Initializable {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/StudentView.fxml"));
             AnchorPane root = loader.load();
-            loader.<StudentViewController>getController().init(student);
+            loader.<StudentViewController>getController().init(student, true);
             splitPane.getItems().set(1, root);
         } catch (IOException ex) {
             ex.printStackTrace();

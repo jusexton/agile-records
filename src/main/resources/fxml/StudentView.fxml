@@ -20,8 +20,8 @@
                                 <Font name="System Bold" size="12.0" />
                             </font>
                         </Label>
-                        <Label layoutX="102.0" layoutY="14.0" text="Student" AnchorPane.leftAnchor="102.0" />
-                        <Label layoutX="651.0" layoutY="14.0" text="Major" AnchorPane.rightAnchor="86.0" />
+                        <Label fx:id="nameLabel" layoutX="102.0" layoutY="14.0" text="Student" AnchorPane.leftAnchor="102.0" />
+                        <Label fx:id="majorLabel" layoutX="651.0" layoutY="14.0" text="Major" AnchorPane.rightAnchor="86.0" />
                         <Label layoutX="610.0" layoutY="14.0" text="Major: " AnchorPane.rightAnchor="117.0">
                             <font>
                                 <Font name="System Bold" size="12.0" />
@@ -32,22 +32,24 @@
                                 <Font name="System Bold" size="12.0" />
                             </font>
                         </Label>
-                        <Label layoutX="85.0" layoutY="39.0" text="ID" AnchorPane.leftAnchor="85.0" />
+                        <Label fx:id="idLabel" layoutX="85.0" layoutY="39.0" text="ID" AnchorPane.leftAnchor="85.0" />
                         <Label layoutX="610.0" layoutY="39.0" text="Overall GPA: " AnchorPane.rightAnchor="83.0">
                             <font>
                                 <Font name="System Bold" size="12.0" />
                             </font>
                         </Label>
-                        <Label layoutX="685.0" layoutY="39.0" text="GPA" AnchorPane.rightAnchor="60.0" />
+                        <Label fx:id="gpaLabel" layoutX="685.0" layoutY="39.0" text="GPA" AnchorPane.rightAnchor="60.0" />
                     </children>
                 </AnchorPane>
                 <TableView fx:id="studentViewTable" prefHeight="201.0" prefWidth="768.0" VBox.vgrow="ALWAYS">
                     <columns>
-                        <TableColumn prefWidth="75.0" text="C1" />
-                        <TableColumn prefWidth="75.0" text="C2" />
+                        <TableColumn fx:id="crnColumn" prefWidth="75.0" text="CRN" />
+                        <TableColumn fx:id="courseNameColumn" prefWidth="102.0" text="Course Name" />
+                  <TableColumn fx:id="creditHoursColumn" prefWidth="92.0" text="Credit Hours" />
+                  <TableColumn fx:id="timeColumn" prefWidth="76.0" text="Time" />
                     </columns>
                 </TableView>
-                <ButtonBar prefHeight="40.0" prefWidth="200.0">
+                <ButtonBar fx:id="adminButtonBar" prefHeight="40.0" prefWidth="200.0" visible="false">
                     <buttons>
                         <Button fx:id="addButton" mnemonicParsing="false" text="Add" ButtonBar.buttonData="LEFT" />
                         <Button fx:id="removeButton" mnemonicParsing="false" text="Remove" ButtonBar.buttonData="LEFT" />
