@@ -25,7 +25,7 @@ public class Main extends Application {
         // Launches application login screen.
         Stage loginStage = new Stage();
         loginStage.setTitle("Agile Records");
-        loginStage.setResizable(false);
+        loginStage.setResizable(true);
         LoginController controller = WindowUtil.showWindowAndWait("/fxml/Login.fxml", loginStage);
 
         // If login was successful, open the correct primary window.

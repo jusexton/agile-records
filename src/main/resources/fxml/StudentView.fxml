@@ -1,52 +1,71 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.Pane?>
-<?import javafx.scene.text.*?>
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0"
-      prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="main.java.controller.StudentViewController">
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ButtonBar?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="468.0" prefWidth="768.0" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.java.controller.StudentViewController">
     <children>
-        <Label layoutX="112.0" layoutY="95.0" prefHeight="25.0" prefWidth="20.0" text="ID: ">
-            <font>
-                <Font name="System Bold" size="12.0"/>
-            </font>
-        </Label>
-        <Label layoutX="48.0" layoutY="57.0" text="Student Name: ">
-            <font>
-                <Font name="System Bold" size="12.0"/>
-            </font>
-        </Label>
-        <Label layoutX="414.0" layoutY="334.0" text="Semester GPA:">
-            <font>
-                <Font name="System Bold" size="12.0"/>
-            </font>
-        </Label>
-        <TableView fx:id="studentViewTable" layoutX="36.0" layoutY="124.0" prefHeight="200.0" prefWidth="528.0">
-            <columns>
-                <TableColumn fx:id="crnColumn" prefWidth="77.0" text="CRN"/>
-                <TableColumn fx:id="courseColumn" prefWidth="207.0" text="Course Name"/>
-                <TableColumn fx:id="timeColumn" prefWidth="81.0" text="Time"/>
-                <TableColumn fx:id="creditHrsColumn" prefWidth="162.0" text="Credit Hours"/>
-            </columns>
-        </TableView>
-        <Button fx:id="addButton" layoutX="38.0" layoutY="361.0" mnemonicParsing="false" text="Add" visible="false"/>
-        <Button fx:id="removeButton" layoutX="104.0" layoutY="361.0" mnemonicParsing="false" text="Remove"
-                visible="false"/>
-        <Label fx:id="nameLabel" layoutX="139.0" layoutY="57.0" prefHeight="17.0" prefWidth="59.0" text="nameLabel"/>
-        <Label fx:id="idLabel" layoutX="133.0" layoutY="99.0" prefHeight="17.0" prefWidth="46.0" text="IDLabel"/>
-        <Label fx:id="gpaLabel" layoutX="505.0" layoutY="334.0" prefHeight="17.0" prefWidth="59.0" text="GPAlabel"/>
-        <Label layoutX="92.0" layoutY="78.0" text="Major: ">
-            <font>
-                <Font name="System Bold" size="12.0"/>
-            </font>
-        </Label>
-        <Label fx:id="majorLabel" layoutX="133.0" layoutY="78.0" text="MajorLabel"/>
-        <Label layoutX="37.0" layoutY="334.0" text="Logged in as: ">
-            <font>
-                <Font name="System Bold" size="12.0"/>
-            </font>
-        </Label>
-        <Label fx:id="logLabel" layoutX="122.0" layoutY="334.0" text="LoggedLabel"/>
+        <VBox prefHeight="377.0" prefWidth="755.0" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0">
+            <children>
+                <AnchorPane prefHeight="77.0" prefWidth="697.0">
+                    <children>
+                        <Label layoutX="14.0" layoutY="14.0" text="Student Name: " AnchorPane.leftAnchor="14.0">
+                            <font>
+                                <Font name="System Bold" size="12.0" />
+                            </font>
+                        </Label>
+                        <Label fx:id="nameLabel" layoutX="102.0" layoutY="14.0" text="Student" AnchorPane.leftAnchor="102.0" />
+                        <Label fx:id="majorLabel" layoutX="651.0" layoutY="14.0" text="Major" AnchorPane.rightAnchor="86.0" />
+                        <Label layoutX="610.0" layoutY="14.0" text="Major: " AnchorPane.rightAnchor="117.0">
+                            <font>
+                                <Font name="System Bold" size="12.0" />
+                            </font>
+                        </Label>
+                        <Label layoutX="14.0" layoutY="39.0" text="Student ID:  " AnchorPane.leftAnchor="14.0">
+                            <font>
+                                <Font name="System Bold" size="12.0" />
+                            </font>
+                        </Label>
+                        <Label fx:id="idLabel" layoutX="85.0" layoutY="39.0" text="ID" AnchorPane.leftAnchor="85.0" />
+                        <Label layoutX="610.0" layoutY="39.0" text="Overall GPA: " AnchorPane.rightAnchor="83.0">
+                            <font>
+                                <Font name="System Bold" size="12.0" />
+                            </font>
+                        </Label>
+                        <Label fx:id="gpaLabel" layoutX="685.0" layoutY="39.0" text="GPA" AnchorPane.rightAnchor="60.0" />
+                    </children>
+                </AnchorPane>
+                <TableView fx:id="studentViewTable" prefHeight="201.0" prefWidth="768.0" VBox.vgrow="ALWAYS">
+                    <columns>
+                        <TableColumn fx:id="crnColumn" prefWidth="75.0" text="CRN" />
+                        <TableColumn fx:id="courseNameColumn" prefWidth="102.0" text="Course Name" />
+                  <TableColumn fx:id="creditHoursColumn" prefWidth="92.0" text="Credit Hours" />
+                  <TableColumn fx:id="timeColumn" prefWidth="76.0" text="Time" />
+                    </columns>
+                </TableView>
+                <ButtonBar fx:id="adminButtonBar" prefHeight="40.0" prefWidth="200.0" visible="false">
+                    <buttons>
+                        <Button fx:id="addButton" mnemonicParsing="false" text="Add" ButtonBar.buttonData="LEFT" />
+                        <Button fx:id="removeButton" mnemonicParsing="false" text="Remove" ButtonBar.buttonData="LEFT" />
+                    </buttons>
+                </ButtonBar>
+                <AnchorPane>
+                    <children>
+                        <Label text="Username:  ">
+                            <font>
+                                <Font name="System Bold" size="12.0" />
+                            </font>
+                        </Label>
+                        <Label fx:id="usernameLabel" layoutX="67.0" text="Username" />
+                    </children>
+                </AnchorPane>
+            </children>
+        </VBox>
     </children>
-</Pane>
+</AnchorPane>

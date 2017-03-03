@@ -2,10 +2,7 @@ package main.java.controller;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import main.java.users.students.Student;
 
 import java.net.URL;
@@ -23,13 +20,15 @@ public class StudentViewController implements Initializable {
     @FXML
     private TableColumn<Student, Integer> crnColumn;
     @FXML
-    private TableColumn<Student, String> courseColumn;
+    private TableColumn<Student, String> courseNameColumn;
+    @FXML
+    private TableColumn<Student, Integer> creditHoursColumn;
     @FXML
     private TableColumn<Student, Integer> timeColumn;
-    @FXML
-    private TableColumn<Student, Integer> creditHrsColumn;
 
     // Buttons
+    @FXML
+    private ButtonBar adminButtonBar;
     @FXML
     private Button addButton;
     @FXML
@@ -43,7 +42,7 @@ public class StudentViewController implements Initializable {
     @FXML
     private Label idLabel;
     @FXML
-    private Label logLabel;
+    private Label usernameLabel;
     @FXML
     private Label gpaLabel;
 
@@ -53,24 +52,23 @@ public class StudentViewController implements Initializable {
 
     }
 
-    public void init(Student student){
+    public void init(Student student) {
         this.loggedInStudent = student;
-        logLabel.setText(loggedInStudent.getUserName());
+        usernameLabel.setText(loggedInStudent.getUserName());
     }
 
-    public void init(Student student, boolean isAdmin){
+    public void init(Student student, boolean isAdmin) {
         init(student);
-        if(isAdmin){
-            addButton.setVisible(true);
-            removeButton.setVisible(true);
+        if (isAdmin) {
+            adminButtonBar.setVisible(true);
         }
     }
 
-    public Student getLoggedInStudent(){
+    public Student getLoggedInStudent() {
         return loggedInStudent;
     }
 
-    public boolean changesMade(){
+    public boolean changesMade() {
         return changesMade;
     }
 }
