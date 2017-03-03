@@ -92,7 +92,6 @@ public class CreateCourseController implements Initializable {
         }
 
         // Make sure fields contain correct data.
-        // TODO: Possible bug in if statement
         if (!MathUtil.isInteger(creditHoursField.getText()) ||
                 !MathUtil.isInteger(CRNField.getText())){
             displayErrorLabel("Incorrect Values Passed");

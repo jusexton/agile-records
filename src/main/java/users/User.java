@@ -2,6 +2,9 @@ package main.java.users;
 
 import main.java.util.security.Hash;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 /**
  * Class that will represent all users that reside on sql server.
  */
@@ -12,7 +15,7 @@ public abstract class User {
     private String firstName;
     private String lastName;
     private String email;
-    // TODO: Implement last login time.
+    private String lastLoginTime;
 
     public User() {
 
@@ -69,6 +72,19 @@ public abstract class User {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getLastLoginTime() {
+        return lastLoginTime;
+    }
+
+    public void setLastLoginTime(LocalDateTime lastLoginTime, String pattern) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(pattern);
+        this.lastLoginTime = lastLoginTime.format(formatter);
+    }
+
+    public void setLastLoginTime(LocalDateTime lastLoginTime){
+        setLastLoginTime(lastLoginTime, "yyyy-MM-dd HH:mm:ss");
     }
 
     @Override

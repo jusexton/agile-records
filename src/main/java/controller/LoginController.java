@@ -13,6 +13,8 @@ import main.java.util.window.WindowUtil;
 
 import java.net.URL;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.prefs.Preferences;
 
@@ -20,6 +22,7 @@ import java.util.prefs.Preferences;
  * Controller responsible for login.fxml backend and logic.
  */
 public class LoginController implements Initializable {
+    private User loggedInUser;
     private Preferences preferences;
 
     @FXML
@@ -32,8 +35,6 @@ public class LoginController implements Initializable {
     private Button loginButton;
     @FXML
     private Label loginFailLabel;
-
-    private User loggedInUser;
 
     /**
      * The login process that will take place when the
@@ -52,6 +53,7 @@ public class LoginController implements Initializable {
 
         try (SQLConnection connection = new SQLConnection()) {
             loggedInUser = connection.attemptLogin(username, password);
+            loggedInUser.setLastLoginTime(LocalDateTime.now());
             WindowUtil.closeWindow(event);
         } catch(FailedLoginException ex){
             loginFailLabel.setVisible(true);
@@ -85,7 +87,7 @@ public class LoginController implements Initializable {
         checkBox.setSelected(preferences.getBoolean("Use Username", false));
     }
 
-    public User getLoggedInUser(){
-        return this.loggedInUser;
+    public Optional<User> getLoggedInUser(){
+        return Optional.ofNullable(loggedInUser);
     }
 }

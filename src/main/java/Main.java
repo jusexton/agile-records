@@ -8,10 +8,13 @@ import javafx.stage.Stage;
 import main.java.controller.AdminViewController;
 import main.java.controller.LoginController;
 import main.java.controller.StudentViewController;
+import main.java.database.SQLConnection;
 import main.java.users.Admin;
 import main.java.users.User;
 import main.java.users.students.Student;
 import main.java.util.window.WindowUtil;
+
+import java.sql.SQLException;
 
 // TODO: Find icon for application
 
@@ -29,8 +32,9 @@ public class Main extends Application {
         LoginController controller = WindowUtil.showWindowAndWait("/fxml/Login.fxml", loginStage);
 
         // If login was successful, open the correct primary window.
-        User loggedInUser = controller != null ? controller.getLoggedInUser() : null;
-        if (loggedInUser != null) {
+        if (controller != null && controller.getLoggedInUser().isPresent()) {
+            User loggedInUser = controller.getLoggedInUser().get();
+            updateLoginTime(loggedInUser);
             String path = loggedInUser instanceof Student ?
                     "/fxml/StudentView.fxml" : "/fxml/AdminView.fxml";
 
@@ -51,5 +55,13 @@ public class Main extends Application {
     public void stop() throws Exception {
         // Clean up logic (if any)
         super.stop();
+    }
+
+    private void updateLoginTime(User user){
+        try (SQLConnection connection = new SQLConnection()){
+             connection.updateUser(user);
+        } catch (SQLException ex){
+            ex.printStackTrace();
+        }
     }
 }

@@ -37,6 +37,8 @@ public class AdminViewController implements Initializable {
     @FXML
     private TableColumn<Student, String> usernameTableColumn;
     @FXML
+    private TableColumn<Student, String> lastLoginTableColumn;
+    @FXML
     private TableColumn<Student, String> firstNameTableColumn;
     @FXML
     private TableColumn<Student, String> lastNameTableColumn;
@@ -120,6 +122,7 @@ public class AdminViewController implements Initializable {
         // Allows cells to determine where each student property should be placed.
         idTableColumn.setCellValueFactory(new PropertyValueFactory<>("ID"));
         usernameTableColumn.setCellValueFactory(new PropertyValueFactory<>("userName"));
+        lastLoginTableColumn.setCellValueFactory(new PropertyValueFactory<>("lastLoginTime"));
         firstNameTableColumn.setCellValueFactory(new PropertyValueFactory<>("firstName"));
         lastNameTableColumn.setCellValueFactory(new PropertyValueFactory<>("lastName"));
         majorTableColumn.setCellValueFactory(new PropertyValueFactory<>("major"));

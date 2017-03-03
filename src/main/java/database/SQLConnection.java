@@ -255,13 +255,14 @@ public class SQLConnection implements AutoCloseable {
     /**
      * Updates a given id with a given user object.
      *
-     * @param id   The id the user belongs too.
      * @param user The new user instance that will be written to the database.
      * @return Whether the update was successful or not.
      */
-    public boolean updateUser(int id, User user) {
+    public boolean updateUser(User user) {
         Gson gson = new GsonBuilder().create();
         String userData = gson.toJson(user);
+
+        int id = user.getID();
 
         String query;
         if (user instanceof Student) {
