@@ -60,12 +60,7 @@ public class AdminViewController implements Initializable {
     private void handleAddButtonAction(ActionEvent event) {
         statusLabel.setText("Adding Student...");
 
-        // Display CreateStudent Window
-        Stage stage = new Stage();
-        stage.setResizable(false);
-        stage.setTitle("Create Student");
-        stage.initModality(Modality.APPLICATION_MODAL);
-        CreateStudentController controller = WindowUtil.showWindowAndWait("/fxml/CreateStudent.fxml", stage);
+        CreateStudentController controller = displayCreateStudent();
 
         // Make sure student object was returned
         if (controller != null && controller.getCreatedStudent().isPresent()) {
@@ -162,6 +157,14 @@ public class AdminViewController implements Initializable {
             }
         });
         return row;
+    }
+
+    private CreateStudentController displayCreateStudent(){
+        Stage stage = new Stage();
+        stage.setResizable(false);
+        stage.setTitle("Create Student");
+        stage.initModality(Modality.APPLICATION_MODAL);
+        return WindowUtil.showWindowAndWait("/fxml/CreateStudent.fxml", stage);
     }
 
     private Optional<ButtonType> displayConfirmationAlert() {

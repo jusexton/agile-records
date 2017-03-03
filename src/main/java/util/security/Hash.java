@@ -1,5 +1,7 @@
 package main.java.util.security;
 
+import java.security.NoSuchAlgorithmException;
+
 /**
  * Class that represents a hashed password.
  */
@@ -16,6 +18,16 @@ public class Hash {
 
     public boolean sameSalt(Hash hash){
         return this.salt.equals(hash.getSalt());
+    }
+
+    public boolean checkPassword(String password){
+        boolean valid = false;
+        try {
+            valid = this.equals(HashingUtil.hash(password, algorithm, salt));
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+        return valid;
     }
 
     @Override

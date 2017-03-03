@@ -337,7 +337,7 @@ public class SQLConnection implements AutoCloseable {
                 String userData = resultSet.getString(wantedData);
                 User user = gson.fromJson(userData, type);
 
-                if (checkPassword(user.getPassword(), password)) {
+                if (user.getPassword().checkPassword(password)) {
                     return user;
                 } else {
                     throw new FailedLoginException("Login Failed");
@@ -347,24 +347,6 @@ public class SQLConnection implements AutoCloseable {
             e.printStackTrace();
         }
         return null;
-    }
-
-    /**
-     * Helper function for loginByQuery.
-     * Checks to see if a given username is equal to a given hash.
-     *
-     * @param hash     The hash object that will be compared.
-     * @param password The string username that will be compared.
-     * @return Whether they were equal or not.
-     */
-    private boolean checkPassword(Hash hash, String password) {
-        boolean pass = false;
-        try {
-            pass = hash.equals(HashingUtil.hash(password, hash.getAlgorithm(), hash.getSalt()));
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-        }
-        return pass;
     }
 
     /**
