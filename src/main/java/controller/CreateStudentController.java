@@ -27,7 +27,7 @@ import java.util.ResourceBundle;
  * Controller responsible for CreateStudent.fxml backend and logic.
  */
 public class CreateStudentController implements Initializable {
-    private Student createdStudent;
+    private Student student;
 
     @FXML
     private TextField usernameTextField;
@@ -70,8 +70,8 @@ public class CreateStudentController implements Initializable {
         CreateCourseController controller = WindowUtil.showWindowAndWait("/fxml/CreateCourse.fxml", stage);
 
         // Handles returned information.
-        if (controller != null && controller.getCreatedCourse().isPresent()) {
-            Course course = controller.getCreatedCourse().get();
+        if (controller != null && controller.getCourse().isPresent()) {
+            Course course = controller.getCourse().get();
             courseTableView.getItems().add(course);
         }
     }
@@ -111,7 +111,7 @@ public class CreateStudentController implements Initializable {
      */
     @FXML
     private void handleCancelButtonAction(ActionEvent event) {
-        createdStudent = null;
+        student = null;
         WindowUtil.closeWindow(event);
     }
 
@@ -129,7 +129,7 @@ public class CreateStudentController implements Initializable {
     }
 
     public void init(Student student) {
-        createdStudent = student;
+        this.student = student;
         usernameTextField.setText(student.getUserName());
         majorComboBox.setValue(student.getMajor().toString());
         firstNameTextField.setText(student.getFirstName());
@@ -140,18 +140,18 @@ public class CreateStudentController implements Initializable {
 
 
     /**
-     * Builds student object then sets the createdStudent object.
+     * Builds student object then sets the student object.
      */
     private void createStudent() {
         try {
             String salt = HashingUtil.generateSalt(20, new Random());
             Hash hash = HashingUtil.hash(passwordField.getText(), "SHA-512", salt);
-            createdStudent = new Student(usernameTextField.getText(), hash);
-            createdStudent.setFirstName(firstNameTextField.getText());
-            createdStudent.setLastName(lastNameTextField.getText());
-            createdStudent.setEmail(emailTextField.getText());
-            createdStudent.setMajor(Major.valueOf(majorComboBox.getValue()));
-            createdStudent.setCourses(courseTableView.getItems());
+            student = new Student(usernameTextField.getText(), hash);
+            student.setFirstName(firstNameTextField.getText());
+            student.setLastName(lastNameTextField.getText());
+            student.setEmail(emailTextField.getText());
+            student.setMajor(Major.valueOf(majorComboBox.getValue()));
+            student.setCourses(courseTableView.getItems());
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
         }
@@ -184,7 +184,7 @@ public class CreateStudentController implements Initializable {
         return false;
     }
 
-    public Optional<Student> getCreatedStudent() {
-        return Optional.ofNullable(createdStudent);
+    public Optional<Student> getStudent() {
+        return Optional.ofNullable(student);
     }
 }

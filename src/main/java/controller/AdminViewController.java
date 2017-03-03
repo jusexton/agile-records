@@ -5,7 +5,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.input.MouseButton;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import main.java.database.SQLConnection;
@@ -64,13 +63,13 @@ public class AdminViewController implements Initializable {
         CreateStudentController controller = displayCreateStudent();
 
         // Make sure student object was returned
-        if (controller != null && controller.getCreatedStudent().isPresent()) {
+        if (controller != null && controller.getStudent().isPresent()) {
             // Confirm user decision.
             Optional<ButtonType> result = displayConfirmationAlert();
             if (result.isPresent()) {
                 if (result.get() == ButtonType.OK) {
                     // Commence add procedure
-                    Student student = controller.getCreatedStudent().get();
+                    Student student = controller.getStudent().get();
                     adminTableView.getItems().add(student);
                     try (SQLConnection connection = new SQLConnection()) {
                         connection.addUser(student);

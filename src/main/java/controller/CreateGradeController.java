@@ -21,7 +21,7 @@ import java.util.ResourceBundle;
 /**
  */
 public class CreateGradeController implements Initializable {
-    private Grade createdGrade;
+    private Grade grade;
 
     @FXML
     private ComboBox<String> typeComboBox;
@@ -56,7 +56,7 @@ public class CreateGradeController implements Initializable {
 
     @FXML
     private void handleCancelButtonAction(ActionEvent event) {
-        this.createdGrade = null;
+        this.grade = null;
         WindowUtil.closeWindow(event);
     }
 
@@ -76,8 +76,8 @@ public class CreateGradeController implements Initializable {
     private void createGrade() {
         double gradeScore = MathUtil.round(Double.parseDouble(scoreField.getText()), 2);
         GradeType type = GradeType.valueOf(typeComboBox.getValue());
-        createdGrade = new Grade(gradeScore, type);
-        createdGrade.setName(nameField.getText());
+        grade = new Grade(gradeScore, type);
+        grade.setName(nameField.getText());
     }
 
     private void displayErrorLabel(String message) {
@@ -85,7 +85,7 @@ public class CreateGradeController implements Initializable {
         errorLabel.setVisible(true);
     }
 
-    public Optional<Grade> getCreatedGrade() {
-        return Optional.ofNullable(createdGrade);
+    public Optional<Grade> getGrade() {
+        return Optional.ofNullable(grade);
     }
 }

@@ -20,7 +20,7 @@ import java.util.ResourceBundle;
  * Controller responsible for CreateCourse.fxml backend and logic.
  */
 public class CreateCourseController implements Initializable {
-    private Course createdCourse;
+    private Course course;
 
     @FXML
     private TextField courseNameField;
@@ -63,8 +63,8 @@ public class CreateCourseController implements Initializable {
         CreateGradeController controller = WindowUtil.showWindowAndWait("/fxml/CreateGrade.fxml", stage);
 
         // Handles returned information.
-        if (controller != null && controller.getCreatedGrade().isPresent()) {
-            Grade grade = controller.getCreatedGrade().get();
+        if (controller != null && controller.getGrade().isPresent()) {
+            Grade grade = controller.getGrade().get();
             gradesTableView.getItems().add(grade);
         }
     }
@@ -92,6 +92,7 @@ public class CreateCourseController implements Initializable {
         }
 
         // Make sure fields contain correct data.
+        // TODO: Possible bug in if statement
         if (!MathUtil.isInteger(creditHoursField.getText()) ||
                 !MathUtil.isInteger(CRNField.getText())){
             displayErrorLabel("Incorrect Values Passed");
@@ -104,7 +105,7 @@ public class CreateCourseController implements Initializable {
 
     @FXML
     private void handleCancelButtonAction(ActionEvent event) {
-        createdCourse = null;
+        course = null;
         WindowUtil.closeWindow(event);
     }
 
@@ -131,8 +132,8 @@ public class CreateCourseController implements Initializable {
         int creditHours = Integer.parseInt(creditHoursField.getText());
         int CRN = Integer.parseInt(CRNField.getText());
 
-        createdCourse = new Course(name, creditHours, CRN);
-        createdCourse.setGrades(gradesTableView.getItems());
+        course = new Course(name, creditHours, CRN);
+        course.setGrades(gradesTableView.getItems());
         // TODO: Add Time Interval Functionality.
     }
 
@@ -141,7 +142,7 @@ public class CreateCourseController implements Initializable {
         errorLabel.setVisible(true);
     }
 
-    public Optional<Course> getCreatedCourse() {
-        return Optional.ofNullable(createdCourse);
+    public Optional<Course> getCourse() {
+        return Optional.ofNullable(course);
     }
 }
