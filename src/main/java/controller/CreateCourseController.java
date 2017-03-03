@@ -58,6 +58,7 @@ public class CreateCourseController implements Initializable {
         // Launches CreateGrade window.
         Stage stage = new Stage();
         stage.setTitle("Create Grade");
+        stage.setResizable(false);
         stage.initModality(Modality.APPLICATION_MODAL);
         CreateGradeController controller = WindowUtil.showWindowAndWait("/fxml/CreateGrade.fxml", stage);
 

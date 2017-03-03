@@ -24,8 +24,6 @@ import java.util.Optional;
 import java.util.Random;
 import java.util.ResourceBundle;
 
-// TODO: Configure CreateStudent with CreateCourse and CreateGrade
-
 /**
  * Controller responsible for CreateStudent.fxml backend and logic.
  */

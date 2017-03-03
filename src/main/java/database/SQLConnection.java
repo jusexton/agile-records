@@ -16,8 +16,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-// TODO: Implement multiple ways to access users if necessary. (ex. by id, by username)
-
 /**
  * Represents a connection to a sql database.
  */
@@ -66,7 +64,6 @@ public class SQLConnection implements AutoCloseable {
      *
      * @return The next unique ID.
      */
-    // TODO: Determine if we need to check for both ID's being -1.
     public int getNextID() {
         int nextStudentID = getNextAutoID("students");
         int nextAdminID = getNextAutoID("administrators");
