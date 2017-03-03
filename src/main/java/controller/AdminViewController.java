@@ -2,9 +2,11 @@ package main.java.controller;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import main.java.database.SQLConnection;
@@ -13,6 +15,7 @@ import main.java.users.User;
 import main.java.users.students.Student;
 import main.java.util.window.WindowUtil;
 
+import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.List;
@@ -25,6 +28,8 @@ import java.util.ResourceBundle;
 public class AdminViewController implements Initializable {
     private Admin loggedInAdmin;
 
+    @FXML
+    private SplitPane splitPane;
     @FXML
     private TableView<Student> adminTableView;
     @FXML
@@ -158,14 +163,24 @@ public class AdminViewController implements Initializable {
         TableRow<Student> row = new TableRow<>();
         row.setOnMouseClicked(mouseEvent -> {
             if (mouseEvent.getClickCount() == 2 && !row.isEmpty()) {
-                Student student = row.getItem();
-                // TODO: Open Student View Using The Newly Selected Student Object.
+                displayStudent(row.getItem());
             }
         });
         return row;
     }
 
-    private CreateStudentController displayCreateStudent(){
+    private void displayStudent(Student student) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/StudentView.fxml"));
+            Pane root = loader.load();
+            loader.<StudentViewController>getController().init(student);
+            splitPane.getItems().set(1, root);
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    private CreateStudentController displayCreateStudent() {
         Stage stage = new Stage();
         stage.setResizable(false);
         stage.setTitle("Create Student");
