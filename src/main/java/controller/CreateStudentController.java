@@ -128,6 +128,17 @@ public class CreateStudentController implements Initializable {
                 .forEach(value -> majorComboBox.getItems().add(value.toString()));
     }
 
+    public void init(Student student) {
+        createdStudent = student;
+        usernameTextField.setText(student.getUserName());
+        majorComboBox.setValue(student.getMajor().toString());
+        firstNameTextField.setText(student.getFirstName());
+        lastNameTextField.setText(student.getLastName());
+        emailTextField.setText(student.getEmail());
+        courseTableView.getItems().addAll(student.getCourses());
+    }
+
+
     /**
      * Builds student object then sets the createdStudent object.
      */

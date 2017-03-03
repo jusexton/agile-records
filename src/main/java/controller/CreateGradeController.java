@@ -66,6 +66,13 @@ public class CreateGradeController implements Initializable {
                 .forEach(type -> typeComboBox.getItems().add(type.toString()));
     }
 
+    public void init(Grade grade){
+        nameField.setText(grade.getName());
+        scoreField.setText(String.valueOf(grade.getScore()));
+        typeComboBox.setValue(grade.getType().toString());
+    }
+
+
     private void createGrade() {
         double gradeScore = MathUtil.round(Double.parseDouble(scoreField.getText()), 2);
         GradeType type = GradeType.valueOf(typeComboBox.getValue());

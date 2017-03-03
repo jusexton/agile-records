@@ -117,6 +117,15 @@ public class CreateCourseController implements Initializable {
         gradesTableView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
     }
 
+    public void init(Course course) {
+        courseNameField.setText(course.getName());
+        CRNField.setText(String.valueOf(course.getCRN()));
+        creditHoursField.setText(String.valueOf(course.getCreditHours()));
+        // TODO: Configure time
+        gradesTableView.getItems().addAll(course.getGrades());
+    }
+
+
     private void createCourse() {
         String name = courseNameField.getText();
         int creditHours = Integer.parseInt(creditHoursField.getText());
