@@ -83,7 +83,7 @@ public class CreateCourseController implements Initializable {
      */
     @FXML
     private void handleCreateButtonAction(ActionEvent event) {
-        // Makes sure all required fields are set.
+        // Make sure all required fields are set.
         if (courseNameField.getText().isEmpty() ||
                 CRNField.getText().isEmpty() ||
                 creditHoursField.getText().isEmpty()) {

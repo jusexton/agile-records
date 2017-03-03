@@ -53,8 +53,6 @@ public class AdminViewController implements Initializable {
     @FXML
     private Button refreshButton;
     @FXML
-    private Label statusLabel;
-    @FXML
     private Label usernameLabel;
 
     /**
@@ -63,8 +61,6 @@ public class AdminViewController implements Initializable {
      */
     @FXML
     private void handleAddButtonAction(ActionEvent event) {
-        statusLabel.setText("Adding Student...");
-
         CreateStudentController controller = displayCreateStudent();
 
         // Make sure student object was returned
@@ -84,7 +80,6 @@ public class AdminViewController implements Initializable {
                 }
             }
         }
-        statusLabel.setText("Done.");
     }
 
     /**
@@ -92,8 +87,6 @@ public class AdminViewController implements Initializable {
      */
     @FXML
     private void handleRemoveButtonAction(ActionEvent event) {
-        statusLabel.setText("Removing Student(s)...");
-
         // Confirm user decision.
         Optional<ButtonType> result = displayConfirmationAlert();
         if (result.isPresent()) {
@@ -108,7 +101,6 @@ public class AdminViewController implements Initializable {
                 adminTableView.getItems().removeAll(selectedStudents);
             }
         }
-        statusLabel.setText("Done.");
     }
 
     /**
@@ -119,10 +111,8 @@ public class AdminViewController implements Initializable {
      */
     @FXML
     private void handleRefreshButton(ActionEvent event) {
-        statusLabel.setText("Refreshing...");
         adminTableView.getItems().clear();
         syncTable();
-        statusLabel.setText("Done");
     }
 
     @Override
@@ -140,7 +130,6 @@ public class AdminViewController implements Initializable {
         adminTableView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 
         syncTable();
-        statusLabel.setText("Done");
     }
 
     /**

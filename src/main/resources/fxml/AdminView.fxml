@@ -44,11 +44,6 @@
         </ButtonBar>
         <AnchorPane prefHeight="0.0" prefWidth="922.0">
             <children>
-                <Label layoutX="812.0" layoutY="5.0" text="Status:  " AnchorPane.rightAnchor="65.0">
-               <font>
-                  <Font name="System Bold" size="12.0" />
-               </font></Label>
-                <Label fx:id="statusLabel" layoutX="857.0" layoutY="5.0" text="Status" AnchorPane.rightAnchor="32.0" />
                 <Label fx:id="usernameLabel" layoutX="67.0" layoutY="5.0" text="Username" AnchorPane.leftAnchor="67.0" />
                 <Label layoutY="5.0" text="Username:  " AnchorPane.leftAnchor="0.0">
                <font>
