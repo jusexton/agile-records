@@ -53,7 +53,6 @@ public class LoginController implements Initializable {
 
         try (SQLConnection connection = new SQLConnection()) {
             loggedInUser = connection.attemptLogin(username, password);
-            loggedInUser.setLastLoginTime(LocalDateTime.now());
             WindowUtil.closeWindow(event);
         } catch(FailedLoginException ex){
             loginFailLabel.setVisible(true);

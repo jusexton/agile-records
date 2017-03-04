@@ -15,6 +15,7 @@ import main.java.users.students.Student;
 import main.java.util.window.WindowUtil;
 
 import java.sql.SQLException;
+import java.time.LocalDateTime;
 
 // TODO: Find icon for application
 
@@ -58,6 +59,7 @@ public class Main extends Application {
     }
 
     private void updateLoginTime(User user){
+        user.setLastLoginTime(LocalDateTime.now());
         try (SQLConnection connection = new SQLConnection()){
              connection.updateUser(user);
         } catch (SQLException ex){
