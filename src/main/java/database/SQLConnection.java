@@ -120,6 +120,8 @@ public class SQLConnection implements AutoCloseable {
     public User addUser(User newUser) {
         // Make sure username is unique and not empty.
         String username = newUser.getUserName();
+        Gson gsonPassword = new GsonBuilder().create();
+        String password = gsonPassword.toJson(newUser.getPassword());
         if (!isUnique(username) || username.equals("")) {
             return null;
         }
@@ -135,7 +137,7 @@ public class SQLConnection implements AutoCloseable {
             type = "adminData";
         }
         String query = String.format(
-                "INSERT INTO `txscypaa_agilerecords`.`%s` (`id`, `username`,`%s`) VALUES  (?,?,?)",
+                "INSERT INTO `txscypaa_agilerecords`.`%s` (`id`, `username`, `password`, `%s`) VALUES  (?,?,?,?)",
                 group,
                 type);
 
@@ -149,7 +151,8 @@ public class SQLConnection implements AutoCloseable {
         try (PreparedStatement preparedStmt = connection.prepareStatement(query)) {
             preparedStmt.setInt(1, ID);
             preparedStmt.setString(2, username);
-            preparedStmt.setString(3, userData);
+            preparedStmt.setString(3, password);
+            preparedStmt.setString(4, userData);
             preparedStmt.execute();
             return newUser;
         } catch (SQLException e) {
