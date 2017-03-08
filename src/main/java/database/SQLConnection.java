@@ -266,18 +266,24 @@ public class SQLConnection implements AutoCloseable {
         Gson gson = new GsonBuilder().create();
         String userData = gson.toJson(user);
 
+        String username = user.getUserName();
+        Gson gsonPassword = new GsonBuilder().create();
+        String password = gsonPassword.toJson(user.getPassword());
+
         int id = user.getID();
 
         String query;
         if (user instanceof Student) {
-            query = "UPDATE `txscypaa_agilerecords`.`students` SET `studentData` = ? WHERE `students`.`id` = ?";
+            query = "UPDATE `txscypaa_agilerecords`.`students` SET `username` = ? , `password` = ?,`studentData` = ? WHERE `students`.`id` = ?";
         } else {
-            query = "UPDATE `txscypaa_agilerecords`.`administrators` SET `adminData` = ? WHERE `administrators`.`id` = ?";
+            query = "UPDATE `txscypaa_agilerecords`.`administrators` SET `username` = ? , `password` = ?,`adminData` = ?  WHERE `administrators`.`id` = ?";
         }
 
         try (PreparedStatement preparedStmt = connection.prepareStatement(query)) {
-            preparedStmt.setString(1, userData);
-            preparedStmt.setInt(2, id);
+            preparedStmt.setString(1, username);
+            preparedStmt.setString(2, password);
+            preparedStmt.setString(3, userData);
+            preparedStmt.setInt(4, id);
             preparedStmt.execute();
             return true;
         } catch (SQLException e) {
