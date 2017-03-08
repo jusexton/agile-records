@@ -191,8 +191,11 @@ class DatabaseTests extends GroovyTestCase {
     @Test
     void testUpdateUser() {
         Student student = createTestStudent()
+        student.setUserName("testStudent")
+        testConnection.addUser(student)
+        student.setUserName("testStudent2")
         student.lastName = "Sexton"
-        assertTrue(testConnection.updateUser(44, student))
+        assertTrue(testConnection.updateUser(student))
     }
 
     // Passed
