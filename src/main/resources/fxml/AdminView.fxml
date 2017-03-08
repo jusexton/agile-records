@@ -13,24 +13,24 @@
 
 <VBox alignment="TOP_LEFT" prefHeight="702.0" prefWidth="996.0" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.java.controller.AdminViewController">
     <children>
-        <SplitPane fx:id="splitPane" dividerPositions="0.5845070422535211" prefHeight="160.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+        <SplitPane fx:id="splitPane" dividerPositions="0.6096579476861167" prefHeight="160.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
             <items>
             <AnchorPane prefHeight="200.0" prefWidth="200.0">
                <children>
-                  <TableView fx:id="adminTableView" layoutX="47.0" layoutY="120.0" prefHeight="638.0" prefWidth="494.0" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0">
+                  <TableView fx:id="adminTableView" layoutX="47.0" layoutY="120.0" prefHeight="638.0" prefWidth="578.0" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0">
                     <columns>
                       <TableColumn fx:id="idTableColumn" prefWidth="75.0" text="ID" />
                       <TableColumn fx:id="usernameTableColumn" prefWidth="75.0" text="Username" />
                         <TableColumn fx:id="lastLoginTableColumn" prefWidth="125.0" text="Last Login" />
                         <TableColumn fx:id="firstNameTableColumn" prefWidth="75.0" text="First Name" />
                         <TableColumn fx:id="lastNameTableColumn" prefWidth="75.0" text="Last Name" />
-                        <TableColumn fx:id="majorTableColumn" prefWidth="75.0" text="Major" />
-                        <TableColumn fx:id="GPATableColumn" prefWidth="75.0" text="GPA" />
+                        <TableColumn fx:id="majorTableColumn" prefWidth="110.0" text="Major" />
+                        <TableColumn fx:id="GPATableColumn" prefWidth="64.0" text="GPA" />
                     </columns>
                   </TableView>
                </children>
             </AnchorPane>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="158.0" prefWidth="130.0" />
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="638.0" prefWidth="393.0" />
             </items>
         </SplitPane>
         <ButtonBar prefHeight="40.0" prefWidth="200.0">
