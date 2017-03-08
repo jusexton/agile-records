@@ -16,8 +16,6 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import org.junit.runners.JUnit4
 
-import java.sql.Connection
-
 /**
  * Contains all tests involving the database
  */
@@ -150,7 +148,7 @@ class DatabaseTests extends GroovyTestCase {
     // Passed
     @Test
     void testGetUser() {
-        User user = testConnection.getUser(50)
+        User user = testConnection.getUserById(50)
         assertNotNull(user)
         println(user.toString())
     }

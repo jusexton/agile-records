@@ -159,7 +159,7 @@ public class SQLConnection implements AutoCloseable {
     }
 
     /**
-     * Helper function for getUser.
+     * Helper function for getUserById.
      *
      * @param query The query that will be performed.
      * @param data  The data field that will be accessed.
@@ -190,7 +190,7 @@ public class SQLConnection implements AutoCloseable {
      * @param id The ID that will be used to find the wanted user.
      * @return The found user object.
      */
-    public User getUser(int id) {
+    public User getUserById(int id) {
         String query = String.format(
                 "SELECT `studentData` FROM `txscypaa_agilerecords`.`students`  WHERE  `id` = '%d'",
                 id);
@@ -329,7 +329,7 @@ public class SQLConnection implements AutoCloseable {
     private boolean validateCredentials(String table, String username, String password)
             throws FailedLoginException {
         String query = String.format(
-                "SELECT `password` FROM `txscypaa_agilerecords`.`%1s`  WHERE  `username` = '%2s'",
+                "SELECT `password` FROM `txscypaa_agilerecords`.`%1$s`  WHERE  `username` = '%2$s'",
                 table,
                 username);
 
@@ -359,7 +359,7 @@ public class SQLConnection implements AutoCloseable {
      * @return Whether the deletion was successful or not.
      */
     public boolean removeUser(int id) {
-        User user = getUser(id);
+        User user = getUserById(id);
 
         String group = user instanceof Student ? "students" : "administrators";
         String query = String.format(
