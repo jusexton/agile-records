@@ -196,13 +196,13 @@ class DatabaseTests extends GroovyTestCase {
     // WARNING: Test may change frequently.
     @Test
     void testRemoveStudent() {
-        assertTrue(testConnection.removeUser(46))
+        assertTrue(testConnection.removeUserById(46))
     }
 
     // Passed
     // WARNING: Test may change frequently.
     @Test
     void testRemoveAdmin() {
-        assertTrue(testConnection.removeUser(60))
+        assertTrue(testConnection.removeUserById(60))
     }
 }

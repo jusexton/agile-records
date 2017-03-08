@@ -96,7 +96,7 @@ public class AdminViewController implements Initializable {
                 // Execute remove procedure
                 List<Student> selectedStudents = adminTableView.getSelectionModel().getSelectedItems();
                 try (SQLConnection connection = new SQLConnection()) {
-                    selectedStudents.forEach(student -> connection.removeUser(student.getID()));
+                    selectedStudents.forEach(student -> connection.removeUserById(student.getID()));
                 } catch (SQLException ex) {
                     ex.printStackTrace();
                 }
