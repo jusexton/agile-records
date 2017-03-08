@@ -6,11 +6,8 @@ import main.java.users.Admin;
 import main.java.users.User;
 import main.java.users.students.Student;
 import main.java.util.security.Hash;
-import main.java.util.security.HashingUtil;
-import org.jetbrains.annotations.Nullable;
 
 import java.lang.reflect.Type;
-import java.security.NoSuchAlgorithmException;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -118,11 +115,9 @@ public class SQLConnection implements AutoCloseable {
      * @return A User object with the ID updated from the database.
      */
     public User addUser(User newUser) {
-        
+
         // Make sure username is unique and not empty.
         String username = newUser.getUserName();
-        Gson gsonPassword = new GsonBuilder().create();
-        String password = gsonPassword.toJson(newUser.getPassword());
         if (!isUnique(username) || username.equals("")) {
             return null;
         }
@@ -149,6 +144,7 @@ public class SQLConnection implements AutoCloseable {
         newUser.setID(ID);
         Gson gson = new GsonBuilder().create();
         String userData = gson.toJson(newUser);
+        String password = gson.toJson(newUser.getPassword());
         try (PreparedStatement preparedStmt = connection.prepareStatement(query)) {
             preparedStmt.setInt(1, ID);
             preparedStmt.setString(2, username);
@@ -303,20 +299,20 @@ public class SQLConnection implements AutoCloseable {
      * @throws FailedLoginException Thrown when
      */
     public User attemptLogin(String username, String password) throws FailedLoginException {
-        String query = String.format(
-                "SELECT `studentData` FROM `txscypaa_agilerecords`.`students`  WHERE  `username` = '%s'",
-                username);
-        User user = loginByQuery(query, password, "studentData", Student.class);
-        if (user != null) {
-            return user;
+        String query;
+
+        if (validateCredentials("students", username, password)) {
+            query = String.format(
+                    "SELECT `studentData` FROM `txscypaa_agilerecords`.`students`  WHERE  `username` = '%s'",
+                    username);
+            return getUserByQuery(query, "studentData", Student.class);
         }
 
-        query = String.format(
-                "SELECT `adminData` FROM `txscypaa_agilerecords`.`administrators`  WHERE  `username` = '%s'",
-                username);
-        user = loginByQuery(query, password, "adminData", Admin.class);
-        if (user != null) {
-            return user;
+        if (validateCredentials("administrators", username, password)) {
+            query = String.format(
+                    "SELECT `adminData` FROM `txscypaa_agilerecords`.`administrators`  WHERE  `username` = '%s'",
+                    username);
+            return getUserByQuery(query, "adminData", Admin.class);
         }
 
         throw new FailedLoginException("Login Failed");
@@ -325,36 +321,35 @@ public class SQLConnection implements AutoCloseable {
     /**
      * Helper function for attemptLogin.
      *
-     * @param query      The query that will be performed.
-     * @param password   The username that will be used to attempt login
-     * @param wantedData The data field that will be accessed.
-     * @param type       The data type of the retrieved data.
+     * @param table The table that will be checked
+     * @param username The username that will be used to attempt login
+     * @param password The password that will be used to attempt login
      * @return The user retrieved
-     * @throws FailedLoginException Thrown when login fails
      */
-    @Nullable
-    private User loginByQuery(String query,
-                              String password,
-                              String wantedData,
-                              Type type) throws FailedLoginException {
+    private boolean validateCredentials(String table, String username, String password)
+            throws FailedLoginException {
+        String query = String.format(
+                "SELECT `password` FROM `txscypaa_agilerecords`.`%1s`  WHERE  `username` = '%2s'",
+                table,
+                username);
+
         try (Statement statement = connection.createStatement()) {
             ResultSet resultSet = statement.executeQuery(query);
 
-            Gson gson = new GsonBuilder().create();
             if (resultSet.next()) {
-                String userData = resultSet.getString(wantedData);
-                User user = gson.fromJson(userData, type);
-
-                if (user.getPassword().checkPassword(password)) {
-                    return user;
+                String passwordData = resultSet.getString("password");
+                Gson gson = new GsonBuilder().create();
+                Hash hash = gson.fromJson(passwordData, Hash.class);
+                if (hash.checkPassword(password)) {
+                    return true;
                 } else {
-                    throw new FailedLoginException("Login Failed");
+                    throw new FailedLoginException("Incorrect Password");
                 }
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return null;
+        return false;
     }
 
     /**
