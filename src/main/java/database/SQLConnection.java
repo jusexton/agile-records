@@ -118,6 +118,7 @@ public class SQLConnection implements AutoCloseable {
      * @return A User object with the ID updated from the database.
      */
     public User addUser(User newUser) {
+        
         // Make sure username is unique and not empty.
         String username = newUser.getUserName();
         Gson gsonPassword = new GsonBuilder().create();
