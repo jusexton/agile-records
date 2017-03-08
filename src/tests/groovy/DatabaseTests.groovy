@@ -126,7 +126,7 @@ class DatabaseTests extends GroovyTestCase {
     @Test
     void testAddStudent() {
         Student testStudent = createTestStudent()
-      //  testStudent.setUserName("student")
+        testStudent.setUserName("student")
         Student result = (Student) testConnection.addUser(testStudent)
         assertNotNull(result)
     }
