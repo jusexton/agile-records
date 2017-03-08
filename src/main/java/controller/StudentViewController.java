@@ -11,8 +11,7 @@ import java.util.ResourceBundle;
 /**
  */
 public class StudentViewController implements Initializable {
-    private Student loggedInStudent;
-    private boolean changesMade = false;
+    private Student displayedStudent;
 
     //Table values
     @FXML
@@ -30,9 +29,7 @@ public class StudentViewController implements Initializable {
     @FXML
     private ButtonBar adminButtonBar;
     @FXML
-    private Button addButton;
-    @FXML
-    private Button removeButton;
+    private Button editButton;
 
     //Label values
     @FXML
@@ -49,12 +46,14 @@ public class StudentViewController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
+        // TODO: Set cell value factories.
+        // TODO: Add double click on cell capabilities.
     }
 
     public void init(Student student) {
-        this.loggedInStudent = student;
-        usernameLabel.setText(loggedInStudent.getUserName());
+        this.displayedStudent = student;
+        usernameLabel.setText(displayedStudent.getUserName());
+        // TODO: Set other labels
     }
 
     public void init(Student student, boolean isAdmin) {
@@ -64,11 +63,7 @@ public class StudentViewController implements Initializable {
         }
     }
 
-    public Student getLoggedInStudent() {
-        return loggedInStudent;
-    }
-
-    public boolean changesMade() {
-        return changesMade;
+    public Student getDisplayedStudent() {
+        return displayedStudent;
     }
 }
