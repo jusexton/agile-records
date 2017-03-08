@@ -4,11 +4,7 @@ import main.java.database.FailedLoginException
 import main.java.database.SQLConnection
 import main.java.users.Admin
 import main.java.users.User
-import main.java.users.students.Course
-import main.java.users.students.Grade
-import main.java.users.students.GradeType
-import main.java.users.students.Major
-import main.java.users.students.Student
+import main.java.users.students.*
 import main.java.util.security.Hash
 import main.java.util.security.HashingUtil
 import org.junit.BeforeClass
@@ -30,47 +26,47 @@ class DatabaseTests extends GroovyTestCase {
     }
 
     static Student createTestStudent() {
-        Hash hash = HashingUtil.hash("123456", "SHA-256")
+        Hash hash = HashingUtil.hash("123456", "SHA-512")
         Student testStudent = new Student("mschultz", hash)
 
         //CS 3420 Grades
-        Course cs3420 = new Course("CS 3420",4,10426)
+        Course cs3420 = new Course("CS 3420", 4, 10426)
 
         List cs3420Grades = new ArrayList()
-        cs3420Grades.add(new Grade(100,GradeType.Homework))
-        cs3420Grades.add(new Grade(90,GradeType.Homework))
-        cs3420Grades.add(new Grade(85,GradeType.Homework))
-        cs3420Grades.add(new Grade(72,GradeType.Midterm))
-        cs3420Grades.add(new Grade(90,GradeType.Test))
-        cs3420Grades.add(new Grade(80,GradeType.Test))
-        cs3420Grades.add(new Grade(88,GradeType.Final))
-        cs3420Grades.add(new Grade(94,GradeType.Project))
+        cs3420Grades.add(new Grade(100, GradeType.Homework))
+        cs3420Grades.add(new Grade(90, GradeType.Homework))
+        cs3420Grades.add(new Grade(85, GradeType.Homework))
+        cs3420Grades.add(new Grade(72, GradeType.Midterm))
+        cs3420Grades.add(new Grade(90, GradeType.Test))
+        cs3420Grades.add(new Grade(80, GradeType.Test))
+        cs3420Grades.add(new Grade(88, GradeType.Final))
+        cs3420Grades.add(new Grade(94, GradeType.Project))
 
         //CS 3306 Grades
-        Course cs3306 = new Course("CS 3306",3,10515)
+        Course cs3306 = new Course("CS 3306", 3, 10515)
 
         List cs3306Grades = new ArrayList()
-        cs3306Grades.add(new Grade(90,GradeType.Homework))
-        cs3306Grades.add(new Grade(80,GradeType.Homework))
-        cs3306Grades.add(new Grade(75,GradeType.Homework))
-        cs3306Grades.add(new Grade(90,GradeType.Midterm))
-        cs3306Grades.add(new Grade(60,GradeType.Test))
-        cs3306Grades.add(new Grade(66,GradeType.Test))
-        cs3306Grades.add(new Grade(87,GradeType.Final))
-        cs3306Grades.add(new Grade(95,GradeType.Project))
+        cs3306Grades.add(new Grade(90, GradeType.Homework))
+        cs3306Grades.add(new Grade(80, GradeType.Homework))
+        cs3306Grades.add(new Grade(75, GradeType.Homework))
+        cs3306Grades.add(new Grade(90, GradeType.Midterm))
+        cs3306Grades.add(new Grade(60, GradeType.Test))
+        cs3306Grades.add(new Grade(66, GradeType.Test))
+        cs3306Grades.add(new Grade(87, GradeType.Final))
+        cs3306Grades.add(new Grade(95, GradeType.Project))
 
         //CS 2410 Grades
-        Course cs2410 = new Course("CS 2410",4,10818)
+        Course cs2410 = new Course("CS 2410", 4, 10818)
 
         List cs2410Grades = new ArrayList()
-        cs2410Grades.add(new Grade(20,GradeType.Homework))
-        cs2410Grades.add(new Grade(40,GradeType.Homework))
-        cs2410Grades.add(new Grade(60,GradeType.Homework))
-        cs2410Grades.add(new Grade(80,GradeType.Midterm))
-        cs2410Grades.add(new Grade(100,GradeType.Test))
-        cs2410Grades.add(new Grade(80,GradeType.Test))
-        cs2410Grades.add(new Grade(60,GradeType.Final))
-        cs2410Grades.add(new Grade(40,GradeType.Project))
+        cs2410Grades.add(new Grade(20, GradeType.Homework))
+        cs2410Grades.add(new Grade(40, GradeType.Homework))
+        cs2410Grades.add(new Grade(60, GradeType.Homework))
+        cs2410Grades.add(new Grade(80, GradeType.Midterm))
+        cs2410Grades.add(new Grade(100, GradeType.Test))
+        cs2410Grades.add(new Grade(80, GradeType.Test))
+        cs2410Grades.add(new Grade(60, GradeType.Final))
+        cs2410Grades.add(new Grade(40, GradeType.Project))
 
         cs3420.setGrades(cs3420Grades)
         cs3306.setGrades(cs3306Grades)
@@ -93,7 +89,7 @@ class DatabaseTests extends GroovyTestCase {
     }
 
     static Admin createTestAdmin() {
-        Hash hash = HashingUtil.hash("123456", "SHA-256")
+        Hash hash = HashingUtil.hash("123456", "SHA-512")
         Admin testAdmin = new Admin("adminuser", hash)
         testAdmin.setEmail("admin@schultz.ms")
         testAdmin.setFirstName("Admin")
@@ -147,8 +143,8 @@ class DatabaseTests extends GroovyTestCase {
 
     // Passed
     @Test
-    void testGetUser() {
-        User user = testConnection.getUserById(50)
+    void testGetUserById() {
+        User user = testConnection.getUserById(61)
         assertNotNull(user)
         println(user.toString())
     }
