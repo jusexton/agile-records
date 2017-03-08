@@ -32,11 +32,10 @@ public class SQLConnection implements AutoCloseable {
     }
 
     /**
-     * Use to obtain an sql connection.
-     * NOTE: This function is temporary.
+     * Used to obtain an sql connection.
      * WARNING: MAY RETURN NULL
      *
-     * @return The sql connection.
+     * @return The sql connection object.
      */
     public static Connection establishConnection(String host, String username, String password) {
         try {
@@ -108,7 +107,7 @@ public class SQLConnection implements AutoCloseable {
     }
 
     /**
-     * Adds user data to the correct data depending on whether the user
+     * Adds user data to the correct table depending on whether the user
      * is an Admin or Student.
      *
      * @param newUser The user instance that will be added.
@@ -253,7 +252,8 @@ public class SQLConnection implements AutoCloseable {
     }
 
     /**
-     * Updates a given id with a given user object.
+     * Updates a user object.
+     * WARNING: This method does not allow for ID changes.
      *
      * @param user The new user instance that will be written to the database.
      * @return Whether the update was successful or not.
@@ -290,8 +290,8 @@ public class SQLConnection implements AutoCloseable {
     }
 
     /**
-     * Returns a user object given the user's username and if the username matches the stored
-     * username's username.
+     * Returns a user object, given the username if and only if the given password matches the stored
+     * username's password in the database..
      *
      * @param username The username that will be queried.
      * @param password The username that will be compared if there is a matching username.
@@ -358,7 +358,7 @@ public class SQLConnection implements AutoCloseable {
      * @param id The id'd user that will be removed.
      * @return Whether the deletion was successful or not.
      */
-    public boolean removeUser(int id) {
+    public boolean removeUserById(int id) {
         User user = getUserById(id);
 
         String group = user instanceof Student ? "students" : "administrators";
