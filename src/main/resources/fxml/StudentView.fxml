@@ -49,9 +49,9 @@
                   <TableColumn fx:id="timeColumn" prefWidth="76.0" text="Time" />
                     </columns>
                 </TableView>
-            <ButtonBar fx:id="adminButtonBar" prefHeight="40.0" prefWidth="200.0">
+            <ButtonBar fx:id="adminButtonBar" prefHeight="40.0" prefWidth="200.0" visible="false">
               <buttons>
-                <Button fx:id="editButton" mnemonicParsing="false" text="Edit" visible="false" ButtonBar.buttonData="LEFT" />
+                <Button fx:id="editButton" mnemonicParsing="false" text="Edit" ButtonBar.buttonData="LEFT" />
               </buttons>
             </ButtonBar>
                 <AnchorPane>
