@@ -14,7 +14,8 @@ public class Course {
     private List<Grade> grades;
     private int creditHours;
     // TODO: Rework course schedule
-    private Interval time;
+    private Interval dateInterval;
+    private Interval timeInterval;
 
     public Course(String name, int creditHours, int CRN) {
         this.name = name;
@@ -75,11 +76,19 @@ public class Course {
         this.creditHours = creditHours;
     }
 
-    public Interval getTime() {
-        return time;
+    public Interval getDateInterval() {
+        return dateInterval;
     }
 
-    public void setTime(Interval time) {
-        this.time = time;
+    public void setDateInterval(Interval dateInterval) {
+        this.dateInterval = dateInterval;
+    }
+
+    public Interval getTimeInterval() {
+        return timeInterval;
+    }
+
+    public void setTimeInterval(Interval timeInterval) {
+        this.timeInterval = timeInterval;
     }
 }
