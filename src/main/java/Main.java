@@ -30,7 +30,7 @@ public class Main extends Application {
         // Launches application login screen.
         Stage loginStage = new Stage();
         loginStage.setTitle("Agile Records");
-        loginStage.getIcons().add(new Image(getClass().getResourceAsStream("/icon/AgileRecords.png")));
+        loginStage.getIcons().add(new Image(getClass().getResourceAsStream("/icon/agile-records.png")));
         loginStage.setResizable(true);
         LoginController controller = WindowUtil.showWindowAndWait("/fxml/Login.fxml", loginStage);
 
@@ -49,7 +49,7 @@ public class Main extends Application {
                 loader.<AdminViewController>getController().init((Admin) loggedInUser);
             }
             primaryStage.setTitle("Agile Records");
-            primaryStage.getIcons().add(new Image(getClass().getResourceAsStream("/icon/AgileRecords.png")));
+            primaryStage.getIcons().add(new Image(getClass().getResourceAsStream("/icon/agile-records.png")));
             primaryStage.setScene(new Scene(root));
             primaryStage.show();
         }

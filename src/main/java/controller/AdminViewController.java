@@ -177,7 +177,7 @@ public class AdminViewController implements Initializable {
         Stage stage = new Stage();
         stage.setResizable(false);
         stage.setTitle("Create Student");
-        stage.getIcons().add(new Image(getClass().getResourceAsStream("/icon/AgileRecords.png")));
+        stage.getIcons().add(new Image(getClass().getResourceAsStream("/icon/agile-records.png")));
         stage.initModality(Modality.APPLICATION_MODAL);
         return WindowUtil.showWindowAndWait("/fxml/CreateStudent.fxml", stage);
     }

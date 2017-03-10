@@ -66,7 +66,7 @@ public class CreateStudentController implements Initializable {
         // Launches CreateGrade window.
         Stage stage = new Stage();
         stage.setTitle("Create Course");
-        stage.getIcons().add(new Image(getClass().getResourceAsStream("/icon/AgileRecords.png")));
+        stage.getIcons().add(new Image(getClass().getResourceAsStream("/icon/agile-records.png")));
         stage.setResizable(false);
         stage.initModality(Modality.APPLICATION_MODAL);
         CreateCourseController controller = WindowUtil.showWindowAndWait("/fxml/CreateCourse.fxml", stage);
