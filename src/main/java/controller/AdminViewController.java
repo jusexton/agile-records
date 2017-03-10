@@ -6,6 +6,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -176,6 +177,7 @@ public class AdminViewController implements Initializable {
         Stage stage = new Stage();
         stage.setResizable(false);
         stage.setTitle("Create Student");
+        stage.getIcons().add(new Image(getClass().getResourceAsStream("/icon/AgileRecords.png")));
         stage.initModality(Modality.APPLICATION_MODAL);
         return WindowUtil.showWindowAndWait("/fxml/CreateStudent.fxml", stage);
     }

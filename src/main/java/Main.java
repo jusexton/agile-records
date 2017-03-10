@@ -4,6 +4,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import main.java.controller.AdminViewController;
 import main.java.controller.LoginController;
@@ -29,6 +30,7 @@ public class Main extends Application {
         // Launches application login screen.
         Stage loginStage = new Stage();
         loginStage.setTitle("Agile Records");
+        loginStage.getIcons().add(new Image(getClass().getResourceAsStream("/icon/AgileRecords.png")));
         loginStage.setResizable(true);
         LoginController controller = WindowUtil.showWindowAndWait("/fxml/Login.fxml", loginStage);
 
@@ -41,12 +43,13 @@ public class Main extends Application {
 
             FXMLLoader loader = new FXMLLoader(getClass().getResource(path));
             Parent root = loader.load();
-            if (loggedInUser instanceof Student){
+            if (loggedInUser instanceof Student) {
                 loader.<StudentViewController>getController().init((Student) loggedInUser);
             } else {
                 loader.<AdminViewController>getController().init((Admin) loggedInUser);
             }
             primaryStage.setTitle("Agile Records");
+            primaryStage.getIcons().add(new Image(getClass().getResourceAsStream("/icon/AgileRecords.png")));
             primaryStage.setScene(new Scene(root));
             primaryStage.show();
         }
@@ -58,11 +61,11 @@ public class Main extends Application {
         super.stop();
     }
 
-    private void updateLoginTime(User user){
+    private void updateLoginTime(User user) {
         user.setLastLoginTime(LocalDateTime.now());
-        try (SQLConnection connection = new SQLConnection()){
-             connection.updateUser(user);
-        } catch (SQLException ex){
+        try (SQLConnection connection = new SQLConnection()) {
+            connection.updateUser(user);
+        } catch (SQLException ex) {
             ex.printStackTrace();
         }
     }

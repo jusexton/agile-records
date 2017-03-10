@@ -5,6 +5,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import main.java.users.students.Course;
@@ -58,6 +59,7 @@ public class CreateCourseController implements Initializable {
         // Launches CreateGrade window.
         Stage stage = new Stage();
         stage.setTitle("Create Grade");
+        stage.getIcons().add(new Image(getClass().getResourceAsStream("/icon/AgileRecords.png")));
         stage.setResizable(false);
         stage.initModality(Modality.APPLICATION_MODAL);
         CreateGradeController controller = WindowUtil.showWindowAndWait("/fxml/CreateGrade.fxml", stage);
