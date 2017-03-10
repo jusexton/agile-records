@@ -22,7 +22,7 @@ public class SQLConnection implements AutoCloseable {
     private String username = "txscypaa_agile";
     private String password = "4@lq^tsFiI0b";
 
-    public SQLConnection() {
+    public SQLConnection() throws SQLException {
         this.setConnection(host, username, password);
     }
 
@@ -37,22 +37,14 @@ public class SQLConnection implements AutoCloseable {
      *
      * @return The sql connection object.
      */
-    public static Connection establishConnection(String host, String username, String password) {
+    public static Connection establishConnection(String host, String username, String password) throws SQLException{
         try {
             Class.forName("com.mysql.jdbc.Driver");
         } catch (ClassNotFoundException e) {
             System.err.println("No MySQL JDBC Driver Detected!");
             e.printStackTrace();
         }
-
-        Connection connection = null;
-        try {
-            connection = DriverManager.getConnection(host, username, password);
-        } catch (SQLException e) {
-            System.err.println("Connection Failed!");
-            e.printStackTrace();
-        }
-        return connection;
+        return DriverManager.getConnection(host, username, password);
     }
 
     /**
@@ -377,7 +369,7 @@ public class SQLConnection implements AutoCloseable {
         return false;
     }
 
-    public void setConnection(String host, String username, String password) {
+    public void setConnection(String host, String username, String password) throws SQLException{
         this.host = host;
         this.username = username;
         this.password = password;

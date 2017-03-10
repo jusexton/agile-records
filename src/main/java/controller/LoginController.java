@@ -11,6 +11,7 @@ import main.java.database.SQLConnection;
 import main.java.users.User;
 import main.java.util.window.WindowUtil;
 
+import javax.naming.CommunicationException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
@@ -55,9 +56,11 @@ public class LoginController implements Initializable {
             loggedInUser = connection.attemptLogin(username, password);
             WindowUtil.closeWindow(event);
         } catch(FailedLoginException ex){
+            loginFailLabel.setText("Username Or Password Incorrect !");
             loginFailLabel.setVisible(true);
         } catch (SQLException ex) {
-            ex.printStackTrace();
+            loginFailLabel.setText("No Internet Connection !");
+            loginFailLabel.setVisible(true);
         }
 
         if (checkBox.isSelected()) {
