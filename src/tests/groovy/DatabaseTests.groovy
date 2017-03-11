@@ -7,10 +7,12 @@ import main.java.users.User
 import main.java.users.students.*
 import main.java.util.security.Hash
 import main.java.util.security.HashingUtil
+import org.junit.Before
 import org.junit.BeforeClass
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.junit.runners.JUnit4
+import org.testng.annotations.BeforeTest
 
 /**
  * Contains all tests involving the database
@@ -18,6 +20,8 @@ import org.junit.runners.JUnit4
 @RunWith(JUnit4.class)
 class DatabaseTests extends GroovyTestCase {
     static SQLConnection testConnection
+    static Student testStudent
+    static Admin testAdmin
 
     // Executed before entering testing phase.
     @BeforeClass
@@ -25,7 +29,8 @@ class DatabaseTests extends GroovyTestCase {
         testConnection = new SQLConnection()
     }
 
-    static Student createTestStudent() {
+    @Before
+    void createTestStudent() {
         Hash hash = HashingUtil.hash("123456", "SHA-512")
         Student testStudent = new Student("mschultz", hash)
 
@@ -72,7 +77,6 @@ class DatabaseTests extends GroovyTestCase {
         cs3306.setGrades(cs3306Grades)
         cs2410.setGrades(cs2410Grades)
 
-
         List courses = new ArrayList()
         courses.add(cs3420)
         courses.add(cs3306)
@@ -85,10 +89,11 @@ class DatabaseTests extends GroovyTestCase {
         testStudent.setLastName("Schultz")
         testStudent.setID(999)
 
-        return testStudent
+        this.testStudent = testStudent
     }
 
-    static Admin createTestAdmin() {
+    @Before
+    void createTestAdmin() {
         Hash hash = HashingUtil.hash("123456", "SHA-512")
         Admin testAdmin = new Admin("adminuser", hash)
         testAdmin.setEmail("admin@schultz.ms")
@@ -96,7 +101,7 @@ class DatabaseTests extends GroovyTestCase {
         testAdmin.setLastName("User")
         testAdmin.setID(123)
 
-        return testAdmin
+        this.testAdmin = testAdmin
     }
 
     // Passed
@@ -109,7 +114,6 @@ class DatabaseTests extends GroovyTestCase {
     // WARNING: Make sure the username is unique before running test.
     @Test
     void testAddAdmin() {
-        Admin testAdmin = createTestAdmin()
         testAdmin.setUserName("admin")
         Admin result = (Admin) testConnection.addUser(testAdmin)
         assertNotNull(result)
@@ -119,7 +123,6 @@ class DatabaseTests extends GroovyTestCase {
     // WARNING: Make sure the username is unique before running test.
     @Test
     void testAddStudent() {
-        Student testStudent = createTestStudent()
         testStudent.setUserName("student")
         Student result = (Student) testConnection.addUser(testStudent)
         assertNotNull(result)
@@ -184,12 +187,11 @@ class DatabaseTests extends GroovyTestCase {
     // Passed
     @Test
     void testUpdateUser() {
-        Student student = createTestStudent()
-        student.setUserName("testStudent")
-        testConnection.addUser(student)
-        student.setUserName("testStudent2")
-        student.lastName = "Sexton"
-        assertTrue(testConnection.updateUser(student))
+        testStudent.setUserName("testStudent")
+        testConnection.addUser(testStudent)
+        testStudent.setUserName("testStudent2")
+        testStudent.lastName = "Sexton"
+        assertTrue(testConnection.updateUser(testStudent))
     }
 
     // Passed

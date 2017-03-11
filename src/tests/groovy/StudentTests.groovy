@@ -5,12 +5,16 @@ import main.java.users.students.Grade
 import main.java.users.students.GradeType
 import main.java.users.students.Student
 import main.java.util.security.HashingUtil
+import org.junit.BeforeClass
 
 /**
  * Class that will contain all tests regarding the Student class.
  */
 class StudentTests extends GroovyTestCase {
-    static Student getTestStudent() {
+    static Student testStudent
+
+    @BeforeClass
+    static void getTestStudent() {
         // Create test course one.
         Course courseOne = new Course("Math 2302", 4, 12345)
         courseOne.getGrades().add(new Grade(60, GradeType.Test))
@@ -53,12 +57,12 @@ class StudentTests extends GroovyTestCase {
         // Create test student and return the object.
         Student testStudent = new Student("testStudent", HashingUtil.hash("username", "SHA-256"))
         testStudent.setCourses(courses)
-        return testStudent
+
+        this.testStudent = testStudent
     }
 
     // Passed
     void testGpaAverage() {
-        Student testStudent = getTestStudent()
         assertEquals(testStudent.getGPA(), 0.0)
     }
 }
