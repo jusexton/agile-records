@@ -22,13 +22,15 @@
                 <TextField fx:id="courseNameField" layoutX="101.0" layoutY="40.0" prefHeight="25.0" prefWidth="174.0" promptText="Name" />
                 <TextField fx:id="CRNField" layoutX="101.0" layoutY="69.0" prefHeight="25.0" prefWidth="174.0" promptText="CRN" />
                 <TextField fx:id="creditHoursField" layoutX="101.0" layoutY="99.0" prefHeight="25.0" prefWidth="174.0" promptText="Credit Hours" />
-                <DatePicker fx:id="startDatePicker" layoutX="366.0" layoutY="40.0" />
+                <DatePicker fx:id="startDatePicker" layoutX="366.0" layoutY="40.0" promptText="Start Date" />
                 <Label fx:id="errorLabel" layoutX="101.0" layoutY="134.0" text="Error Label" textFill="RED" visible="false" />
                 <Label layoutX="15.0" layoutY="14.0" text="Required Fields Are Marked With *" />
-                <DatePicker fx:id="endDatePicker" layoutX="366.0" layoutY="69.0" prefHeight="25.0" prefWidth="174.0" />
+                <DatePicker fx:id="endDatePicker" layoutX="366.0" layoutY="69.0" prefHeight="25.0" prefWidth="174.0" promptText="End Date" />
                 <Label layoutX="297.0" layoutY="73.0" text="End Date: " />
                 <Label layoutX="296.0" layoutY="103.0" text="Start Time: " />
-                <TextField fx:id="startTimeLabel" layoutX="366.0" layoutY="99.0" prefHeight="25.0" prefWidth="174.0" promptText="Start Time" />
+                <TextField fx:id="startTimeTextField" layoutX="366.0" layoutY="99.0" prefHeight="25.0" prefWidth="174.0" promptText="Start Time" />
+            <Label layoutX="296.0" layoutY="134.0" text="End Time: " />
+            <TextField fx:id="endTimeTextField" layoutX="366.0" layoutY="130.0" prefHeight="25.0" prefWidth="174.0" promptText="End Time" />
             </children>
         </Pane>
         <TableView fx:id="gradesTableView" prefHeight="146.0" prefWidth="247.0" VBox.vgrow="ALWAYS">

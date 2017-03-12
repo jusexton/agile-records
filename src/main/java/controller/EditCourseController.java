@@ -34,7 +34,9 @@ public class EditCourseController implements Initializable {
     @FXML
     private DatePicker endDatePicker;
     @FXML
-    private TextField startTimeLabel;
+    private TextField startTimeTextField;
+    @FXML
+    private TextField endTimeTextField;
     @FXML
     private TableView<Grade> gradesTableView;
     @FXML
