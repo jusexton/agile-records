@@ -20,7 +20,7 @@ import java.util.ResourceBundle;
 
 /**
  */
-public class CreateGradeController implements Initializable {
+public class EditGradeController implements Initializable {
     private Grade grade;
 
     @FXML

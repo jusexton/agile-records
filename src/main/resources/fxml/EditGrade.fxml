@@ -4,7 +4,7 @@
 <?import javafx.scene.layout.Pane?>
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="188.0"
       prefWidth="376.0" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="main.java.controller.CreateGradeController">
+      fx:controller="main.java.controller.EditGradeController">
     <children>
         <TextField fx:id="nameField" layoutX="90.0" layoutY="10.0" prefHeight="25.0" prefWidth="234.0"
                    promptText="Name"/>

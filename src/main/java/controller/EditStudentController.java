@@ -25,9 +25,9 @@ import java.util.Random;
 import java.util.ResourceBundle;
 
 /**
- * Controller responsible for CreateStudent.fxml backend and logic.
+ * Controller responsible for EditStudent.fxml backend and logic.
  */
-public class CreateStudentController implements Initializable {
+public class EditStudentController implements Initializable {
     private Student student;
 
     @FXML
@@ -69,7 +69,7 @@ public class CreateStudentController implements Initializable {
         stage.getIcons().add(new Image(getClass().getResourceAsStream("/icon/agile-records.png")));
         stage.setResizable(false);
         stage.initModality(Modality.APPLICATION_MODAL);
-        CreateCourseController controller = WindowUtil.showWindowAndWait("/fxml/CreateCourse.fxml", stage);
+        EditCourseController controller = WindowUtil.showWindowAndWait("/fxml/EditCourse.fxml", stage);
 
         // Handles returned information.
         if (controller != null && controller.getCourse().isPresent()) {

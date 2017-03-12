@@ -59,12 +59,12 @@ public class AdminViewController implements Initializable {
     private Label usernameLabel;
 
     /**
-     * Opens CreateStudent.fxml, adds the optional result to the table view
+     * Opens EditStudent.fxml, adds the optional result to the table view
      * if it is present and adds the Student to the database.
      */
     @FXML
     private void handleAddButtonAction(ActionEvent event) {
-        CreateStudentController controller = displayCreateStudent();
+        EditStudentController controller = displayCreateStudent();
 
         // Make sure student object was returned
         if (controller != null && controller.getStudent().isPresent()) {
@@ -173,13 +173,13 @@ public class AdminViewController implements Initializable {
         }
     }
 
-    private CreateStudentController displayCreateStudent() {
+    private EditStudentController displayCreateStudent() {
         Stage stage = new Stage();
         stage.setResizable(false);
         stage.setTitle("Create Student");
         stage.getIcons().add(new Image(getClass().getResourceAsStream("/icon/agile-records.png")));
         stage.initModality(Modality.APPLICATION_MODAL);
-        return WindowUtil.showWindowAndWait("/fxml/CreateStudent.fxml", stage);
+        return WindowUtil.showWindowAndWait("/fxml/EditStudent.fxml", stage);
     }
 
     private Optional<ButtonType> displayConfirmationAlert() {

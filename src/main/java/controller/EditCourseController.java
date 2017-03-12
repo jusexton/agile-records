@@ -20,7 +20,7 @@ import java.util.ResourceBundle;
 /**
  * Controller responsible for CreateCourse.fxml backend and logic.
  */
-public class CreateCourseController implements Initializable {
+public class EditCourseController implements Initializable {
     private Course course;
 
     @FXML
@@ -62,7 +62,7 @@ public class CreateCourseController implements Initializable {
         stage.getIcons().add(new Image(getClass().getResourceAsStream("/icon/agile-records.png")));
         stage.setResizable(false);
         stage.initModality(Modality.APPLICATION_MODAL);
-        CreateGradeController controller = WindowUtil.showWindowAndWait("/fxml/CreateGrade.fxml", stage);
+        EditGradeController controller = WindowUtil.showWindowAndWait("/fxml/EditGrade.fxml", stage);
 
         // Handles returned information.
         if (controller != null && controller.getGrade().isPresent()) {
