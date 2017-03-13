@@ -25,7 +25,7 @@ import java.util.Random;
 import java.util.ResourceBundle;
 
 /**
- * Controller responsible for EditStudent.fxml backend and logic.
+ * Controller responsible for editstudent.fxml backend and logic.
  */
 public class EditStudentController implements Initializable {
     private Student student;
@@ -69,7 +69,7 @@ public class EditStudentController implements Initializable {
         stage.getIcons().add(new Image(getClass().getResourceAsStream("/icon/agile-records.png")));
         stage.setResizable(false);
         stage.initModality(Modality.APPLICATION_MODAL);
-        EditCourseController controller = WindowUtil.showWindowAndWait("/fxml/EditCourse.fxml", stage);
+        EditCourseController controller = WindowUtil.showWindowAndWait("/fxml/editcourse.fxml", stage);
 
         // Handles returned information.
         if (controller != null && controller.getCourse().isPresent()) {

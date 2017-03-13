@@ -32,14 +32,14 @@ public class Main extends Application {
         loginStage.setTitle("Agile Records");
         loginStage.getIcons().add(new Image(getClass().getResourceAsStream("/icon/agile-records.png")));
         loginStage.setResizable(true);
-        LoginController controller = WindowUtil.showWindowAndWait("/fxml/Login.fxml", loginStage);
+        LoginController controller = WindowUtil.showWindowAndWait("/fxml/login.fxml", loginStage);
 
         // If login was successful, open the correct primary window.
         if (controller != null && controller.getLoggedInUser().isPresent()) {
             User loggedInUser = controller.getLoggedInUser().get();
             updateLoginTime(loggedInUser);
             String path = loggedInUser instanceof Student ?
-                    "/fxml/StudentView.fxml" : "/fxml/AdminView.fxml";
+                    "/fxml/studentview.fxml" : "/fxml/adminview.fxml";
 
             FXMLLoader loader = new FXMLLoader(getClass().getResource(path));
             Parent root = loader.load();

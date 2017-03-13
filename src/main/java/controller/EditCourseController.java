@@ -64,7 +64,7 @@ public class EditCourseController implements Initializable {
         stage.getIcons().add(new Image(getClass().getResourceAsStream("/icon/agile-records.png")));
         stage.setResizable(false);
         stage.initModality(Modality.APPLICATION_MODAL);
-        EditGradeController controller = WindowUtil.showWindowAndWait("/fxml/EditGrade.fxml", stage);
+        EditGradeController controller = WindowUtil.showWindowAndWait("/fxml/editgrade.fxml", stage);
 
         // Handles returned information.
         if (controller != null && controller.getGrade().isPresent()) {
