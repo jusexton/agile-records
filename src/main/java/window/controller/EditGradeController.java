@@ -1,4 +1,4 @@
-package main.java.controller;
+package main.java.window.controller;
 
 
 import javafx.event.ActionEvent;
@@ -10,8 +10,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import main.java.users.students.Grade;
 import main.java.users.students.GradeType;
-import main.java.util.math.MathUtil;
-import main.java.util.window.WindowUtil;
+import main.java.users.students.util.MathUtil;
+import main.java.window.util.WindowUtil;
 
 import java.net.URL;
 import java.util.Arrays;

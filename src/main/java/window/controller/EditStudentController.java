@@ -1,4 +1,4 @@
-package main.java.controller;
+package main.java.window.controller;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -12,9 +12,9 @@ import main.java.database.SQLConnection;
 import main.java.users.students.Course;
 import main.java.users.students.Major;
 import main.java.users.students.Student;
-import main.java.util.security.Hash;
-import main.java.util.security.HashingUtil;
-import main.java.util.window.WindowUtil;
+import main.java.security.Hash;
+import main.java.security.util.HashingUtil;
+import main.java.window.util.WindowUtil;
 
 import java.net.URL;
 import java.security.NoSuchAlgorithmException;

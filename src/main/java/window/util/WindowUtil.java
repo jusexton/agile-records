@@ -1,4 +1,4 @@
-package main.java.util.window;
+package main.java.window.util;
 
 import javafx.event.Event;
 import javafx.fxml.FXMLLoader;

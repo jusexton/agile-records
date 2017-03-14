@@ -1,4 +1,6 @@
-package main.java.util.security;
+package main.java.security;
+
+import main.java.security.util.HashingUtil;
 
 import java.security.NoSuchAlgorithmException;
 

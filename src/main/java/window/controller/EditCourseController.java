@@ -1,4 +1,4 @@
-package main.java.controller;
+package main.java.window.controller;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -10,8 +10,8 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import main.java.users.students.Course;
 import main.java.users.students.Grade;
-import main.java.util.math.MathUtil;
-import main.java.util.window.WindowUtil;
+import main.java.users.students.util.MathUtil;
+import main.java.window.util.WindowUtil;
 
 import java.net.URL;
 import java.util.Optional;

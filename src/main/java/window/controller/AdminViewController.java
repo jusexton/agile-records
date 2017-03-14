@@ -1,4 +1,4 @@
-package main.java.controller;
+package main.java.window.controller;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -14,7 +14,9 @@ import main.java.database.SQLConnection;
 import main.java.users.Admin;
 import main.java.users.User;
 import main.java.users.students.Student;
-import main.java.util.window.WindowUtil;
+import main.java.window.controller.EditStudentController;
+import main.java.window.util.WindowUtil;
+import main.java.window.StudentViewController;
 
 import java.io.IOException;
 import java.net.URL;

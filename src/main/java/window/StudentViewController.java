@@ -1,4 +1,4 @@
-package main.java.controller;
+package main.java.window;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -11,6 +11,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import main.java.window.controller.EditStudentController;
 import main.java.database.SQLConnection;
 import main.java.users.students.Course;
 import main.java.users.students.Student;
