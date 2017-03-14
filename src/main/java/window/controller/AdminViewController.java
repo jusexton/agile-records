@@ -14,9 +14,8 @@ import main.java.database.SQLConnection;
 import main.java.users.Admin;
 import main.java.users.User;
 import main.java.users.students.Student;
-import main.java.window.controller.EditStudentController;
-import main.java.window.util.WindowUtil;
 import main.java.window.StudentViewController;
+import main.java.window.util.WindowUtil;
 
 import java.io.IOException;
 import java.net.URL;
@@ -115,7 +114,7 @@ public class AdminViewController implements Initializable {
      * @param event
      */
     @FXML
-    private void handleRefreshButton(ActionEvent event) {
+    private void handleRefreshButtonAction(ActionEvent event) {
         adminTableView.getItems().clear();
         syncTable();
     }

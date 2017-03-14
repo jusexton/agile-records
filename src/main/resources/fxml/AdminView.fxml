@@ -37,7 +37,7 @@
             <buttons>
                 <Button fx:id="addButton" mnemonicParsing="false" onAction="#handleAddButtonAction" text="Add" ButtonBar.buttonData="LEFT" />
                 <Button fx:id="removeButton" mnemonicParsing="false" onAction="#handleRemoveButtonAction" text="Remove" ButtonBar.buttonData="LEFT" />
-                <Button fx:id="refreshButton" mnemonicParsing="false" onAction="#handleRefreshButton" text="Refresh" ButtonBar.buttonData="RIGHT" />
+                <Button fx:id="refreshButton" mnemonicParsing="false" onAction="#handleRefreshButtonAction" text="Refresh" ButtonBar.buttonData="RIGHT" />
             </buttons>
             <padding>
                 <Insets left="10.0" right="10.0" />
