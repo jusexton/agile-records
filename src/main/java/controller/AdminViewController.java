@@ -69,7 +69,7 @@ public class AdminViewController implements Initializable {
         // Make sure student object was returned
         if (controller != null && controller.getStudent().isPresent()) {
             // Confirm user decision.
-            Optional<ButtonType> result = displayConfirmationAlert();
+            Optional<ButtonType> result = WindowUtil.displayConfirmationAlert();
             if (result.isPresent()) {
                 if (result.get() == ButtonType.OK) {
                     // Commence add procedure
@@ -91,17 +91,17 @@ public class AdminViewController implements Initializable {
     @FXML
     private void handleRemoveButtonAction(ActionEvent event) {
         // Confirm user decision.
-        Optional<ButtonType> result = displayConfirmationAlert();
+        Optional<ButtonType> result = WindowUtil.displayConfirmationAlert();
         if (result.isPresent()) {
             if (result.get() == ButtonType.OK) {
                 // Execute remove procedure
                 List<Student> selectedStudents = adminTableView.getSelectionModel().getSelectedItems();
+                adminTableView.getItems().removeAll(selectedStudents);
                 try (SQLConnection connection = new SQLConnection()) {
                     selectedStudents.forEach(student -> connection.removeUserById(student.getID()));
                 } catch (SQLException ex) {
                     ex.printStackTrace();
                 }
-                adminTableView.getItems().removeAll(selectedStudents);
             }
         }
     }
@@ -180,14 +180,6 @@ public class AdminViewController implements Initializable {
         stage.getIcons().add(new Image(getClass().getResourceAsStream("/icon/agile-records.png")));
         stage.initModality(Modality.APPLICATION_MODAL);
         return WindowUtil.showWindowAndWait("/fxml/editstudent.fxml", stage);
-    }
-
-    private Optional<ButtonType> displayConfirmationAlert() {
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Commit");
-        alert.setHeaderText("Commit Change?");
-        alert.setContentText("Executing this action will edit the database and will not be reversible.");
-        return alert.showAndWait();
     }
 
     private void syncTable() {

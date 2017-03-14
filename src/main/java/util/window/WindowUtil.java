@@ -5,10 +5,13 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.stage.Stage;
 import org.jetbrains.annotations.Nullable;
 
 import java.io.IOException;
+import java.util.Optional;
 
 /**
  * Contains tools for window management.
@@ -58,6 +61,14 @@ public abstract class WindowUtil {
             ex.printStackTrace();
         }
         return null;
+    }
+
+    public static Optional<ButtonType> displayConfirmationAlert() {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Commit");
+        alert.setHeaderText("Commit Change?");
+        alert.setContentText("Executing this action will edit the database and will not be reversible.");
+        return alert.showAndWait();
     }
 
     /**

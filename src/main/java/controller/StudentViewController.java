@@ -90,6 +90,7 @@ public class StudentViewController implements Initializable {
     }
 
     public void init(Student student) {
+        courseViewTable.getItems().clear();
         this.displayedStudent = student;
         nameLabel.setText(student.getFirstName() + " " + student.getLastName());
         majorLabel.setText(student.getMajor().toString());
