@@ -1,6 +1,6 @@
 package main.java.users.students;
 
-import org.joda.time.Interval;
+import main.java.time.Interval;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,7 +13,6 @@ public class Course {
     private String name;
     private List<Grade> grades;
     private int creditHours;
-    // TODO: Rework course schedule
     private Interval dateInterval;
     private Interval timeInterval;
 
