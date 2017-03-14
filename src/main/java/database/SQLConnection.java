@@ -5,7 +5,7 @@ import com.google.gson.GsonBuilder;
 import main.java.users.Admin;
 import main.java.users.User;
 import main.java.users.students.Student;
-import main.java.util.security.Hash;
+import main.java.security.Hash;
 
 import java.lang.reflect.Type;
 import java.sql.*;

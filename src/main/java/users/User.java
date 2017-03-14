@@ -1,6 +1,6 @@
 package main.java.users;
 
-import main.java.util.security.Hash;
+import main.java.security.Hash;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;

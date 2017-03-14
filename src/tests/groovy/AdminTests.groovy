@@ -2,8 +2,8 @@ package tests.groovy
 
 import main.java.users.Admin
 import main.java.users.students.Student
-import main.java.util.security.Hash
-import main.java.util.security.HashingUtil
+import main.java.security.Hash
+import main.java.security.util.HashingUtil
 
 /**
  * Class that will contain all tests regarding the Admin class.

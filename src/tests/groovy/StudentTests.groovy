@@ -4,7 +4,7 @@ import main.java.users.students.Course
 import main.java.users.students.Grade
 import main.java.users.students.GradeType
 import main.java.users.students.Student
-import main.java.util.security.HashingUtil
+import main.java.security.util.HashingUtil
 import org.junit.BeforeClass
 
 /**

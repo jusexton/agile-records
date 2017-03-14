@@ -5,14 +5,13 @@ import main.java.database.SQLConnection
 import main.java.users.Admin
 import main.java.users.User
 import main.java.users.students.*
-import main.java.util.security.Hash
-import main.java.util.security.HashingUtil
+import main.java.security.Hash
+import main.java.security.util.HashingUtil
 import org.junit.Before
 import org.junit.BeforeClass
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.junit.runners.JUnit4
-import org.testng.annotations.BeforeTest
 
 /**
  * Contains all tests involving the database

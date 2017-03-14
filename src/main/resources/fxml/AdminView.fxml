@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox alignment="TOP_LEFT" prefHeight="702.0" prefWidth="996.0" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.java.controller.AdminViewController">
+<VBox alignment="TOP_LEFT" prefHeight="702.0" prefWidth="996.0" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.java.window.controller.AdminViewController">
     <children>
         <SplitPane fx:id="splitPane" dividerPositions="0.6096579476861167" prefHeight="160.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
             <items>

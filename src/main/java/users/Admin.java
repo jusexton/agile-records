@@ -1,6 +1,6 @@
 package main.java.users;
 
-import main.java.util.security.Hash;
+import main.java.security.Hash;
 
 /**
  * Represents an admin user on the sql server.

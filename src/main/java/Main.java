@@ -6,14 +6,14 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
-import main.java.controller.AdminViewController;
-import main.java.controller.LoginController;
-import main.java.controller.StudentViewController;
+import main.java.window.controller.AdminViewController;
+import main.java.window.controller.LoginController;
+import main.java.window.StudentViewController;
 import main.java.database.SQLConnection;
 import main.java.users.Admin;
 import main.java.users.User;
 import main.java.users.students.Student;
-import main.java.util.window.WindowUtil;
+import main.java.window.util.WindowUtil;
 
 import java.sql.SQLException;
 import java.time.LocalDateTime;
