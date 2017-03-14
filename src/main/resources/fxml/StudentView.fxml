@@ -21,7 +21,7 @@
                             </font>
                         </Label>
                         <Label fx:id="nameLabel" layoutX="102.0" layoutY="14.0" text="Student" AnchorPane.leftAnchor="102.0" />
-                        <Label fx:id="majorLabel" layoutX="651.0" layoutY="14.0" text="Major" AnchorPane.rightAnchor="86.0" />
+                        <Label fx:id="majorLabel" layoutX="651.0" layoutY="14.0" prefHeight="17.0" prefWidth="114.0" text="Major" AnchorPane.rightAnchor="3.0" />
                         <Label layoutX="610.0" layoutY="14.0" text="Major: " AnchorPane.rightAnchor="117.0">
                             <font>
                                 <Font name="System Bold" size="12.0" />
@@ -41,17 +41,16 @@
                         <Label fx:id="gpaLabel" layoutX="685.0" layoutY="39.0" text="GPA" AnchorPane.rightAnchor="60.0" />
                     </children>
                 </AnchorPane>
-                <TableView fx:id="studentViewTable" prefHeight="201.0" prefWidth="768.0" VBox.vgrow="ALWAYS">
+                <TableView fx:id="courseViewTable" prefHeight="201.0" prefWidth="768.0" VBox.vgrow="ALWAYS">
                     <columns>
                         <TableColumn fx:id="crnColumn" prefWidth="75.0" text="CRN" />
                         <TableColumn fx:id="courseNameColumn" prefWidth="102.0" text="Course Name" />
                   <TableColumn fx:id="creditHoursColumn" prefWidth="92.0" text="Credit Hours" />
-                  <TableColumn fx:id="timeColumn" prefWidth="76.0" text="Time" />
                     </columns>
                 </TableView>
             <ButtonBar fx:id="adminButtonBar" prefHeight="40.0" prefWidth="200.0" visible="false">
               <buttons>
-                <Button fx:id="editButton" mnemonicParsing="false" text="Edit" ButtonBar.buttonData="LEFT" />
+                <Button fx:id="editButton" mnemonicParsing="false" onAction="#handleEditButtonAction" text="Edit" ButtonBar.buttonData="LEFT" />
               </buttons>
             </ButtonBar>
                 <AnchorPane>

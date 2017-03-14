@@ -255,8 +255,7 @@ public class SQLConnection implements AutoCloseable {
         String userData = gson.toJson(user);
 
         String username = user.getUserName();
-        Gson gsonPassword = new GsonBuilder().create();
-        String password = gsonPassword.toJson(user.getPassword());
+        String password = gson.toJson(user.getPassword());
 
         int id = user.getID();
 

@@ -29,7 +29,10 @@ import java.util.ResourceBundle;
  */
 public class EditStudentController implements Initializable {
     private Student student;
+    private boolean editMode;
 
+    @FXML
+    private Label passwordLabel;
     @FXML
     private TextField usernameTextField;
     @FXML
@@ -91,17 +94,29 @@ public class EditStudentController implements Initializable {
      */
     @FXML
     private void handleCreateButtonAction(ActionEvent event) {
-        // Make sure required fields are filled.
-        if (usernameTextField.getText().isEmpty() ||
-                passwordField.getText().isEmpty() ||
-                majorComboBox.getSelectionModel().isEmpty()) {
-            displayErrorLabel("Required Field(s) Blank");
-        } else {
-            if (usernameIsAvailable()) {
-                createStudent();
-                WindowUtil.closeWindow(event);
+        if (editMode) {
+            if (usernameTextField.getText().isEmpty() ||
+                    majorComboBox.getSelectionModel().isEmpty()) {
+                displayErrorLabel("Required Field(s) Blank");
             } else {
-                displayErrorLabel("Username Taken");
+                if (this.student.getUserName().equals(usernameTextField.getText()) || usernameIsAvailable()) {
+                    createStudent();
+                    WindowUtil.closeWindow(event);
+                }
+            }
+        } else {
+            // Make sure required fields are filled.
+            if (usernameTextField.getText().isEmpty() ||
+                    passwordField.getText().isEmpty() ||
+                    majorComboBox.getSelectionModel().isEmpty()) {
+                displayErrorLabel("Required Field(s) Blank");
+            } else {
+                if (usernameIsAvailable()) {
+                    createStudent();
+                    WindowUtil.closeWindow(event);
+                } else {
+                    displayErrorLabel("Username Taken");
+                }
             }
         }
     }
@@ -131,32 +146,48 @@ public class EditStudentController implements Initializable {
     }
 
     public void init(Student student) {
+        init(student, false);
+    }
+
+    public void init(Student student, boolean editMode) {
         this.student = student;
+        this.editMode = editMode;
         usernameTextField.setText(student.getUserName());
         majorComboBox.setValue(student.getMajor().toString());
         firstNameTextField.setText(student.getFirstName());
         lastNameTextField.setText(student.getLastName());
         emailTextField.setText(student.getEmail());
         courseTableView.getItems().addAll(student.getCourses());
-    }
 
+        if (editMode) {
+            createButton.setText("Save Changes");
+            passwordLabel.setText("Password: ");
+        }
+    }
 
     /**
      * Builds student object then sets the student object.
      */
     private void createStudent() {
         try {
-            String salt = HashingUtil.generateSalt(20, new Random());
-            Hash hash = HashingUtil.hash(passwordField.getText(), "SHA-512", salt);
-            student = new Student(usernameTextField.getText(), hash);
-            student.setFirstName(firstNameTextField.getText());
-            student.setLastName(lastNameTextField.getText());
-            student.setEmail(emailTextField.getText());
-            student.setMajor(Major.valueOf(majorComboBox.getValue()));
-            student.setCourses(courseTableView.getItems());
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
+            if (editMode) {
+                if (!passwordField.getText().isEmpty()) {
+                    String salt = HashingUtil.generateSalt(20, new Random());
+                    student.setPassword(HashingUtil.hash(passwordField.getText(), "SHA-512", salt));
+                }
+            } else {
+                String salt = HashingUtil.generateSalt(20, new Random());
+                Hash hash = HashingUtil.hash(passwordField.getText(), "SHA-512", salt);
+                student = new Student(usernameTextField.getText(), hash);
+            }
+        } catch (NoSuchAlgorithmException ignored) {
         }
+
+        student.setFirstName(firstNameTextField.getText());
+        student.setLastName(lastNameTextField.getText());
+        student.setEmail(emailTextField.getText());
+        student.setMajor(Major.valueOf(majorComboBox.getValue()));
+        student.setCourses(courseTableView.getItems());
     }
 
     /**
@@ -188,5 +219,9 @@ public class EditStudentController implements Initializable {
 
     public Optional<Student> getStudent() {
         return Optional.ofNullable(student);
+    }
+
+    public boolean inEditMode() {
+        return this.editMode;
     }
 }
