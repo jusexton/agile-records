@@ -19,7 +19,7 @@
                 <Label layoutX="14.0" layoutY="50.0" text="* Username:" />
                 <TextField fx:id="usernameTextField" layoutX="91.0" layoutY="46.0" prefHeight="25.0" prefWidth="195.0" promptText="Username" />
                 <PasswordField fx:id="passwordField" layoutX="91.0" layoutY="81.0" prefHeight="25.0" prefWidth="195.0" promptText="Password" />
-                <ComboBox fx:id="majorComboBox" layoutX="93.0" layoutY="114.0" prefHeight="25.0" prefWidth="194.0" />
+                <ComboBox fx:id="majorComboBox" layoutX="93.0" layoutY="114.0" prefHeight="25.0" prefWidth="194.0" promptText="Major" />
                 <Label fx:id="passwordLabel" layoutX="16.0" layoutY="85.0" text="* Password:" />
                 <TextField fx:id="firstNameTextField" layoutX="375.0" layoutY="46.0" prefWidth="195.0" promptText="First Name" />
                 <TextField fx:id="lastNameTextField" layoutX="375.0" layoutY="81.0" prefWidth="195.0" promptText="Last Name" />
