@@ -45,10 +45,10 @@ public class EditGradeController implements Initializable {
             return;
         }
 
-//        if (MathUtil.isNumeric(scoreField.getText())){
-//            displayErrorLabel("Incorrect Values Passed.");
-//            return;
-//        }
+        if (!MathUtil.isNumeric(scoreField.getText())){
+            displayErrorLabel("Incorrect Values Passed.");
+            return;
+        }
 
         createGrade();
         WindowUtil.closeWindow(event);
@@ -67,6 +67,7 @@ public class EditGradeController implements Initializable {
     }
 
     public void init(Grade grade){
+        createButton.setText("Save Changes");
         nameField.setText(grade.getName());
         scoreField.setText(String.valueOf(grade.getScore()));
         typeComboBox.setValue(grade.getType().toString());

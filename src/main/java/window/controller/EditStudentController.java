@@ -173,7 +173,12 @@ public class EditStudentController implements Initializable {
         TableRow<Course> row = new TableRow<>();
         row.setOnMouseClicked(mouseEvent -> {
             if (mouseEvent.getClickCount() == 2 && !row.isEmpty()) {
-                WindowUtil.displayEditCourse(row.getItem());
+                EditCourseController controller = WindowUtil.displayEditCourse(row.getItem());
+                if (controller != null && controller.getCourse().isPresent()){
+                    int index = row.getIndex();
+                    courseTableView.getItems().remove(index);
+                    courseTableView.getItems().add(index, controller.getCourse().get());
+                }
             }
         });
         return row;

@@ -26,6 +26,7 @@ import java.util.ResourceBundle;
  */
 public class EditCourseController implements Initializable {
     private Course course;
+    private boolean editMode;
 
     @FXML
     private TextField courseNameField;
@@ -120,6 +121,7 @@ public class EditCourseController implements Initializable {
     }
 
     public void init(Course course) {
+        createButton.setText("Save Changes");
         courseNameField.setText(course.getName());
         CRNField.setText(String.valueOf(course.getCRN()));
         creditHoursField.setText(String.valueOf(course.getCreditHours()));
@@ -144,7 +146,10 @@ public class EditCourseController implements Initializable {
         TableRow<Grade> row = new TableRow<>();
         row.setOnMouseClicked(mouseEvent -> {
             if (mouseEvent.getClickCount() == 2 && !row.isEmpty()) {
-                WindowUtil.displayEditGrade(row.getItem());
+                EditGradeController controller = WindowUtil.displayEditGrade(row.getItem());
+                if (controller != null && controller.getGrade().isPresent()){
+                    gradesTableView.getItems().add(controller.getGrade().get());
+                }
             }
         });
         return row;
@@ -167,5 +172,9 @@ public class EditCourseController implements Initializable {
 
     public Optional<Course> getCourse() {
         return Optional.ofNullable(course);
+    }
+
+    public boolean inEditMode(){
+        return this.editMode;
     }
 }
