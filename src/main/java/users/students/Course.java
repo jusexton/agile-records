@@ -1,6 +1,6 @@
 package main.java.users.students;
 
-import main.java.time.Interval;
+import main.java.util.Interval;
 
 import java.util.ArrayList;
 import java.util.List;

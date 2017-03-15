@@ -1,6 +1,6 @@
 package tests.groovy
 
-import main.java.time.Interval
+import main.java.util.Interval
 import main.java.users.students.Course
 import main.java.users.students.Grade
 import main.java.users.students.GradeType
@@ -10,7 +10,6 @@ import org.junit.runner.RunWith
 import org.junit.runners.JUnit4
 
 import java.time.LocalDate
-import java.time.LocalDateTime
 import java.time.LocalTime
 import java.time.format.DateTimeFormatter
 

@@ -10,7 +10,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import main.java.users.students.Grade;
 import main.java.users.students.GradeType;
-import main.java.users.students.util.MathUtil;
+import main.java.util.MathUtil;
 import main.java.window.util.WindowUtil;
 
 import java.net.URL;

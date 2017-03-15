@@ -5,19 +5,13 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.image.Image;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
-import main.java.time.Interval;
 import main.java.users.students.Course;
 import main.java.users.students.Grade;
-import main.java.users.students.Student;
-import main.java.users.students.util.MathUtil;
+import main.java.util.MathUtil;
 import main.java.window.util.WindowUtil;
 
 import java.net.URL;
 import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
