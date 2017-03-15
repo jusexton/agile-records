@@ -8,12 +8,16 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import main.java.time.Interval;
 import main.java.users.students.Course;
 import main.java.users.students.Grade;
+import main.java.users.students.Student;
 import main.java.users.students.util.MathUtil;
 import main.java.window.util.WindowUtil;
 
 import java.net.URL;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
@@ -58,13 +62,7 @@ public class EditCourseController implements Initializable {
 
     @FXML
     private void handleAddButtonAction(ActionEvent event) {
-        // Launches CreateGrade window.
-        Stage stage = new Stage();
-        stage.setTitle("Create Grade");
-        stage.getIcons().add(new Image(getClass().getResourceAsStream("/icon/agile-records.png")));
-        stage.setResizable(false);
-        stage.initModality(Modality.APPLICATION_MODAL);
-        EditGradeController controller = WindowUtil.showWindowAndWait("/fxml/editgrade.fxml", stage);
+        EditGradeController controller = WindowUtil.displayCreateGrade();
 
         // Handles returned information.
         if (controller != null && controller.getGrade().isPresent()) {
@@ -118,17 +116,39 @@ public class EditCourseController implements Initializable {
         typeTableColumn.setCellValueFactory(new PropertyValueFactory<>("type"));
         scoreTableColumn.setCellValueFactory(new PropertyValueFactory<>("score"));
 
-        gradesTableView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+        gradesTableView.setRowFactory(row -> buildRowWithEvent());
     }
 
     public void init(Course course) {
         courseNameField.setText(course.getName());
         CRNField.setText(String.valueOf(course.getCRN()));
         creditHoursField.setText(String.valueOf(course.getCreditHours()));
-        // TODO: Configure time
+        if (course.getDateInterval() != null){
+            startDatePicker.setValue((LocalDate) course.getDateInterval().getStart());
+            endDatePicker.setValue((LocalDate) course.getDateInterval().getEnd());
+        }
+        if (course.getTimeInterval() != null){
+            startTimeTextField.setText(course.getTimeInterval().getStart().toString());
+            endTimeTextField.setText(course.getTimeInterval().getEnd().toString());
+        }
         gradesTableView.getItems().addAll(course.getGrades());
     }
 
+    /**
+     * Builds row with mouse event attached that listens
+     * for double click.
+     *
+     * @return The newly built row.
+     */
+    private TableRow<Grade> buildRowWithEvent() {
+        TableRow<Grade> row = new TableRow<>();
+        row.setOnMouseClicked(mouseEvent -> {
+            if (mouseEvent.getClickCount() == 2 && !row.isEmpty()) {
+                WindowUtil.displayEditGrade(row.getItem());
+            }
+        });
+        return row;
+    }
 
     private void createCourse() {
         String name = courseNameField.getText();

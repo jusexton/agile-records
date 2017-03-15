@@ -10,7 +10,7 @@ import main.java.database.SQLConnection;
 import main.java.users.Admin;
 import main.java.users.User;
 import main.java.users.students.Student;
-import main.java.window.StudentViewController;
+import main.java.window.controller.StudentViewController;
 import main.java.window.controller.AdminViewController;
 import main.java.window.controller.LoginController;
 import main.java.window.util.WindowUtil;
@@ -26,11 +26,7 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         // Launches application login screen.
-        Stage loginStage = new Stage();
-        loginStage.setTitle("Agile Records");
-        loginStage.getIcons().add(new Image(getClass().getResourceAsStream("/icon/agile-records.png")));
-        loginStage.setResizable(true);
-        LoginController controller = WindowUtil.showWindowAndWait("/fxml/login.fxml", loginStage);
+        LoginController controller = WindowUtil.displayLogin();
 
         // If login was successful, open the correct primary window.
         if (controller != null && controller.getLoggedInUser().isPresent()) {

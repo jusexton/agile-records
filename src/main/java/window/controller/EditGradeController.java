@@ -30,7 +30,7 @@ public class EditGradeController implements Initializable {
     @FXML
     private TextField nameField;
     @FXML
-    private Button createeButton;
+    private Button createButton;
     @FXML
     private Button cancelButton;
     @FXML
@@ -45,10 +45,10 @@ public class EditGradeController implements Initializable {
             return;
         }
 
-        if (MathUtil.isDouble(scoreField.getText())){
-            displayErrorLabel("Incorrect Values Passed.");
-            return;
-        }
+//        if (MathUtil.isNumeric(scoreField.getText())){
+//            displayErrorLabel("Incorrect Values Passed.");
+//            return;
+//        }
 
         createGrade();
         WindowUtil.closeWindow(event);

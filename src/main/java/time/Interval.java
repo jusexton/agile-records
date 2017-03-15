@@ -1,31 +1,31 @@
 package main.java.time;
 
-import java.time.LocalDateTime;
+import java.time.temporal.Temporal;
 
 /**
  */
 public class Interval {
-    private LocalDateTime start;
-    private LocalDateTime end;
+    private Temporal start;
+    private Temporal end;
 
-    public Interval(LocalDateTime start, LocalDateTime end) {
+    public Interval(Temporal start, Temporal end) {
         this.start = start;
         this.end = end;
     }
 
-    public LocalDateTime getStart() {
+    public Temporal getStart() {
         return start;
     }
 
-    public void setStart(LocalDateTime start) {
+    public void setStart(Temporal start) {
         this.start = start;
     }
 
-    public LocalDateTime getEnd() {
+    public Temporal getEnd() {
         return end;
     }
 
-    public void setEnd(LocalDateTime end) {
+    public void setEnd(Temporal end) {
         this.end = end;
     }
 }

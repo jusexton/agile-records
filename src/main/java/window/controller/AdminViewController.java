@@ -14,7 +14,6 @@ import main.java.database.SQLConnection;
 import main.java.users.Admin;
 import main.java.users.User;
 import main.java.users.students.Student;
-import main.java.window.StudentViewController;
 import main.java.window.util.WindowUtil;
 
 import java.io.IOException;
@@ -65,7 +64,7 @@ public class AdminViewController implements Initializable {
      */
     @FXML
     private void handleAddButtonAction(ActionEvent event) {
-        EditStudentController controller = displayCreateStudent();
+        EditStudentController controller = WindowUtil.displayCreateStudent();
 
         // Make sure student object was returned
         if (controller != null && controller.getStudent().isPresent()) {
@@ -131,7 +130,7 @@ public class AdminViewController implements Initializable {
         GPATableColumn.setCellValueFactory(new PropertyValueFactory<>("GPA"));
 
         // Allows application to detect when rows are double clicked.
-        adminTableView.setRowFactory(tableView -> buildRowWithEvent());
+        adminTableView.setRowFactory(row -> buildRowWithEvent());
         adminTableView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 
         syncTable();
@@ -157,13 +156,13 @@ public class AdminViewController implements Initializable {
         TableRow<Student> row = new TableRow<>();
         row.setOnMouseClicked(mouseEvent -> {
             if (mouseEvent.getClickCount() == 2 && !row.isEmpty()) {
-                displayStudent(row.getItem());
+                displayStudentView(row.getItem());
             }
         });
         return row;
     }
 
-    private void displayStudent(Student student) {
+    private void displayStudentView(Student student) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/studentview.fxml"));
             AnchorPane root = loader.load();
@@ -172,15 +171,6 @@ public class AdminViewController implements Initializable {
         } catch (IOException ex) {
             ex.printStackTrace();
         }
-    }
-
-    private EditStudentController displayCreateStudent() {
-        Stage stage = new Stage();
-        stage.setResizable(false);
-        stage.setTitle("Create Student");
-        stage.getIcons().add(new Image(getClass().getResourceAsStream("/icon/agile-records.png")));
-        stage.initModality(Modality.APPLICATION_MODAL);
-        return WindowUtil.showWindowAndWait("/fxml/editstudent.fxml", stage);
     }
 
     private void syncTable() {

@@ -9,7 +9,9 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import org.junit.runners.JUnit4
 
+import java.time.LocalDate
 import java.time.LocalDateTime
+import java.time.LocalTime
 import java.time.format.DateTimeFormatter
 
 /**
@@ -28,12 +30,12 @@ class CourseTests extends GroovyTestCase {
         testCourse.getGrades().addAll(gradeOne, gradeTwo)
 
         // Dates
-        LocalDateTime startDate = LocalDateTime.of(2017, 1, 21, 0, 0, 0)
-        LocalDateTime endDate = LocalDateTime.of(2017, 5, 21, 0, 0, 0)
+        LocalDate startDate = LocalDate.of(2017, 1, 21)
+        LocalDate endDate = LocalDate.of(2017, 5, 21)
 
         // Times
-        LocalDateTime startTime = LocalDateTime.of(0 ,1 ,1, 16, 0, 0)
-        LocalDateTime endTime = LocalDateTime.of(0, 1, 1, 17, 45, 0)
+        LocalTime startTime = LocalTime.of(16, 0, 0)
+        LocalTime endTime = LocalTime.of(17, 45, 0)
 
         // Intervals
         testCourse.setDateInterval(new Interval(startDate, endDate))
@@ -54,13 +56,13 @@ class CourseTests extends GroovyTestCase {
         Interval dateInterval = testCourse.getDateInterval()
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM-dd-yyyy")
-        LocalDateTime start = dateInterval.getStart()
+        LocalDate start = (LocalDate) dateInterval.getStart()
         assertEquals(start.getYear(), 2017)
         assertEquals(start.getMonthValue(), 1)
         assertEquals(start.getDayOfMonth(), 21)
         assertEquals(start.format(formatter), "01-21-2017")
 
-        LocalDateTime end = dateInterval.getEnd()
+        LocalDate end = (LocalDate) dateInterval.getEnd()
         assertEquals(end.getYear(), 2017)
         assertEquals(end.getMonthValue(), 5)
         assertEquals(end.getDayOfMonth(), 21)
@@ -73,12 +75,12 @@ class CourseTests extends GroovyTestCase {
         Interval timeInterval = testCourse.getTimeInterval()
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("h:mma")
-        LocalDateTime start = timeInterval.getStart()
+        LocalTime start = (LocalTime) timeInterval.getStart()
         assertEquals(start.getHour(), 16)
         assertEquals(start.getMinute(), 0)
         assertEquals(start.format(formatter), "4:00PM")
 
-        LocalDateTime end = timeInterval.getEnd()
+        LocalTime end = (LocalTime) timeInterval.getEnd()
         assertEquals(end.getHour(), 17)
         assertEquals(end.getMinute(), 45)
         assertEquals(end.format(formatter), "5:45PM")

@@ -66,13 +66,7 @@ public class EditStudentController implements Initializable {
 
     @FXML
     private void handleAddButtonAction(ActionEvent event) {
-        // Launches CreateGrade window.
-        Stage stage = new Stage();
-        stage.setTitle("Create Course");
-        stage.getIcons().add(new Image(getClass().getResourceAsStream("/icon/agile-records.png")));
-        stage.setResizable(false);
-        stage.initModality(Modality.APPLICATION_MODAL);
-        EditCourseController controller = WindowUtil.showWindowAndWait("/fxml/editcourse.fxml", stage);
+        EditCourseController controller = WindowUtil.displayCreateCourse();
 
         // Handles returned information.
         if (controller != null && controller.getCourse().isPresent()) {
@@ -144,8 +138,7 @@ public class EditStudentController implements Initializable {
         nameTableColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
         creditsTableColumn.setCellValueFactory(new PropertyValueFactory<>("creditHours"));
 
-        courseTableView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
-
+        courseTableView.setRowFactory(row -> buildRowWithEvent());
         Arrays.asList(Major.values())
                 .forEach(value -> majorComboBox.getItems().add(value.toString()));
     }
@@ -168,6 +161,22 @@ public class EditStudentController implements Initializable {
             createButton.setText("Save Changes");
             passwordLabel.setText("Password: ");
         }
+    }
+
+    /**
+     * Builds row with mouse event attached that listens
+     * for double click.
+     *
+     * @return The newly built row.
+     */
+    private TableRow<Course> buildRowWithEvent() {
+        TableRow<Course> row = new TableRow<>();
+        row.setOnMouseClicked(mouseEvent -> {
+            if (mouseEvent.getClickCount() == 2 && !row.isEmpty()) {
+                WindowUtil.displayEditCourse(row.getItem());
+            }
+        });
+        return row;
     }
 
     /**

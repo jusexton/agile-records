@@ -1,21 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ComboBox?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.*?>
 <?import javafx.scene.layout.Pane?>
-
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="152.0" prefWidth="376.0" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.java.window.controller.EditGradeController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="152.0"
+      prefWidth="376.0" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="main.java.window.controller.EditGradeController">
     <children>
-        <TextField fx:id="nameField" layoutX="90.0" layoutY="10.0" prefHeight="25.0" prefWidth="234.0" promptText="Name" />
-        <TextField fx:id="scoreField" layoutX="90.0" layoutY="41.0" prefHeight="25.0" prefWidth="234.0" promptText="Score" />
-        <ComboBox fx:id="typeComboBox" layoutX="90.0" layoutY="71.0" prefHeight="25.0" prefWidth="234.0" promptText="Type" />
-        <Button fx:id="createButton" layoutX="8.0" layoutY="108.0" mnemonicParsing="false" onAction="#handleCreateButtonAction" prefHeight="25.0" prefWidth="75.0" text="Create" />
-        <Button fx:id="cancelButton" layoutX="90.0" layoutY="108.0" mnemonicParsing="false" onAction="#handleCancelButtonAction" prefHeight="25.0" prefWidth="75.0" text="Cancel" />
-        <Label layoutX="12.0" layoutY="75.0" text="Grade Type: " />
-        <Label layoutX="13.0" layoutY="45.0" text="Score: " />
-        <Label layoutX="12.0" layoutY="14.0" text="Name: " />
-        <Label fx:id="errorLabel" layoutX="90.0" layoutY="112.0" text="Error Label" textFill="RED" visible="false" />
+        <TextField fx:id="nameField" layoutX="90.0" layoutY="10.0" prefHeight="25.0" prefWidth="234.0"
+                   promptText="Name"/>
+        <TextField fx:id="scoreField" layoutX="90.0" layoutY="41.0" prefHeight="25.0" prefWidth="234.0"
+                   promptText="Score"/>
+        <ComboBox fx:id="typeComboBox" layoutX="90.0" layoutY="71.0" prefHeight="25.0" prefWidth="234.0"
+                  promptText="Type"/>
+        <Button fx:id="createButton" layoutX="8.0" layoutY="108.0" mnemonicParsing="false"
+                onAction="#handleCreateButtonAction" prefHeight="25.0" prefWidth="75.0" text="Create"/>
+        <Button fx:id="cancelButton" layoutX="90.0" layoutY="108.0" mnemonicParsing="false"
+                onAction="#handleCancelButtonAction" prefHeight="25.0" prefWidth="75.0" text="Cancel"/>
+        <Label layoutX="12.0" layoutY="75.0" text="Grade Type: "/>
+        <Label layoutX="13.0" layoutY="45.0" text="Score: "/>
+        <Label layoutX="12.0" layoutY="14.0" text="Name: "/>
+        <Label fx:id="errorLabel" layoutX="171.0" layoutY="112.0" prefHeight="17.0" prefWidth="196.0" text="Error Label"
+               textFill="RED" visible="false"/>
     </children>
 </Pane>

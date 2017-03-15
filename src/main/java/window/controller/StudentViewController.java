@@ -1,22 +1,15 @@
-package main.java.window;
+package main.java.window.controller;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.image.Image;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
-import main.java.window.controller.EditStudentController;
 import main.java.database.SQLConnection;
 import main.java.users.students.Course;
 import main.java.users.students.Student;
+import main.java.window.util.WindowUtil;
 
-import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
@@ -25,6 +18,7 @@ import java.util.ResourceBundle;
  */
 public class StudentViewController implements Initializable {
     private Student displayedStudent;
+    private boolean isAdmin;
 
     //Table values
     @FXML
@@ -56,29 +50,16 @@ public class StudentViewController implements Initializable {
 
     @FXML
     private void handleEditButtonAction(ActionEvent event) {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/editstudent.fxml"));
-            Parent root = loader.load();
-            loader.<EditStudentController>getController().init(displayedStudent, true);
-            Stage stage = new Stage();
-            stage.setScene(new Scene(root));
-            stage.setResizable(false);
-            stage.setTitle("Edit Student");
-            stage.getIcons().add(new Image(getClass().getResourceAsStream("/icon/agile-records.png")));
-            stage.initModality(Modality.APPLICATION_MODAL);
-            stage.showAndWait();
+        EditStudentController controller = WindowUtil.displayEditStudent(displayedStudent);
 
-            if (loader.<EditStudentController>getController().getStudent().isPresent()) {
-                Student editedStudent = loader.<EditStudentController>getController().getStudent().get();
-                init(editedStudent);
-                try (SQLConnection connection = new SQLConnection()) {
-                    connection.updateUser(editedStudent);
-                } catch (SQLException ex) {
-                    ex.printStackTrace();
-                }
+        if (controller != null && controller.getStudent().isPresent()) {
+            Student editedStudent = controller.getStudent().get();
+            init(editedStudent);
+            try (SQLConnection connection = new SQLConnection()) {
+                connection.updateUser(editedStudent);
+            } catch (SQLException ex) {
+                ex.printStackTrace();
             }
-        } catch (IOException ex) {
-            ex.printStackTrace();
         }
     }
 
@@ -88,6 +69,8 @@ public class StudentViewController implements Initializable {
         crnColumn.setCellValueFactory(new PropertyValueFactory<>("CRN"));
         courseNameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
         creditHoursColumn.setCellValueFactory(new PropertyValueFactory<>("creditHours"));
+
+        courseViewTable.setRowFactory(row -> buildRowWithEvent());
     }
 
     public void init(Student student) {
@@ -102,10 +85,27 @@ public class StudentViewController implements Initializable {
     }
 
     public void init(Student student, boolean isAdmin) {
+        this.isAdmin = isAdmin;
         init(student);
         if (isAdmin) {
             adminButtonBar.setVisible(true);
         }
+    }
+
+    /**
+     * Builds row with mouse event attached that listens
+     * for double click.
+     *
+     * @return The newly built row.
+     */
+    private TableRow<Course> buildRowWithEvent() {
+        TableRow<Course> row = new TableRow<>();
+        row.setOnMouseClicked(mouseEvent -> {
+            if (mouseEvent.getClickCount() == 2 && !row.isEmpty()) {
+
+            }
+        });
+        return row;
     }
 
     public Student getDisplayedStudent() {

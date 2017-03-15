@@ -20,21 +20,16 @@ public abstract class MathUtil {
                 .doubleValue();
     }
 
-    public static boolean isInteger(String value) {
+    public static boolean isInteger(String value){
         try {
             int i = Integer.parseInt(value);
-        } catch (NumberFormatException ex) {
+        } catch (NumberFormatException ex){
             return false;
         }
         return true;
     }
 
-    public static boolean isDouble(String value) {
-        try {
-            double d = Double.parseDouble(value);
-        } catch (NumberFormatException ex) {
-            return false;
-        }
-        return true;
+    public static boolean isNumeric(String value){
+        return value.matches("[-+]?\\d*\\.?\\d+");
     }
 }
