@@ -80,7 +80,7 @@ public class StudentViewController implements Initializable {
         majorLabel.setText(student.getMajor().toString());
         idLabel.setText(Integer.toString(student.getID()));
         gpaLabel.setText(Double.toString(student.getGPA()));
-        usernameLabel.setText(displayedStudent.getUserName());
+        usernameLabel.setText(student.getUserName());
         courseViewTable.getItems().addAll(student.getCourses());
     }
 
