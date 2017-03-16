@@ -1,6 +1,7 @@
 package main.java.users.students;
 
-import main.java.util.Interval;
+import main.java.util.DateInterval;
+import main.java.util.TimeInterval;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,8 +14,8 @@ public class Course {
     private String name;
     private List<Grade> grades;
     private int creditHours;
-    private Interval dateInterval;
-    private Interval timeInterval;
+    private DateInterval dateInterval;
+    private TimeInterval timeInterval;
 
     public Course(String name, int creditHours, int CRN) {
         this.name = name;
@@ -43,7 +44,7 @@ public class Course {
         }
     }
 
-    public double getTotalScore(){
+    public double getTotalScore() {
         return grades.stream()
                 .mapToDouble(Grade::getScore)
                 .sum();
@@ -81,19 +82,19 @@ public class Course {
         this.creditHours = creditHours;
     }
 
-    public Interval getDateInterval() {
+    public DateInterval getDateInterval() {
         return dateInterval;
     }
 
-    public void setDateInterval(Interval dateInterval) {
+    public void setDateInterval(DateInterval dateInterval) {
         this.dateInterval = dateInterval;
     }
 
-    public Interval getTimeInterval() {
+    public TimeInterval getTimeInterval() {
         return timeInterval;
     }
 
-    public void setTimeInterval(Interval timeInterval) {
+    public void setTimeInterval(TimeInterval timeInterval) {
         this.timeInterval = timeInterval;
     }
 }

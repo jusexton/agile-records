@@ -7,11 +7,14 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import main.java.users.students.Course;
 import main.java.users.students.Grade;
+import main.java.util.DateInterval;
 import main.java.util.MathUtil;
+import main.java.util.TimeInterval;
 import main.java.window.util.WindowUtil;
 
 import java.net.URL;
-import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
@@ -90,7 +93,7 @@ public class EditCourseController implements Initializable {
 
         // Make sure fields contain correct data.
         if (!MathUtil.isInteger(creditHoursField.getText()) ||
-                !MathUtil.isInteger(CRNField.getText())){
+                !MathUtil.isInteger(CRNField.getText())) {
             displayErrorLabel("Incorrect Values Passed");
             return;
         }
@@ -119,9 +122,12 @@ public class EditCourseController implements Initializable {
         courseNameField.setText(course.getName());
         CRNField.setText(String.valueOf(course.getCRN()));
         creditHoursField.setText(String.valueOf(course.getCreditHours()));
-        if (course.getDateInterval() != null && course.getTimeInterval() != null){
-            startDatePicker.setValue((LocalDate) course.getDateInterval().getStart());
-            endDatePicker.setValue((LocalDate) course.getDateInterval().getEnd());
+        if (course.getDateInterval() != null) {
+            startDatePicker.setValue(course.getDateInterval().getStart());
+            endDatePicker.setValue(course.getDateInterval().getEnd());
+        }
+        // TODO: Time Formatting Bug
+        if (course.getTimeInterval() != null) {
             startTimeTextField.setText(course.getTimeInterval().getStart().toString());
             endTimeTextField.setText(course.getTimeInterval().getEnd().toString());
         }
@@ -139,7 +145,7 @@ public class EditCourseController implements Initializable {
         row.setOnMouseClicked(mouseEvent -> {
             if (mouseEvent.getClickCount() == 2 && !row.isEmpty()) {
                 EditGradeController controller = WindowUtil.displayEditGrade(row.getItem());
-                if (controller != null && controller.getGrade().isPresent()){
+                if (controller != null && controller.getGrade().isPresent()) {
                     int index = row.getIndex();
                     gradesTableView.getItems().remove(index);
                     gradesTableView.getItems().add(index, controller.getGrade().get());
@@ -156,7 +162,15 @@ public class EditCourseController implements Initializable {
 
         course = new Course(name, creditHours, CRN);
         course.setGrades(gradesTableView.getItems());
-        // TODO: Add Time Interval Functionality.
+
+        DateInterval dateInterval = new DateInterval(startDatePicker.getValue(), endDatePicker.getValue());
+        course.setDateInterval(dateInterval);
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("h:mma");
+        TimeInterval timeInterval = new TimeInterval(
+                LocalTime.parse(startTimeTextField.getText().replaceAll(" ", ""), formatter),
+                LocalTime.parse(endTimeTextField.getText().replaceAll(" ", ""), formatter));
+        course.setTimeInterval(timeInterval);
     }
 
     private void displayErrorLabel(String message) {
@@ -168,7 +182,7 @@ public class EditCourseController implements Initializable {
         return Optional.ofNullable(course);
     }
 
-    public boolean inEditMode(){
+    public boolean inEditMode() {
         return this.editMode;
     }
 }

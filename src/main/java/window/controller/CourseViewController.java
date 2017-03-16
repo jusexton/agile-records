@@ -14,7 +14,7 @@ import main.java.window.util.WindowUtil;
 
 import java.net.URL;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 
@@ -64,15 +64,18 @@ public class CourseViewController implements Initializable {
         CRNLabel.setText(String.valueOf(course.getCRN()));
         creditHoursLabel.setText(String.valueOf(course.getCreditHours()));
 
-        if (course.getDateInterval() != null && course.getTimeInterval() != null) {
+        if (course.getDateInterval() != null) {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("EEEE, MMMM dd, yyyy");
-            LocalDate startDate = (LocalDate) course.getDateInterval().getStart();
-            LocalDate endDate = (LocalDate) course.getDateInterval().getEnd();
+            LocalDate startDate = course.getDateInterval().getStart();
+            LocalDate endDate = course.getDateInterval().getEnd();
             dateLabel.setText(String.format("%s - %s", startDate.format(formatter), endDate.format(formatter)));
+        }
 
-            formatter = DateTimeFormatter.ofPattern("H:mma");
-            LocalDateTime startTime = (LocalDateTime) course.getTimeInterval().getStart();
-            LocalDateTime endTime = (LocalDateTime) course.getTimeInterval().getEnd();
+        // TODO: Time Formatting Bug
+        if (course.getTimeInterval() != null) {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("H:mma");
+            LocalTime startTime = course.getTimeInterval().getStart();
+            LocalTime endTime = course.getTimeInterval().getEnd();
             timeLabel.setText(String.format("%s - %s", startTime.format(formatter), endTime.format(formatter)));
         }
 
