@@ -7,9 +7,9 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import main.java.users.students.Course;
 import main.java.users.students.Grade;
-import main.java.util.DateInterval;
+import main.java.time.DateInterval;
 import main.java.util.MathUtil;
-import main.java.util.TimeInterval;
+import main.java.time.TimeInterval;
 import main.java.window.util.WindowUtil;
 
 import java.net.URL;

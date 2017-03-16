@@ -1,7 +1,7 @@
 package main.java.users.students;
 
-import main.java.util.DateInterval;
-import main.java.util.TimeInterval;
+import main.java.time.DateInterval;
+import main.java.time.TimeInterval;
 
 import java.util.ArrayList;
 import java.util.List;
