@@ -13,10 +13,7 @@ import javafx.stage.Stage;
 import main.java.users.students.Course;
 import main.java.users.students.Grade;
 import main.java.users.students.Student;
-import main.java.window.controller.EditCourseController;
-import main.java.window.controller.EditGradeController;
-import main.java.window.controller.EditStudentController;
-import main.java.window.controller.LoginController;
+import main.java.window.controller.*;
 import org.jetbrains.annotations.Nullable;
 
 import java.io.IOException;
@@ -154,6 +151,18 @@ public abstract class WindowUtil {
             ex.printStackTrace();
         }
         return null;
+    }
+
+    public static void displayCourseView(Course course){
+        try {
+            FXMLLoader loader = new FXMLLoader(WindowUtil.class.getResource("/fxml/courseview.fxml"));
+            Parent root = loader.load();
+            loader.<CourseViewController>getController().init(course);
+            Stage stage = buildStage(root, course.getName());
+            stage.showAndWait();
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
     }
 
     /**

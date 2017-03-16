@@ -43,6 +43,12 @@ public class Course {
         }
     }
 
+    public double getTotalScore(){
+        return grades.stream()
+                .mapToDouble(Grade::getScore)
+                .sum();
+    }
+
     public int getCRN() {
         return CRN;
     }

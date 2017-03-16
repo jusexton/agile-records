@@ -102,7 +102,7 @@ public class StudentViewController implements Initializable {
         TableRow<Course> row = new TableRow<>();
         row.setOnMouseClicked(mouseEvent -> {
             if (mouseEvent.getClickCount() == 2 && !row.isEmpty()) {
-
+                WindowUtil.displayCourseView(row.getItem());
             }
         });
         return row;

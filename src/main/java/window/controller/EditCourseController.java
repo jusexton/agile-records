@@ -119,11 +119,9 @@ public class EditCourseController implements Initializable {
         courseNameField.setText(course.getName());
         CRNField.setText(String.valueOf(course.getCRN()));
         creditHoursField.setText(String.valueOf(course.getCreditHours()));
-        if (course.getDateInterval() != null){
+        if (course.getDateInterval() != null && course.getTimeInterval() != null){
             startDatePicker.setValue((LocalDate) course.getDateInterval().getStart());
             endDatePicker.setValue((LocalDate) course.getDateInterval().getEnd());
-        }
-        if (course.getTimeInterval() != null){
             startTimeTextField.setText(course.getTimeInterval().getStart().toString());
             endTimeTextField.setText(course.getTimeInterval().getEnd().toString());
         }
@@ -142,7 +140,9 @@ public class EditCourseController implements Initializable {
             if (mouseEvent.getClickCount() == 2 && !row.isEmpty()) {
                 EditGradeController controller = WindowUtil.displayEditGrade(row.getItem());
                 if (controller != null && controller.getGrade().isPresent()){
-                    gradesTableView.getItems().add(controller.getGrade().get());
+                    int index = row.getIndex();
+                    gradesTableView.getItems().remove(index);
+                    gradesTableView.getItems().add(index, controller.getGrade().get());
                 }
             }
         });
