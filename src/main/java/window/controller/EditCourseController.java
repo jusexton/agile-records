@@ -126,10 +126,11 @@ public class EditCourseController implements Initializable {
             startDatePicker.setValue(course.getDateInterval().getStart());
             endDatePicker.setValue(course.getDateInterval().getEnd());
         }
-        // TODO: Time Formatting Bug
+
         if (course.getTimeInterval() != null) {
-            startTimeTextField.setText(course.getTimeInterval().getStart().toString());
-            endTimeTextField.setText(course.getTimeInterval().getEnd().toString());
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("h:mma");
+            startTimeTextField.setText(course.getTimeInterval().getStart().format(formatter));
+            endTimeTextField.setText(course.getTimeInterval().getEnd().format(formatter));
         }
         gradesTableView.getItems().addAll(course.getGrades());
     }

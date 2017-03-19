@@ -71,9 +71,8 @@ public class CourseViewController implements Initializable {
             dateLabel.setText(String.format("%s - %s", startDate.format(formatter), endDate.format(formatter)));
         }
 
-        // TODO: Time Formatting Bug
         if (course.getTimeInterval() != null) {
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("H:mma");
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("h:mma");
             LocalTime startTime = course.getTimeInterval().getStart();
             LocalTime endTime = course.getTimeInterval().getEnd();
             timeLabel.setText(String.format("%s - %s", startTime.format(formatter), endTime.format(formatter)));
