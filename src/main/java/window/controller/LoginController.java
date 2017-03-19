@@ -35,12 +35,6 @@ public class LoginController implements Initializable {
     @FXML
     private Label loginFailLabel;
 
-    /**
-     * The login process that will take place when the
-     * user prompts the system for login.
-     *
-     * @param event The event triggered.
-     */
     @FXML
     private void handleLoginAction(ActionEvent event) {
         String username = textField.getText();
@@ -67,14 +61,8 @@ public class LoginController implements Initializable {
         preferences.putBoolean("Use Username", checkBox.isSelected());
     }
 
-    /**
-     * Used to flip the position of the checkbox when the
-     * enter key is pressed while focus is on the checkbox.
-     *
-     * @param event The key event triggered.
-     */
     @FXML
-    private void flipSelected(KeyEvent event) {
+    private void handleKeyEvent(KeyEvent event) {
         if (event.getCode() == KeyCode.ENTER) {
             checkBox.setSelected(!checkBox.isSelected());
         }
