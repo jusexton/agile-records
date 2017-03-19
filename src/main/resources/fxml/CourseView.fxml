@@ -44,7 +44,7 @@
                     </font>
                 </Label>
                 <Label fx:id="dateLabel" layoutX="341.0" layoutY="14.0" text="Date Label" />
-                <Label fx:id="timeLabel" layoutX="341.0" layoutY="36.0" text="Time Label" />
+                <Label fx:id="timeLabel" layoutX="341.0" layoutY="36.0" text="Not Announced" />
                 <Label layoutX="16.0" layoutY="108.0" text="GPA: ">
                     <font>
                         <Font name="System Bold" size="12.0" />
