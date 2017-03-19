@@ -5,15 +5,12 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.image.Image;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
 import main.java.database.SQLConnection;
+import main.java.security.Hash;
+import main.java.security.util.HashingUtil;
 import main.java.users.students.Course;
 import main.java.users.students.Major;
 import main.java.users.students.Student;
-import main.java.security.Hash;
-import main.java.security.util.HashingUtil;
 import main.java.window.util.WindowUtil;
 
 import java.net.URL;
@@ -81,11 +78,6 @@ public class EditStudentController implements Initializable {
                 .removeAll(courseTableView.getSelectionModel().getSelectedItems());
     }
 
-    /**
-     * Uses on screen control values to build the student object.
-     *
-     * @param event
-     */
     @FXML
     private void handleCreateButtonAction(ActionEvent event) {
         if (editMode) {
@@ -95,8 +87,8 @@ public class EditStudentController implements Initializable {
             } else {
                 if (this.student.getUserName().equals(usernameTextField.getText()) || usernameIsAvailable()) {
                     Optional<ButtonType> result = WindowUtil.displayConfirmationAlert();
-                    if (result.isPresent()){
-                        if (result.get() == ButtonType.OK){
+                    if (result.isPresent()) {
+                        if (result.get() == ButtonType.OK) {
                             createStudent();
                             WindowUtil.closeWindow(event);
                         }
@@ -120,11 +112,6 @@ public class EditStudentController implements Initializable {
         }
     }
 
-    /**
-     * Closes window
-     *
-     * @param event
-     */
     @FXML
     private void handleCancelButtonAction(ActionEvent event) {
         student = null;
@@ -147,6 +134,12 @@ public class EditStudentController implements Initializable {
         init(student, false);
     }
 
+    /**
+     * Initializes student instance into window.
+     *
+     * @param student  The student instance that will be loaded.
+     * @param editMode Whether the window is in edit or create mode.
+     */
     public void init(Student student, boolean editMode) {
         this.student = student;
         this.editMode = editMode;
@@ -174,7 +167,7 @@ public class EditStudentController implements Initializable {
         row.setOnMouseClicked(mouseEvent -> {
             if (mouseEvent.getClickCount() == 2 && !row.isEmpty()) {
                 EditCourseController controller = WindowUtil.displayEditCourse(row.getItem());
-                if (controller != null && controller.getCourse().isPresent()){
+                if (controller != null && controller.getCourse().isPresent()) {
                     int index = row.getIndex();
                     courseTableView.getItems().remove(index);
                     courseTableView.getItems().add(index, controller.getCourse().get());

@@ -45,7 +45,7 @@ public class EditGradeController implements Initializable {
             return;
         }
 
-        if (!MathUtil.isNumeric(scoreField.getText())){
+        if (!MathUtil.isNumeric(scoreField.getText())) {
             displayErrorLabel("Incorrect Values Passed.");
             return;
         }
@@ -66,14 +66,22 @@ public class EditGradeController implements Initializable {
                 .forEach(type -> typeComboBox.getItems().add(type.toString()));
     }
 
-    public void init(Grade grade){
+    /**
+     * Initializes grade instance into window.
+     *
+     * @param grade The grade instance that will be initialized.
+     */
+
+    public void init(Grade grade) {
         createButton.setText("Save Changes");
         nameField.setText(grade.getName());
         scoreField.setText(String.valueOf(grade.getScore()));
         typeComboBox.setValue(grade.getType().toString());
     }
 
-
+    /**
+     * Creates Grade instance with interface values.
+     */
     private void createGrade() {
         double gradeScore = MathUtil.round(Double.parseDouble(scoreField.getText()), 2);
         GradeType type = GradeType.valueOf(typeComboBox.getValue());
@@ -81,6 +89,11 @@ public class EditGradeController implements Initializable {
         grade.setName(nameField.getText());
     }
 
+    /**
+     * Displays error message to interface for user's viewing.
+     *
+     * @param message The message that will be displayed.
+     */
     private void displayErrorLabel(String message) {
         errorLabel.setText(message);
         errorLabel.setVisible(true);

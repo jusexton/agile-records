@@ -59,6 +59,11 @@ public class CourseViewController implements Initializable {
         scoreColumn.setCellValueFactory(new PropertyValueFactory<>("score"));
     }
 
+    /**
+     * Initializes course instance into window.
+     *
+     * @param course The course instance that will be initialized.
+     */
     public void init(Course course) {
         nameLabel.setText(course.getName());
         CRNLabel.setText(String.valueOf(course.getCRN()));

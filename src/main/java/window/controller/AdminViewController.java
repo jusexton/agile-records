@@ -6,10 +6,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
 import main.java.database.SQLConnection;
 import main.java.users.Admin;
 import main.java.users.User;
@@ -58,10 +55,6 @@ public class AdminViewController implements Initializable {
     @FXML
     private Label usernameLabel;
 
-    /**
-     * Opens editstudent.fxml, adds the optional result to the table view
-     * if it is present and adds the Student to the database.
-     */
     @FXML
     private void handleAddButtonAction(ActionEvent event) {
         EditStudentController controller = WindowUtil.displayCreateStudent();
@@ -85,9 +78,6 @@ public class AdminViewController implements Initializable {
         }
     }
 
-    /**
-     * Removes all selected items from the table view and database.
-     */
     @FXML
     private void handleRemoveButtonAction(ActionEvent event) {
         // Confirm user decision.
@@ -106,12 +96,6 @@ public class AdminViewController implements Initializable {
         }
     }
 
-    /**
-     * Updates the tableview to reflect the current contents
-     * of the database.
-     *
-     * @param event
-     */
     @FXML
     private void handleRefreshButtonAction(ActionEvent event) {
         adminTableView.getItems().clear();
@@ -162,6 +146,11 @@ public class AdminViewController implements Initializable {
         return row;
     }
 
+    /**
+     * Loaded student view with given student into right split pane.
+     *
+     * @param student The student instance that is loaded.
+     */
     private void displayStudentView(Student student) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/studentview.fxml"));
@@ -173,6 +162,9 @@ public class AdminViewController implements Initializable {
         }
     }
 
+    /**
+     * Synces student TableView with student database table
+     */
     private void syncTable() {
         // Populates table on load.
         try (SQLConnection connection = new SQLConnection()) {

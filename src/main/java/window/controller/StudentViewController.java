@@ -53,8 +53,10 @@ public class StudentViewController implements Initializable {
         EditStudentController controller = WindowUtil.displayEditStudent(displayedStudent);
 
         if (controller != null && controller.getStudent().isPresent()) {
+            // Config window with edited student.
             Student editedStudent = controller.getStudent().get();
             init(editedStudent);
+            // Update database.
             try (SQLConnection connection = new SQLConnection()) {
                 connection.updateUser(editedStudent);
             } catch (SQLException ex) {
@@ -73,6 +75,11 @@ public class StudentViewController implements Initializable {
         courseViewTable.setRowFactory(row -> buildRowWithEvent());
     }
 
+    /**
+     * Initializes student instance variables to window.
+     *
+     * @param student The student instance that will be loaded.
+     */
     public void init(Student student) {
         courseViewTable.getItems().clear();
         this.displayedStudent = student;
@@ -84,6 +91,12 @@ public class StudentViewController implements Initializable {
         courseViewTable.getItems().addAll(student.getCourses());
     }
 
+    /**
+     * Initialize controller with student in admin mode.
+     *
+     * @param student The student instance that will be displayed.
+     * @param isAdmin If admin access should be granted.
+     */
     public void init(Student student, boolean isAdmin) {
         this.isAdmin = isAdmin;
         init(student);

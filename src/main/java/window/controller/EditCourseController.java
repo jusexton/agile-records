@@ -5,11 +5,11 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import main.java.time.DateInterval;
+import main.java.time.TimeInterval;
 import main.java.users.students.Course;
 import main.java.users.students.Grade;
-import main.java.time.DateInterval;
 import main.java.util.MathUtil;
-import main.java.time.TimeInterval;
 import main.java.window.util.WindowUtil;
 
 import java.net.URL;
@@ -75,12 +75,6 @@ public class EditCourseController implements Initializable {
                 .removeAll(gradesTableView.getSelectionModel().getSelectedItems());
     }
 
-    /**
-     * The add in process that will take place when the
-     * user fills in information.
-     *
-     * @param event The event triggered.
-     */
     @FXML
     private void handleCreateButtonAction(ActionEvent event) {
         // Make sure all required fields are set.
@@ -117,6 +111,11 @@ public class EditCourseController implements Initializable {
         gradesTableView.setRowFactory(row -> buildRowWithEvent());
     }
 
+    /**
+     * Initializes course instance into window.
+     *
+     * @param course The course instance that will be initialized.
+     */
     public void init(Course course) {
         createButton.setText("Save Changes");
         courseNameField.setText(course.getName());
@@ -156,6 +155,9 @@ public class EditCourseController implements Initializable {
         return row;
     }
 
+    /**
+     * Creates course instance from interface values.
+     */
     private void createCourse() {
         String name = courseNameField.getText();
         int creditHours = Integer.parseInt(creditHoursField.getText());
@@ -174,6 +176,11 @@ public class EditCourseController implements Initializable {
         course.setTimeInterval(timeInterval);
     }
 
+    /**
+     * Displays error message to interface for user's viewing.
+     *
+     * @param message The message that will be displayed.
+     */
     private void displayErrorLabel(String message) {
         errorLabel.setText(message);
         errorLabel.setVisible(true);
