@@ -7,6 +7,7 @@
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
@@ -15,21 +16,23 @@
     <children>
         <SplitPane fx:id="splitPane" dividerPositions="0.6096579476861167" prefHeight="160.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
             <items>
-            <AnchorPane prefHeight="200.0" prefWidth="200.0">
-               <children>
-                  <TableView fx:id="adminTableView" layoutX="47.0" layoutY="120.0" prefHeight="638.0" prefWidth="578.0" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0">
-                    <columns>
-                      <TableColumn fx:id="idTableColumn" prefWidth="75.0" text="ID" />
-                      <TableColumn fx:id="usernameTableColumn" prefWidth="75.0" text="Username" />
-                        <TableColumn fx:id="lastLoginTableColumn" prefWidth="125.0" text="Last Login" />
-                        <TableColumn fx:id="firstNameTableColumn" prefWidth="75.0" text="First Name" />
-                        <TableColumn fx:id="lastNameTableColumn" prefWidth="75.0" text="Last Name" />
-                        <TableColumn fx:id="majorTableColumn" prefWidth="110.0" text="Major" />
-                        <TableColumn fx:id="GPATableColumn" prefWidth="64.0" text="GPA" />
-                    </columns>
-                  </TableView>
-               </children>
-            </AnchorPane>
+                <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                    <children>
+                        <TextField fx:id="searchTextField" layoutX="454.0" layoutY="2.0" promptText="Search" />
+                        <TableView fx:id="studentTableView" layoutX="47.0" layoutY="31.0" prefHeight="607.0" prefWidth="603.0" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="31.0">
+                            <columns>
+                                <TableColumn fx:id="idTableColumn" prefWidth="75.0" text="ID" />
+                                <TableColumn fx:id="usernameTableColumn" prefWidth="75.0" text="Username" />
+                                <TableColumn fx:id="lastLoginTableColumn" prefWidth="125.0" text="Last Login" />
+                                <TableColumn fx:id="firstNameTableColumn" prefWidth="75.0" text="First Name" />
+                                <TableColumn fx:id="lastNameTableColumn" prefWidth="75.0" text="Last Name" />
+                                <TableColumn fx:id="majorTableColumn" prefWidth="110.0" text="Major" />
+                                <TableColumn fx:id="GPATableColumn" prefWidth="67.0" text="GPA" />
+                            </columns>
+                        </TableView>
+                        <Label layoutX="404.0" layoutY="6.0" text="Search: " />
+                    </children>
+                </AnchorPane>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="638.0" prefWidth="393.0" />
             </items>
         </SplitPane>
@@ -47,9 +50,10 @@
             <children>
                 <Label fx:id="usernameLabel" layoutX="67.0" layoutY="5.0" text="Username" AnchorPane.leftAnchor="67.0" />
                 <Label layoutY="5.0" text="Username:  " AnchorPane.leftAnchor="0.0">
-               <font>
-                  <Font name="System Bold" size="12.0" />
-               </font></Label>
+                    <font>
+                        <Font name="System Bold" size="12.0" />
+                    </font>
+                </Label>
             </children>
         </AnchorPane>
     </children>

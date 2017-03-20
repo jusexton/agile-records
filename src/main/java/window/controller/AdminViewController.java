@@ -1,5 +1,9 @@
 package main.java.window.controller;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -25,11 +29,14 @@ import java.util.ResourceBundle;
  */
 public class AdminViewController implements Initializable {
     private Admin loggedInAdmin;
+    private ObservableList<Student> students;
 
     @FXML
     private SplitPane splitPane;
     @FXML
-    private TableView<Student> adminTableView;
+    private TextField searchTextField;
+    @FXML
+    private TableView<Student> studentTableView;
     @FXML
     private TableColumn<Student, Integer> idTableColumn;
     @FXML
@@ -67,7 +74,7 @@ public class AdminViewController implements Initializable {
                 if (result.get() == ButtonType.OK) {
                     // Commence add procedure
                     Student student = controller.getStudent().get();
-                    adminTableView.getItems().add(student);
+                    students.add(student);
                     try (SQLConnection connection = new SQLConnection()) {
                         connection.addUser(student);
                     } catch (SQLException ex) {
@@ -85,8 +92,8 @@ public class AdminViewController implements Initializable {
         if (result.isPresent()) {
             if (result.get() == ButtonType.OK) {
                 // Execute remove procedure
-                List<Student> selectedStudents = adminTableView.getSelectionModel().getSelectedItems();
-                adminTableView.getItems().removeAll(selectedStudents);
+                List<Student> selectedStudents = studentTableView.getSelectionModel().getSelectedItems();
+                students.removeAll(selectedStudents);
                 try (SQLConnection connection = new SQLConnection()) {
                     selectedStudents.forEach(student -> connection.removeUserById(student.getID()));
                 } catch (SQLException ex) {
@@ -98,8 +105,12 @@ public class AdminViewController implements Initializable {
 
     @FXML
     private void handleRefreshButtonAction(ActionEvent event) {
-        adminTableView.getItems().clear();
+        students.clear();
         syncTable();
+    }
+
+    public AdminViewController() {
+        students = FXCollections.observableArrayList();
     }
 
     @Override
@@ -114,10 +125,27 @@ public class AdminViewController implements Initializable {
         GPATableColumn.setCellValueFactory(new PropertyValueFactory<>("GPA"));
 
         // Allows application to detect when rows are double clicked.
-        adminTableView.setRowFactory(row -> buildRowWithEvent());
-        adminTableView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+        studentTableView.setRowFactory(row -> buildRowWithEvent());
+        studentTableView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 
         syncTable();
+
+        FilteredList<Student> filteredData = new FilteredList<>(students, p -> true);
+        searchTextField.textProperty().addListener((observable, oldValue, newValue) ->
+                filteredData.setPredicate(student -> {
+                    // If search bar is empty, all elements will be displayed.
+                    if (newValue == null || newValue.isEmpty()) {
+                        return true;
+                    }
+                    String lowerCaseFilter = newValue.toLowerCase();
+                    return student.getFirstName().toLowerCase().contains(lowerCaseFilter) ||
+                            student.getLastName().toLowerCase().contains(lowerCaseFilter) ||
+                            student.getUserName().toLowerCase().contains(lowerCaseFilter);
+                }));
+
+        SortedList<Student> sortedData = new SortedList<>(filteredData);
+        sortedData.comparatorProperty().bind(studentTableView.comparatorProperty());
+        studentTableView.setItems(sortedData);
     }
 
     /**
@@ -170,7 +198,7 @@ public class AdminViewController implements Initializable {
         try (SQLConnection connection = new SQLConnection()) {
             connection.getAllUsers()
                     .get("students")
-                    .forEach(user -> adminTableView.getItems().add((Student) user));
+                    .forEach(user -> students.add((Student) user));
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
