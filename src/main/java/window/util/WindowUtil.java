@@ -10,6 +10,7 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.image.Image;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import main.java.users.students.Course;
 import main.java.users.students.Grade;
 import main.java.users.students.Student;
@@ -58,6 +59,7 @@ public abstract class WindowUtil {
             FXMLLoader loader = new FXMLLoader(WindowUtil.class.getResource("/fxml/editcourse.fxml"));
             Parent root = loader.load();
             Stage stage = buildStage(root, "Create Course");
+            stage.initStyle(StageStyle.UTILITY);
             stage.showAndWait();
             return loader.getController();
         } catch (IOException ex) {
@@ -73,6 +75,7 @@ public abstract class WindowUtil {
             Parent root = loader.load();
             loader.<EditCourseController>getController().init(course);
             Stage stage = buildStage(root, "Edit Course");
+            stage.initStyle(StageStyle.UTILITY);
             stage.showAndWait();
             return loader.getController();
         } catch (IOException ex) {
@@ -87,6 +90,7 @@ public abstract class WindowUtil {
             FXMLLoader loader = new FXMLLoader(WindowUtil.class.getResource("/fxml/editgrade.fxml"));
             Parent root = loader.load();
             Stage stage = buildStage(root, "Create Grade");
+            stage.initStyle(StageStyle.UTILITY);
             stage.showAndWait();
             return loader.getController();
         } catch (IOException ex) {
@@ -116,6 +120,7 @@ public abstract class WindowUtil {
             FXMLLoader loader = new FXMLLoader(WindowUtil.class.getResource("/fxml/editstudent.fxml"));
             Parent root = loader.load();
             Stage stage = buildStage(root, "Create Student");
+            stage.initStyle(StageStyle.UTILITY);
             stage.showAndWait();
             return loader.getController();
         } catch (IOException ex) {
@@ -131,6 +136,7 @@ public abstract class WindowUtil {
             Parent root = loader.load();
             loader.<EditStudentController>getController().init(student, true);
             Stage stage = buildStage(root, "Edit Student");
+            stage.initStyle(StageStyle.UTILITY);
             stage.showAndWait();
             return loader.getController();
         } catch (IOException ex) {
@@ -159,6 +165,7 @@ public abstract class WindowUtil {
             Parent root = loader.load();
             loader.<CourseViewController>getController().init(course);
             Stage stage = buildStage(root, course.getName());
+            stage.initStyle(StageStyle.UTILITY);
             stage.showAndWait();
         } catch (IOException ex) {
             ex.printStackTrace();
@@ -193,7 +200,6 @@ public abstract class WindowUtil {
      * @param path       Path to the .fxml file.
      * @param stage      The stage that will be sed to display the window.
      * @param controller The controller that will be used to display the given stage.
-     * @param <T>
      * @return The controller of the stage.
      */
     @Nullable
