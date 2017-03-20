@@ -1,4 +1,4 @@
-package tests.groovy
+package test
 
 import main.java.users.students.Course
 import main.java.users.students.Grade

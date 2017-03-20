@@ -1,4 +1,4 @@
-package tests.groovy
+package test
 
 import main.java.security.util.HashingUtil
 

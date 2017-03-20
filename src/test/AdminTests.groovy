@@ -1,4 +1,4 @@
-package tests.groovy
+package test
 
 import main.java.users.Admin
 import main.java.users.students.Student

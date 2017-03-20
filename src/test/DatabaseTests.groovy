@@ -1,4 +1,4 @@
-package tests.groovy
+package test
 
 import main.java.database.FailedLoginException
 import main.java.database.SQLConnection
