@@ -45,4 +45,4 @@ void populateDatabase(int count) {
 }
 
 // Will place 5 randomly generated users in database.
-populateDatabase(5)
+// populateDatabase(5)
