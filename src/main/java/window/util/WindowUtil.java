@@ -24,6 +24,13 @@ import java.util.Optional;
  * Contains tools for window management and display windows with ease.
  */
 public abstract class WindowUtil {
+    /**
+     * Helper function for generating a stage object.
+     *
+     * @param root  The scene that will be displayed through the stage.
+     * @param title The title the stage will have.
+     * @return The created stage object.
+     */
     private static Stage buildStage(Parent root, String title) {
         Stage stage = new Stage();
         stage.setScene(new Scene(root));
@@ -159,7 +166,7 @@ public abstract class WindowUtil {
         return null;
     }
 
-    public static void displayCourseView(Course course){
+    public static void displayCourseView(Course course) {
         try {
             FXMLLoader loader = new FXMLLoader(WindowUtil.class.getResource("/fxml/courseview.fxml"));
             Parent root = loader.load();

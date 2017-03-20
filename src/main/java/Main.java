@@ -28,7 +28,8 @@ public class Main extends Application {
         // Launches application login screen.
         LoginController controller = WindowUtil.displayLogin();
 
-        // If login was successful, open the correct primary window.
+        // If login was successful update user's last login property
+        // and open the correct primary window.
         if (controller != null && controller.getLoggedInUser().isPresent()) {
             User loggedInUser = controller.getLoggedInUser().get();
             updateLoginTime(loggedInUser);
@@ -55,6 +56,12 @@ public class Main extends Application {
         super.stop();
     }
 
+    /**
+     * Updates a given user instance's last login time property
+     * with the current time and pushes this update to the database.
+     *
+     * @param user The user instance that will be updated.
+     */
     private void updateLoginTime(User user) {
         user.setLastLoginTime(LocalDateTime.now());
         try (SQLConnection connection = new SQLConnection()) {
