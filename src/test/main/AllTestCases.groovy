@@ -1,4 +1,4 @@
-package test
+package test.main
 
 import junit.framework.Test
 

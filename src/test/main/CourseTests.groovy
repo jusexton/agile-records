@@ -1,4 +1,4 @@
-package test
+package test.main
 
 import main.java.users.students.Course
 import main.java.users.students.Grade

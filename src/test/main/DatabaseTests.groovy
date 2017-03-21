@@ -1,4 +1,4 @@
-package test
+package test.main
 
 import main.java.database.FailedLoginException
 import main.java.database.SQLConnection

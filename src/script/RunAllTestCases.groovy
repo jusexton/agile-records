@@ -1,7 +1,7 @@
 package script
 
 import junit.textui.TestRunner
-import test.AllTestCases
+import test.main.AllTestCases
 
 /**
  * Runs all test cases provided by the AllTestCases class.

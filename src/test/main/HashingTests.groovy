@@ -1,4 +1,4 @@
-package test
+package test.main
 
 import main.java.security.util.HashingUtil
 
