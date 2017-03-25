@@ -57,6 +57,8 @@ public class LoginController implements Initializable {
 
         if (checkBox.isSelected()) {
             preferences.put("Last Username", textField.getText());
+        } else {
+            preferences.remove("Last Username");
         }
         preferences.putBoolean("Use Username", checkBox.isSelected());
     }

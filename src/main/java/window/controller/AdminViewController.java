@@ -141,7 +141,8 @@ public class AdminViewController implements Initializable {
                     return student.getFirstName().toLowerCase().contains(lowerCaseFilter) ||
                             student.getLastName().toLowerCase().contains(lowerCaseFilter) ||
                             student.getUserName().toLowerCase().contains(lowerCaseFilter);
-                }));
+                })
+        );
 
         SortedList<Student> sortedData = new SortedList<>(filteredData);
         sortedData.comparatorProperty().bind(studentTableView.comparatorProperty());
