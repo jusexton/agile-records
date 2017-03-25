@@ -25,10 +25,7 @@ public class Course {
     }
 
     public int getAverage() {
-        double total = 0;
-        for (Grade grade : grades) {
-            total += grade.getScore();
-        }
+        double total = getTotalScore();
 
         total /= grades.size();
         if (total >= 90) {

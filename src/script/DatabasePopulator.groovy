@@ -13,6 +13,16 @@ import java.sql.SQLException
  * and insert them into database.
  */
 
+class Constants {
+    final static String[] COURSE_NAMES = [
+            "MATH 2301",
+            "MATH 2302",
+            "CS 3302",
+            "PHYS 4301",
+            "ENGL 3301"]
+}
+
+
 static int getRandomInt(int min, int max) {
     return Math.abs(new Random().nextInt() % max + min)
 }
@@ -28,15 +38,29 @@ static Student generateStudent() {
     // TODO: Add generated courses.
 }
 
+// Note: Does not assign a time a the generated course.
 static Course generateCourse() {
-    // TODO: Randomly generate course instance with realistic values.
+    // Credit hours hard coded to 3 because all courses in
+    // COURSE_NAMES have 3 credit hours.
+    Course course = new Course(
+            Constants.COURSE_NAMES[getRandomInt(0, Constants.COURSE_NAMES.length)],
+            3,
+            getRandomInt(10000, 99999))
+
+    // Randomly adds 0-10 grades to the course
+    int gradeCount = getRandomInt(0, 10)
+    gradeCount.times {
+        course.getGrades().add(generateGrade())
+    }
+    return course
 }
 
+// Note: Does not assign a name the generated grade.
 static Grade generateGrade() {
     // Get random GradeType value.
     GradeType[] gradeTypes = GradeType.values()
     GradeType type = gradeTypes[getRandomInt(0, gradeTypes.length)]
-    // TODO: Randomly generate grade instance.
+    return new Grade(getRandomDouble(50, 100), type)
 }
 
 /**
