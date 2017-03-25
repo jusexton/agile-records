@@ -72,6 +72,7 @@ static Grade generateGrade() {
 static void populateDatabase(int count) {
     try {
         SQLConnection connection = new SQLConnection()
+        // Add count number of students.
         count.times {
             connection.addUser(generateStudent())
         }
@@ -80,5 +81,5 @@ static void populateDatabase(int count) {
     }
 }
 
-// Will place 5 randomly generated users in database.
+// Places 5 randomly generated users in database.
 // populateDatabase(5)
