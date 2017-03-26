@@ -92,5 +92,5 @@ static void populateDatabase(int count) {
     }
 }
 
-// Places 5 randomly generated users in database.
+// Places n number of randomly generated users in database.
 populateDatabase(100)
