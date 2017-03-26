@@ -34,7 +34,7 @@ public class Main extends Application {
             User loggedInUser = controller.getLoggedInUser().get();
             updateLoginTime(loggedInUser);
             String path = loggedInUser instanceof Student ?
-                    "/fxml/studentview.fxml" : "/fxml/adminview.fxml";
+                    "/fxml/student-view.fxml" : "/fxml/admin-view.fxml";
 
             FXMLLoader loader = new FXMLLoader(getClass().getResource(path));
             Parent root = loader.load();

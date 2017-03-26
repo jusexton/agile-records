@@ -63,7 +63,7 @@ public abstract class WindowUtil {
     @Nullable
     public static EditCourseController displayCreateCourse() {
         try {
-            FXMLLoader loader = new FXMLLoader(WindowUtil.class.getResource("/fxml/editcourse.fxml"));
+            FXMLLoader loader = new FXMLLoader(WindowUtil.class.getResource("/fxml/edit-course.fxml"));
             Parent root = loader.load();
             Stage stage = buildStage(root, "Create Course");
             stage.initStyle(StageStyle.UTILITY);
@@ -78,7 +78,7 @@ public abstract class WindowUtil {
     @Nullable
     public static EditCourseController displayEditCourse(Course course) {
         try {
-            FXMLLoader loader = new FXMLLoader(WindowUtil.class.getResource("/fxml/editcourse.fxml"));
+            FXMLLoader loader = new FXMLLoader(WindowUtil.class.getResource("/fxml/edit-course.fxml"));
             Parent root = loader.load();
             loader.<EditCourseController>getController().init(course);
             Stage stage = buildStage(root, "Edit Course");
@@ -94,7 +94,7 @@ public abstract class WindowUtil {
     @Nullable
     public static EditGradeController displayCreateGrade() {
         try {
-            FXMLLoader loader = new FXMLLoader(WindowUtil.class.getResource("/fxml/editgrade.fxml"));
+            FXMLLoader loader = new FXMLLoader(WindowUtil.class.getResource("/fxml/edit-grade.fxml"));
             Parent root = loader.load();
             Stage stage = buildStage(root, "Create Grade");
             stage.initStyle(StageStyle.UTILITY);
@@ -109,7 +109,7 @@ public abstract class WindowUtil {
     @Nullable
     public static EditGradeController displayEditGrade(Grade grade) {
         try {
-            FXMLLoader loader = new FXMLLoader(WindowUtil.class.getResource("/fxml/editgrade.fxml"));
+            FXMLLoader loader = new FXMLLoader(WindowUtil.class.getResource("/fxml/edit-grade.fxml"));
             Parent root = loader.load();
             loader.<EditGradeController>getController().init(grade);
             Stage stage = buildStage(root, "Edit Grade");
@@ -124,7 +124,7 @@ public abstract class WindowUtil {
     @Nullable
     public static EditStudentController displayCreateStudent() {
         try {
-            FXMLLoader loader = new FXMLLoader(WindowUtil.class.getResource("/fxml/editstudent.fxml"));
+            FXMLLoader loader = new FXMLLoader(WindowUtil.class.getResource("/fxml/edit-student.fxml"));
             Parent root = loader.load();
             Stage stage = buildStage(root, "Create Student");
             stage.initStyle(StageStyle.UTILITY);
@@ -139,7 +139,7 @@ public abstract class WindowUtil {
     @Nullable
     public static EditStudentController displayEditStudent(Student student) {
         try {
-            FXMLLoader loader = new FXMLLoader(WindowUtil.class.getResource("/fxml/editstudent.fxml"));
+            FXMLLoader loader = new FXMLLoader(WindowUtil.class.getResource("/fxml/edit-student.fxml"));
             Parent root = loader.load();
             loader.<EditStudentController>getController().init(student, true);
             Stage stage = buildStage(root, "Edit Student");
@@ -168,7 +168,7 @@ public abstract class WindowUtil {
 
     public static void displayCourseView(Course course) {
         try {
-            FXMLLoader loader = new FXMLLoader(WindowUtil.class.getResource("/fxml/courseview.fxml"));
+            FXMLLoader loader = new FXMLLoader(WindowUtil.class.getResource("/fxml/course-view.fxml"));
             Parent root = loader.load();
             loader.<CourseViewController>getController().init(course);
             Stage stage = buildStage(root, course.getName());
