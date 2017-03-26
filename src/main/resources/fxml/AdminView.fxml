@@ -14,7 +14,7 @@
 
 <VBox alignment="TOP_LEFT" prefHeight="702.0" prefWidth="996.0" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.java.window.controller.AdminViewController">
     <children>
-        <SplitPane fx:id="splitPane" dividerPositions="0.6096579476861167" prefHeight="160.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+        <SplitPane fx:id="splitPane" dividerPositions="0.613682092555332" prefHeight="160.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
             <items>
                 <AnchorPane prefHeight="200.0" prefWidth="200.0">
                     <children>
@@ -33,7 +33,7 @@
                         <Label layoutX="404.0" layoutY="6.0" text="Search: " />
                     </children>
                 </AnchorPane>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="638.0" prefWidth="393.0" />
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="638.0" prefWidth="371.0" />
             </items>
         </SplitPane>
         <ButtonBar prefHeight="40.0" prefWidth="200.0">
