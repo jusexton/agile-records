@@ -10,6 +10,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import main.java.users.students.Course;
 import main.java.users.students.Grade;
+import main.java.util.MathUtil;
 import main.java.window.util.WindowUtil;
 
 import java.net.URL;
@@ -84,7 +85,7 @@ public class CourseViewController implements Initializable {
         }
 
         gpaLabel.setText(String.valueOf(course.getAverage()));
-        String score = String.format("%s / %s", course.getTotalScore(), (double) course.getGrades().size() * 100);
+        String score = String.format("%s / %s", MathUtil.round(course.getTotalScore(), 2), (double) course.getGrades().size() * 100);
         scoreLabel.setText(score);
 
         gradeTableView.getItems().addAll(course.getGrades());

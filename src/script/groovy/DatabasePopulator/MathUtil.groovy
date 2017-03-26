@@ -5,10 +5,10 @@ package script.groovy.DatabasePopulator
  */
 class MathUtil {
     static int getRandomInt(int min, int max) {
-        return Math.abs(new Random().nextInt() % max + min)
+        return new Random().nextInt(max + 1 - min) + min
     }
 
-    static double getRandomDouble(int min, int max) {
+    static double getRandomDouble(double min, double max) {
         return min + (max - min) * new Random().nextDouble()
     }
 }

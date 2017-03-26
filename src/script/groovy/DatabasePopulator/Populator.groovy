@@ -34,7 +34,7 @@ static Student generateStudent() {
     student.setEmail(username + "@email.com")
 
     Major[] majors = Major.values()
-    Major major = majors[MathUtil.getRandomInt(0, majors.length)]
+    Major major = majors[MathUtil.getRandomInt(0, majors.length - 1)]
     student.setMajor(major)
 
     int courseCount = MathUtil.getRandomInt(1, 5)
@@ -54,7 +54,7 @@ static Course generateCourse() {
     // Credit hours hard coded to 3 because all courses in
     // COURSE_NAMES have 3 credit hours.
     Course course = new Course(
-            Constants.COURSE_NAMES[MathUtil.getRandomInt(0, Constants.COURSE_NAMES.length)],
+            Constants.COURSE_NAMES[MathUtil.getRandomInt(0, Constants.COURSE_NAMES.length - 1)],
             3,
             MathUtil.getRandomInt(10000, 99999))
 
@@ -70,10 +70,11 @@ static Course generateCourse() {
 static Grade generateGrade() {
     // Get random GradeType value.
     GradeType[] gradeTypes = GradeType.values()
-    GradeType type = gradeTypes[MathUtil.getRandomInt(0, gradeTypes.length)]
+    GradeType type = gradeTypes[MathUtil.getRandomInt(0, gradeTypes.length - 1)]
     return new Grade(MathUtil.getRandomDouble(50, 100), type)
 }
 
+// TODO: Possibly create addUsers function to speed process up.
 /**
  * @param count The number of users that will be generated and added
  * to the database.
@@ -84,6 +85,7 @@ static void populateDatabase(int count) {
         // Add count number of students.
         count.times {
             connection.addUser(generateStudent())
+            println("Student Added")
         }
     } catch (SQLException ex) {
         ex.printStackTrace()
@@ -91,4 +93,4 @@ static void populateDatabase(int count) {
 }
 
 // Places 5 randomly generated users in database.
-// populateDatabase(5)
+populateDatabase(100)

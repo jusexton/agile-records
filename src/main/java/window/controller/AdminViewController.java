@@ -85,6 +85,7 @@ public class AdminViewController implements Initializable {
         }
     }
 
+    // TODO: BUG: Still displays student in right pane even if removed from table.
     @FXML
     private void handleRemoveButtonAction(ActionEvent event) {
         // Confirm user decision.
@@ -106,6 +107,7 @@ public class AdminViewController implements Initializable {
     @FXML
     private void handleRefreshButtonAction(ActionEvent event) {
         students.clear();
+        splitPane.getItems().set(1, null);
         syncTable();
     }
 

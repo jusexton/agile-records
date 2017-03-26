@@ -21,8 +21,8 @@
                             </font>
                         </Label>
                         <Label fx:id="nameLabel" layoutX="102.0" layoutY="14.0" text="Student" AnchorPane.leftAnchor="102.0" />
-                        <Label fx:id="majorLabel" layoutX="651.0" layoutY="14.0" prefHeight="17.0" prefWidth="114.0" text="Major" AnchorPane.rightAnchor="3.0" />
-                        <Label layoutX="610.0" layoutY="14.0" text="Major: " AnchorPane.rightAnchor="117.0">
+                        <Label fx:id="majorLabel" layoutX="614.0" layoutY="14.0" prefHeight="17.0" prefWidth="151.0" text="Major" AnchorPane.rightAnchor="3.0" />
+                        <Label layoutX="573.0" layoutY="14.0" text="Major: " AnchorPane.rightAnchor="154.0">
                             <font>
                                 <Font name="System Bold" size="12.0" />
                             </font>
@@ -33,12 +33,12 @@
                             </font>
                         </Label>
                         <Label fx:id="idLabel" layoutX="85.0" layoutY="39.0" text="ID" AnchorPane.leftAnchor="85.0" />
-                        <Label layoutX="610.0" layoutY="39.0" text="Overall GPA: " AnchorPane.rightAnchor="83.0">
+                        <Label layoutX="573.0" layoutY="39.0" text="Overall GPA: " AnchorPane.rightAnchor="120.0">
                             <font>
                                 <Font name="System Bold" size="12.0" />
                             </font>
                         </Label>
-                        <Label fx:id="gpaLabel" layoutX="685.0" layoutY="39.0" text="GPA" AnchorPane.rightAnchor="60.0" />
+                        <Label fx:id="gpaLabel" layoutX="648.0" layoutY="39.0" text="GPA" AnchorPane.rightAnchor="97.0" />
                     </children>
                 </AnchorPane>
                 <TableView fx:id="courseViewTable" prefHeight="201.0" prefWidth="768.0" VBox.vgrow="ALWAYS">

@@ -11,16 +11,21 @@ import script.groovy.DatabasePopulator.MathUtil
 class DatabasePopulatorTests extends GroovyTestCase {
     // Passed
     void testGetRandomInt() {
-        int randomInt = MathUtil.getRandomInt(0, 100)
+        int min = 0
+        int max = 10
+        int randomInt = MathUtil.getRandomInt(min, max)
         // println(randomInt)
-        assertTrue(randomInt >= 0 && randomInt <= 100)
+        assertTrue(randomInt >= min && randomInt <= max)
+
     }
 
     // Passed
     void testGetRandomDouble() {
-        double randomDouble = MathUtil.getRandomDouble(0, 100)
+        int min = 0.0
+        int max = 100.5
+        double randomDouble = MathUtil.getRandomDouble(min, max)
         // println(randomDouble)
-        assertTrue(randomDouble >= 0 && randomDouble <= 100)
+        assertTrue(randomDouble >= min && randomDouble <= max)
 
     }
 
@@ -37,11 +42,14 @@ class DatabasePopulatorTests extends GroovyTestCase {
         def grades = testCourse.getGrades()
         // grades.forEach { grade -> println(grade.getScore()) }
         assertTrue(grades.size() >= 0 && grades.size() <= 20)
+        assertTrue(testCourse.getCRN() >= 10000 && testCourse.getCRN() <= 99999)
     }
 
-    // PASS
+    // Passed
     void testGenerateStudent() {
         Student testStudent = Populator.generateStudent()
+        println(testStudent.firstName)
+        println(testStudent.lastName)
         def courses = testStudent.getCourses()
         // courses.forEach { course -> println(course.getName())}
         assertTrue(courses.size() >= 1 && courses.size() <= 5)
