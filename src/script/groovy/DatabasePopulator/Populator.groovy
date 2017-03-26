@@ -18,7 +18,6 @@ import java.sql.SQLException
 
 static Student generateStudent() {
     // TODO: Fix bug not allowing resources to be loaded.
-    println(getClass().getResource("/first-names.txt").getPath())
     String firstName = getRandomElement()
     String lastName = getRandomElement()
     String username = firstName.substring(0, 1) + lastName
