@@ -12,6 +12,7 @@ import java.util.Random;
  * Contains tools for hashing operations.
  */
 public abstract class HashingUtil {
+    private static Random random = new Random();
     /**
      * Overloaded hash function. Uses no salt.
      *
@@ -58,26 +59,23 @@ public abstract class HashingUtil {
      * Overloaded generateSalt function. Sets salt length to 20 and uses all characters
      * when generating the salt.
      *
-     * @param random A random object.
      * @return Randomly generated string of all characters of length 20.
      */
     @NotNull
-    public static String generateSalt(final Random random) {
-        return generateSalt(20, random);
+    public static String generateSalt() {
+        return generateSalt(20);
     }
 
     /**
      * Overloaded generateSalt function. Sets charset to all characters.
      *
      * @param length The length of the generated string.
-     * @param random A random object.
      * @return Randomly generated string.
      */
     @NotNull
-    public static String generateSalt(final int length, final Random random) {
+    public static String generateSalt(final int length) {
         return generateSalt(length,
-                "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxy0123456789!@#$%^&*()_+=-[]{};':,.<>/?`~|\\ ",
-                random);
+                "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxy0123456789!@#$%^&*()_+=-[]{};':,.<>/?`~|\\ ");
     }
 
     /**
@@ -85,11 +83,10 @@ public abstract class HashingUtil {
      *
      * @param length  The length of the generated string.
      * @param charset The charset that will be used when generating the string.
-     * @param random  A random object.
      * @return Randomly generated string.
      */
     @NotNull
-    public static String generateSalt(final int length, final String charset, final Random random) {
+    public static String generateSalt(final int length, final String charset) {
         return random.ints(length, 0, charset.length())
                 .boxed()
                 .map(i -> charset.substring(i, i + 1))

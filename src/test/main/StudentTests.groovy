@@ -16,7 +16,7 @@ class StudentTests extends GroovyTestCase {
     @BeforeClass
     static void getTestStudent() {
         // Create test course one.
-        Course courseOne = new Course("Math 2302", 4, 12345)
+        Course courseOne = new Course("MathUtil 2302", 4, 12345)
         courseOne.getGrades().add(new Grade(60, GradeType.Test))
         courseOne.getGrades().add(new Grade(70, GradeType.Test))
         courseOne.getGrades().add(new Grade(50, GradeType.Test))
@@ -27,7 +27,7 @@ class StudentTests extends GroovyTestCase {
         courseOne.getGrades().add(new Grade(60, GradeType.Test))
 
         // Create test course two.
-        Course courseTwo = new Course("Math 2304", 3, 54321)
+        Course courseTwo = new Course("MathUtil 2304", 3, 54321)
         courseOne.getGrades().add(new Grade(50, GradeType.Test))
         courseOne.getGrades().add(new Grade(40, GradeType.Test))
         courseOne.getGrades().add(new Grade(30, GradeType.Test))
@@ -38,7 +38,7 @@ class StudentTests extends GroovyTestCase {
         courseOne.getGrades().add(new Grade(10, GradeType.Test))
 
         // Create test course three.
-        Course courseThree = new Course("Math 2305", 4, 53621)
+        Course courseThree = new Course("MathUtil 2305", 4, 53621)
         courseOne.getGrades().add(new Grade(20, GradeType.Test))
         courseOne.getGrades().add(new Grade(30, GradeType.Test))
         courseOne.getGrades().add(new Grade(40, GradeType.Test))

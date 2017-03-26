@@ -29,6 +29,15 @@ public abstract class MathUtil {
         return true;
     }
 
+    public static boolean isDouble(String value){
+        try {
+            double d = Double.parseDouble(value);
+        } catch (NumberFormatException ex){
+            return false;
+        }
+        return true;
+    }
+
     public static boolean isNumeric(String value){
         return value.matches("[-+]?\\d*\\.?\\d+");
     }

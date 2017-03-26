@@ -1,7 +1,6 @@
 package test
 
 import junit.framework.Test
-import script.DatabasePopulator
 import test.main.AdminTests
 import test.main.CourseTests
 import test.main.DatabaseTests

@@ -185,11 +185,11 @@ public class EditStudentController implements Initializable {
             if (editMode) {
                 student.setUserName(usernameTextField.getText());
                 if (!passwordField.getText().isEmpty()) {
-                    String salt = HashingUtil.generateSalt(20, new Random());
+                    String salt = HashingUtil.generateSalt(20);
                     student.setPassword(HashingUtil.hash(passwordField.getText(), "SHA-512", salt));
                 }
             } else {
-                String salt = HashingUtil.generateSalt(20, new Random());
+                String salt = HashingUtil.generateSalt(20);
                 Hash hash = HashingUtil.hash(passwordField.getText(), "SHA-512", salt);
                 student = new Student(usernameTextField.getText(), hash);
             }

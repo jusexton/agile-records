@@ -24,7 +24,7 @@ class CourseTests extends GroovyTestCase {
 
     @BeforeClass
     static void createTestCourse() {
-        Course testCourse = new Course("Math 2302", 4, 12345)
+        Course testCourse = new Course("MathUtil 2302", 4, 12345)
 
         Grade gradeOne = new Grade(90, GradeType.Test)
         Grade gradeTwo = new Grade(90, GradeType.Test)

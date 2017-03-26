@@ -17,7 +17,8 @@ class HashingTests extends GroovyTestCase {
      */
     void testSaltLength() {
         def length = 20
-        String salt = HashingUtil.generateSalt(length, "abc", new Random())
+        String salt = HashingUtil.generateSalt(length, "abc")
+        println(salt)
         assertLength(length, salt.toCharArray())
     }
 
@@ -28,7 +29,7 @@ class HashingTests extends GroovyTestCase {
      */
     void testSaltCharset() {
         String charset = "abc"
-        String salt = HashingUtil.generateSalt(20, charset, new Random())
+        String salt = HashingUtil.generateSalt(20, charset)
         assertTrue(salt.matches("^[" + charset + "_]+"))
     }
 
@@ -42,7 +43,7 @@ class HashingTests extends GroovyTestCase {
         final limiter = 1000
         // Generates 1000 salts, none of which should be
         // filtered out with the distinct() call.
-        def saltCount = Stream.generate { HashingUtil.generateSalt(20, "abc", new Random()) }
+        def saltCount = Stream.generate { HashingUtil.generateSalt(20, "abc") }
                 .limit(limiter)
                 .distinct()
                 .count()
@@ -71,7 +72,7 @@ class HashingTests extends GroovyTestCase {
      */
     void testHashSameSalt() {
         String algorithm = "SHA-256"
-        String salt = HashingUtil.generateSalt(20, "abc", new Random())
+        String salt = HashingUtil.generateSalt(20, "abc")
         def hashOne = HashingUtil.hash("test_password", algorithm, salt)
         def hashTwo = HashingUtil.hash("different_password", algorithm, salt)
 

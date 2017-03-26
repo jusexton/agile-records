@@ -1,4 +1,4 @@
-package script
+package script.groovy
 
 import junit.textui.TestRunner
 import test.AllTestCases
