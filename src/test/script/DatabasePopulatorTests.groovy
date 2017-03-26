@@ -36,10 +36,10 @@ class DatabasePopulatorTests extends GroovyTestCase {
         Course testCourse = Populator.generateCourse()
         def grades = testCourse.getGrades()
         // grades.forEach { grade -> println(grade.getScore()) }
-        assertTrue(grades.size() >= 0 && grades.size() <= 10)
+        assertTrue(grades.size() >= 0 && grades.size() <= 20)
     }
 
-    // FAIL
+    // PASS
     void testGenerateStudent() {
         Student testStudent = Populator.generateStudent()
         def courses = testStudent.getCourses()

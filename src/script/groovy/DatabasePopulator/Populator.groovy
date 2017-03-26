@@ -17,9 +17,14 @@ import java.sql.SQLException
  */
 
 static Student generateStudent() {
-    // TODO: Fix bug not allowing resources to be loaded.
-    String firstName = getRandomElement()
-    String lastName = getRandomElement()
+    String firstName = getRandomElement(new File(Populator.class
+            .getResource("/names/first-names.txt")
+            .toURI())
+            .readLines())
+    String lastName = getRandomElement(new File(Populator.class
+            .getResource("/names/last-names.txt")
+            .toURI())
+            .readLines())
     String username = firstName.substring(0, 1) + lastName
     Hash password = HashingUtil.hash(Constants.PASSWORD, "SHA-512", HashingUtil.generateSalt())
     Student student = new Student(username, password)
