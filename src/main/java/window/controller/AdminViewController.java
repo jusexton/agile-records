@@ -21,7 +21,6 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.List;
-import java.util.Optional;
 import java.util.ResourceBundle;
 
 /**
@@ -30,6 +29,7 @@ import java.util.ResourceBundle;
 public class AdminViewController implements Initializable {
     private Admin loggedInAdmin;
     private ObservableList<Student> students;
+    private StudentViewController studentViewController;
 
     @FXML
     private SplitPane splitPane;
@@ -69,34 +69,12 @@ public class AdminViewController implements Initializable {
         // Make sure student object was returned
         if (controller != null && controller.getStudent().isPresent()) {
             // Confirm user decision.
-            Optional<ButtonType> result = WindowUtil.displayConfirmationAlert();
-            if (result.isPresent()) {
-                if (result.get() == ButtonType.OK) {
-                    // Commence add procedure
-                    Student student = controller.getStudent().get();
-                    students.add(student);
-                    try (SQLConnection connection = new SQLConnection()) {
-                        connection.addUser(student);
-                    } catch (SQLException ex) {
-                        ex.printStackTrace();
-                    }
-                }
-            }
-        }
-    }
-
-    // TODO: BUG: Still displays student in right pane even if removed from table.
-    @FXML
-    private void handleRemoveButtonAction(ActionEvent event) {
-        // Confirm user decision.
-        Optional<ButtonType> result = WindowUtil.displayConfirmationAlert();
-        if (result.isPresent()) {
-            if (result.get() == ButtonType.OK) {
-                // Execute remove procedure
-                List<Student> selectedStudents = studentTableView.getSelectionModel().getSelectedItems();
+            if (WindowUtil.displayConfirmationAlert()) {
+                // Commence add procedure
+                Student student = controller.getStudent().get();
+                students.add(student);
                 try (SQLConnection connection = new SQLConnection()) {
-                    selectedStudents.forEach(student -> connection.removeUserById(student.getID()));
-                    students.removeAll(selectedStudents);
+                    connection.addUser(student);
                 } catch (SQLException ex) {
                     ex.printStackTrace();
                 }
@@ -105,9 +83,32 @@ public class AdminViewController implements Initializable {
     }
 
     @FXML
+    private void handleRemoveButtonAction(ActionEvent event) {
+        // Confirm user decision.
+        if (WindowUtil.displayConfirmationAlert()) {
+            // Execute remove procedure
+            List<Student> selectedStudents = studentTableView.getSelectionModel().getSelectedItems();
+            try (SQLConnection connection = new SQLConnection()) {
+                selectedStudents.forEach(student -> {
+                    connection.removeUserById(student.getID());
+                    // Checks if a removed student is being displayed.
+                    // Sets student display to nothing if so.
+                    if (studentViewController.getDisplayedStudent()
+                            .getUserName()
+                            .equals(student.getUserName())){
+                        splitPane.getItems().set(1, new AnchorPane());
+                    }
+                });
+                students.removeAll(selectedStudents);
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        }
+    }
+
+    @FXML
     private void handleRefreshButtonAction(ActionEvent event) {
         students.clear();
-        splitPane.getItems().set(1, null);
         syncTable();
     }
 
@@ -187,6 +188,7 @@ public class AdminViewController implements Initializable {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/student-view.fxml"));
             AnchorPane root = loader.load();
             loader.<StudentViewController>getController().init(student, true);
+            studentViewController = loader.getController();
             splitPane.getItems().set(1, root);
         } catch (IOException ex) {
             ex.printStackTrace();

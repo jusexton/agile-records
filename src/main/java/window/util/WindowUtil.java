@@ -52,12 +52,19 @@ public abstract class WindowUtil {
         stage.close();
     }
 
-    public static Optional<ButtonType> displayConfirmationAlert() {
+    public static boolean displayConfirmationAlert() {
+        boolean confirmation = false;
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Commit");
         alert.setHeaderText("Commit Change?");
         alert.setContentText("Executing this action will edit the database and will not be reversible.");
-        return alert.showAndWait();
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.isPresent()){
+            if (result.get() == ButtonType.OK) {
+                confirmation = true;
+            }
+        }
+        return confirmation;
     }
 
     @Nullable

@@ -71,7 +71,7 @@ static Grade generateGrade() {
     // Get random GradeType value.
     GradeType[] gradeTypes = GradeType.values()
     GradeType type = gradeTypes[MathUtil.getRandomInt(0, gradeTypes.length - 1)]
-    return new Grade(MathUtil.getRandomDouble(50, 100), type)
+    return new Grade(main.java.util.MathUtil.round(MathUtil.getRandomDouble(50, 100), 2), type)
 }
 
 // TODO: Possibly create addUsers function to speed process up.
@@ -85,12 +85,13 @@ static void populateDatabase(int count) {
         // Add count number of students.
         count.times {
             connection.addUser(generateStudent())
-            println("Student Added")
         }
     } catch (SQLException ex) {
         ex.printStackTrace()
     }
 }
 
+println("Adding Students...")
 // Places n number of randomly generated users in database.
-populateDatabase(100)
+populateDatabase(1000)
+println("Done.")

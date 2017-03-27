@@ -18,7 +18,6 @@ import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.Optional;
-import java.util.Random;
 import java.util.ResourceBundle;
 
 /**
@@ -86,12 +85,9 @@ public class EditStudentController implements Initializable {
                 displayErrorLabel("Required Field(s) Blank");
             } else {
                 if (this.student.getUserName().equals(usernameTextField.getText()) || usernameIsAvailable()) {
-                    Optional<ButtonType> result = WindowUtil.displayConfirmationAlert();
-                    if (result.isPresent()) {
-                        if (result.get() == ButtonType.OK) {
-                            createStudent();
-                            WindowUtil.closeWindow(event);
-                        }
+                    if (WindowUtil.displayConfirmationAlert()) {
+                        createStudent();
+                        WindowUtil.closeWindow(event);
                     }
                 }
             }
