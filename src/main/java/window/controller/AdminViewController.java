@@ -1,6 +1,7 @@
 package main.java.window.controller;
 
 import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
@@ -60,6 +61,8 @@ public class AdminViewController implements Initializable {
     @FXML
     private Button refreshButton;
     @FXML
+    private Label studentCountLabel;
+    @FXML
     private Label usernameLabel;
 
     @FXML
@@ -93,10 +96,12 @@ public class AdminViewController implements Initializable {
                     connection.removeUserById(student.getID());
                     // Checks if a removed student is being displayed.
                     // Sets student display to nothing if so.
-                    if (studentViewController.getDisplayedStudent()
-                            .getUserName()
-                            .equals(student.getUserName())){
-                        splitPane.getItems().set(1, new AnchorPane());
+                    if (studentViewController != null){
+                        if (studentViewController.getDisplayedStudent()
+                                .getUserName()
+                                .equals(student.getUserName())){
+                            splitPane.getItems().set(1, new AnchorPane());
+                        }
                     }
                 });
                 students.removeAll(selectedStudents);
@@ -130,6 +135,10 @@ public class AdminViewController implements Initializable {
         // Allows application to detect when rows are double clicked.
         studentTableView.setRowFactory(row -> buildRowWithEvent());
         studentTableView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+
+        // Updates student count label on list change.
+        students.addListener((ListChangeListener<? super Student>)
+                (c -> studentCountLabel.setText(String.valueOf(students.size()))));
 
         syncTable();
 

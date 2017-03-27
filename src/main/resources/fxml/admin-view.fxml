@@ -31,6 +31,8 @@
                             </columns>
                         </TableView>
                         <Label layoutX="404.0" layoutY="6.0" text="Search: " />
+                  <Label layoutX="14.0" layoutY="6.0" text="Number of Students: " />
+                  <Label fx:id="studentCountLabel" layoutX="134.0" layoutY="6.0" prefHeight="17.0" prefWidth="83.0" text="0" />
                     </children>
                 </AnchorPane>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="638.0" prefWidth="371.0" />
