@@ -3,11 +3,8 @@ package script.groovy.DatabasePopulator
 import main.java.database.SQLConnection
 import main.java.security.Hash
 import main.java.security.util.HashingUtil
-import main.java.users.students.Course
-import main.java.users.students.Grade
-import main.java.users.students.GradeType
-import main.java.users.students.Major
-import main.java.users.students.Student
+import main.java.users.students.*
+import main.java.util.MathUtil
 
 import java.sql.SQLException
 
@@ -38,14 +35,14 @@ static Student generateStudent() {
     student.setMajor(major)
 
     int courseCount = MathUtil.getRandomInt(1, 5)
-    courseCount.times{
+    courseCount.times {
         student.getCourses().add(generateCourse())
     }
     return student
 }
 
 // Returns random element of a given list.
-static <T> String getRandomElement(List<T> list){
+static <T> String getRandomElement(List<T> list) {
     return list.get(MathUtil.getRandomInt(0, list.size()))
 }
 
@@ -71,7 +68,7 @@ static Grade generateGrade() {
     // Get random GradeType value.
     GradeType[] gradeTypes = GradeType.values()
     GradeType type = gradeTypes[MathUtil.getRandomInt(0, gradeTypes.length - 1)]
-    return new Grade(main.java.util.MathUtil.round(MathUtil.getRandomDouble(50, 100), 2), type)
+    return new Grade(MathUtil.round(MathUtil.getRandomDouble(50, 100), 2), type)
 }
 
 // TODO: Possibly create addUsers function to speed process up.
