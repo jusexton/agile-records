@@ -1,6 +1,6 @@
-package main.java.security.util;
+package security.util;
 
-import main.java.security.Hash;
+import security.Hash;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.UnsupportedEncodingException;

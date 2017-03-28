@@ -1,12 +1,12 @@
-package test.main
+package main.database
 
-import main.java.database.FailedLoginException
-import main.java.database.SQLConnection
-import main.java.users.Admin
-import main.java.users.User
-import main.java.users.students.*
-import main.java.security.Hash
-import main.java.security.util.HashingUtil
+import database.FailedLoginException
+import database.SQLConnection
+import users.Admin
+import users.User
+import users.students.*
+import security.Hash
+import security.util.HashingUtil
 import org.junit.Before
 import org.junit.BeforeClass
 import org.junit.Test

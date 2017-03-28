@@ -1,13 +1,13 @@
-package script.groovy.DatabasePopulator
+package populator
 
-import main.java.database.SQLConnection
-import main.java.security.Hash
-import main.java.security.util.HashingUtil
-import main.java.users.students.Course
-import main.java.users.students.Grade
-import main.java.users.students.GradeType
-import main.java.users.students.Major
-import main.java.users.students.Student
+import database.SQLConnection
+import security.Hash
+import security.util.HashingUtil
+import users.students.Course
+import users.students.Grade
+import users.students.GradeType
+import users.students.Major
+import users.students.Student
 
 import java.sql.SQLException
 
@@ -17,11 +17,11 @@ import java.sql.SQLException
  */
 
 static Student generateStudent() {
-    String firstName = getRandomElement(new File(Populator.class
+    String firstName = getRandomElement(new File(DatabasePopulator.class
             .getResource("/names/first-names.txt")
             .toURI())
             .readLines())
-    String lastName = getRandomElement(new File(Populator.class
+    String lastName = getRandomElement(new File(DatabasePopulator.class
             .getResource("/names/last-names.txt")
             .toURI())
             .readLines())
@@ -71,7 +71,7 @@ static Grade generateGrade() {
     // Get random GradeType value.
     GradeType[] gradeTypes = GradeType.values()
     GradeType type = gradeTypes[MathUtil.getRandomInt(0, gradeTypes.length - 1)]
-    return new Grade(main.java.util.MathUtil.round(MathUtil.getRandomDouble(50, 100), 2), type)
+    return new Grade(util.MathUtil.round(MathUtil.getRandomDouble(50, 100), 2), type)
 }
 
 // TODO: Possibly create addUsers function to speed process up.

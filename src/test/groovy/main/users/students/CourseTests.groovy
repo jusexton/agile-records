@@ -1,10 +1,10 @@
-package test.main
+package main.users.students
 
-import main.java.users.students.Course
-import main.java.users.students.Grade
-import main.java.users.students.GradeType
-import main.java.time.DateInterval
-import main.java.time.TimeInterval
+import users.students.Course
+import users.students.Grade
+import users.students.GradeType
+import time.DateInterval
+import time.TimeInterval
 import org.junit.BeforeClass
 import org.junit.Test
 import org.junit.runner.RunWith

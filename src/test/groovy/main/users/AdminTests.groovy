@@ -1,9 +1,9 @@
-package test.main
+package main.users
 
-import main.java.users.Admin
-import main.java.users.students.Student
-import main.java.security.Hash
-import main.java.security.util.HashingUtil
+import users.Admin
+import users.students.Student
+import security.Hash
+import security.util.HashingUtil
 
 /**
  * Class that will contain all tests regarding the Admin class.

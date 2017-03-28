@@ -1,4 +1,4 @@
-package main.java.window.controller;
+package window.controller;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -8,10 +8,10 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import main.java.users.students.Course;
-import main.java.users.students.Grade;
-import main.java.util.MathUtil;
-import main.java.window.util.WindowUtil;
+import users.students.Course;
+import users.students.Grade;
+import util.MathUtil;
+import window.util.WindowUtil;
 
 import java.net.URL;
 import java.time.LocalDate;

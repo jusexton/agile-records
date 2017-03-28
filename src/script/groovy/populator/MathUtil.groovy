@@ -1,4 +1,4 @@
-package script.groovy.DatabasePopulator
+package populator
 
 /**
  * Currently contains random number generation tools.

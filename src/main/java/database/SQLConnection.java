@@ -1,11 +1,11 @@
-package main.java.database;
+package database;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import main.java.users.Admin;
-import main.java.users.User;
-import main.java.users.students.Student;
-import main.java.security.Hash;
+import users.Admin;
+import users.User;
+import users.students.Student;
+import security.Hash;
 
 import java.lang.reflect.Type;
 import java.sql.*;

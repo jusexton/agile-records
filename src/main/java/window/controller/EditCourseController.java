@@ -1,16 +1,16 @@
-package main.java.window.controller;
+package window.controller;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import main.java.time.DateInterval;
-import main.java.time.TimeInterval;
-import main.java.users.students.Course;
-import main.java.users.students.Grade;
-import main.java.util.MathUtil;
-import main.java.window.util.WindowUtil;
+import time.DateInterval;
+import time.TimeInterval;
+import users.students.Course;
+import users.students.Grade;
+import util.MathUtil;
+import window.util.WindowUtil;
 
 import java.net.URL;
 import java.time.LocalTime;

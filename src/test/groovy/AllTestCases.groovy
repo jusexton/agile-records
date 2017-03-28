@@ -1,12 +1,10 @@
-package test
-
 import junit.framework.Test
-import test.main.AdminTests
-import test.main.CourseTests
-import test.main.DatabaseTests
-import test.main.HashingTests
-import test.main.StudentTests
-import test.script.DatabasePopulatorTests
+import main.users.AdminTests
+import main.users.students.CourseTests
+import main.database.DatabaseTests
+import main.security.HashingTests
+import main.users.students.StudentTests
+import script.DatabasePopulatorTests
 
 /**
  * Will act as an intersection point for all test classes.

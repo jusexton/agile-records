@@ -1,10 +1,10 @@
-package test.main
+package main.users.students
 
-import main.java.users.students.Course
-import main.java.users.students.Grade
-import main.java.users.students.GradeType
-import main.java.users.students.Student
-import main.java.security.util.HashingUtil
+import users.students.Course
+import users.students.Grade
+import users.students.GradeType
+import users.students.Student
+import security.util.HashingUtil
 import org.junit.BeforeClass
 
 /**

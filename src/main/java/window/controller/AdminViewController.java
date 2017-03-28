@@ -1,4 +1,4 @@
-package main.java.window.controller;
+package window.controller;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
@@ -12,11 +12,11 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
-import main.java.database.SQLConnection;
-import main.java.users.Admin;
-import main.java.users.User;
-import main.java.users.students.Student;
-import main.java.window.util.WindowUtil;
+import database.SQLConnection;
+import users.Admin;
+import users.User;
+import users.students.Student;
+import window.util.WindowUtil;
 
 import java.io.IOException;
 import java.net.URL;

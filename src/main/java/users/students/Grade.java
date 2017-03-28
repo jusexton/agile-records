@@ -1,4 +1,4 @@
-package main.java.users.students;
+package users.students;
 
 /**
  * Represents a grade a student has earned.

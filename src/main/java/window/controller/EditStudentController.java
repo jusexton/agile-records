@@ -1,17 +1,17 @@
-package main.java.window.controller;
+package window.controller;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import main.java.database.SQLConnection;
-import main.java.security.Hash;
-import main.java.security.util.HashingUtil;
-import main.java.users.students.Course;
-import main.java.users.students.Major;
-import main.java.users.students.Student;
-import main.java.window.util.WindowUtil;
+import database.SQLConnection;
+import security.Hash;
+import security.util.HashingUtil;
+import users.students.Course;
+import users.students.Major;
+import users.students.Student;
+import window.util.WindowUtil;
 
 import java.net.URL;
 import java.security.NoSuchAlgorithmException;

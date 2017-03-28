@@ -1,4 +1,4 @@
-package script.groovy.DatabasePopulator
+package populator
 
 /**
  * Class containing constant values used throughout the script.

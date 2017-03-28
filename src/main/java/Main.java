@@ -1,19 +1,17 @@
-package main.java;
-
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
-import main.java.database.SQLConnection;
-import main.java.users.Admin;
-import main.java.users.User;
-import main.java.users.students.Student;
-import main.java.window.controller.AdminViewController;
-import main.java.window.controller.LoginController;
-import main.java.window.controller.StudentViewController;
-import main.java.window.util.WindowUtil;
+import database.SQLConnection;
+import users.Admin;
+import users.User;
+import users.students.Student;
+import window.controller.AdminViewController;
+import window.controller.LoginController;
+import window.controller.StudentViewController;
+import window.util.WindowUtil;
 
 import java.sql.SQLException;
 import java.time.LocalDateTime;

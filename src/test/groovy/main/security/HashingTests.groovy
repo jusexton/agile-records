@@ -1,6 +1,6 @@
-package test.main
+package main.security
 
-import main.java.security.util.HashingUtil
+import security.util.HashingUtil
 
 import java.util.stream.Stream
 

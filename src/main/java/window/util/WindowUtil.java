@@ -1,4 +1,4 @@
-package main.java.window.util;
+package window.util;
 
 import javafx.event.Event;
 import javafx.fxml.FXMLLoader;
@@ -11,10 +11,10 @@ import javafx.scene.image.Image;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-import main.java.users.students.Course;
-import main.java.users.students.Grade;
-import main.java.users.students.Student;
-import main.java.window.controller.*;
+import users.students.Course;
+import users.students.Grade;
+import users.students.Student;
+import window.controller.*;
 import org.jetbrains.annotations.Nullable;
 
 import java.io.IOException;

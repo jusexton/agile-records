@@ -1,8 +1,8 @@
-package main.java.users.students;
+package users.students;
 
-import main.java.users.User;
-import main.java.util.MathUtil;
-import main.java.security.Hash;
+import users.User;
+import util.MathUtil;
+import security.Hash;
 
 import java.util.ArrayList;
 import java.util.List;

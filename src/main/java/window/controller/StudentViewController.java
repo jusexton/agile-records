@@ -1,14 +1,14 @@
-package main.java.window.controller;
+package window.controller;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import main.java.database.SQLConnection;
-import main.java.users.students.Course;
-import main.java.users.students.Student;
-import main.java.window.util.WindowUtil;
+import database.SQLConnection;
+import users.students.Course;
+import users.students.Student;
+import window.util.WindowUtil;
 
 import java.net.URL;
 import java.sql.SQLException;

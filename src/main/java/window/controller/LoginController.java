@@ -1,4 +1,4 @@
-package main.java.window.controller;
+package window.controller;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -6,10 +6,10 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import main.java.database.FailedLoginException;
-import main.java.database.SQLConnection;
-import main.java.users.User;
-import main.java.window.util.WindowUtil;
+import database.FailedLoginException;
+import database.SQLConnection;
+import users.User;
+import window.util.WindowUtil;
 
 import java.net.URL;
 import java.sql.SQLException;
