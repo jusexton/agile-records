@@ -166,14 +166,18 @@ public class EditCourseController implements Initializable {
         course = new Course(name, creditHours, CRN);
         course.setGrades(gradesTableView.getItems());
 
-        DateInterval dateInterval = new DateInterval(startDatePicker.getValue(), endDatePicker.getValue());
-        course.setDateInterval(dateInterval);
+        if (startDatePicker.getValue() != null && endDatePicker.getValue() != null){
+            DateInterval dateInterval = new DateInterval(startDatePicker.getValue(), endDatePicker.getValue());
+            course.setDateInterval(dateInterval);
+        }
 
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("h:mma");
-        TimeInterval timeInterval = new TimeInterval(
-                LocalTime.parse(startTimeTextField.getText().replaceAll(" ", ""), formatter),
-                LocalTime.parse(endTimeTextField.getText().replaceAll(" ", ""), formatter));
-        course.setTimeInterval(timeInterval);
+        if (!startTimeTextField.getText().isEmpty() && !endTimeTextField.getText().isEmpty()){
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("h:mma");
+            TimeInterval timeInterval = new TimeInterval(
+                    LocalTime.parse(startTimeTextField.getText().replaceAll(" ", ""), formatter),
+                    LocalTime.parse(endTimeTextField.getText().replaceAll(" ", ""), formatter));
+            course.setTimeInterval(timeInterval);
+        }
     }
 
     /**
