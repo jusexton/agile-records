@@ -152,7 +152,8 @@ public class AdminViewController implements Initializable {
                     String lowerCaseFilter = newValue.toLowerCase();
                     return student.getFirstName().toLowerCase().contains(lowerCaseFilter) ||
                             student.getLastName().toLowerCase().contains(lowerCaseFilter) ||
-                            student.getUserName().toLowerCase().contains(lowerCaseFilter);
+                            student.getUserName().toLowerCase().contains(lowerCaseFilter) ||
+                            String.valueOf(student.getID()).contains(lowerCaseFilter);
                 })
         );
 
