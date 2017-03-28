@@ -4,10 +4,31 @@ import main.java.users.students.Course
 import main.java.users.students.Grade
 import main.java.users.students.Student
 import script.groovy.DatabasePopulator.Populator
+import script.groovy.DatabasePopulator.MathUtil
 
 /**
  */
 class DatabasePopulatorTests extends GroovyTestCase {
+    // Passed
+    void testGetRandomInt() {
+        int min = 0
+        int max = 10
+        int randomInt = MathUtil.getRandomInt(min, max)
+        // println(randomInt)
+        assertTrue(randomInt >= min && randomInt <= max)
+
+    }
+
+    // Passed
+    void testGetRandomDouble() {
+        int min = 0.0
+        int max = 100.5
+        double randomDouble = MathUtil.getRandomDouble(min, max)
+        // println(randomDouble)
+        assertTrue(randomDouble >= min && randomDouble <= max)
+
+    }
+
     // Passed
     void testGenerateGrade() {
         Grade testGrade = Populator.generateGrade()
