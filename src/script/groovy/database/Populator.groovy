@@ -8,6 +8,7 @@ import users.students.Grade
 import users.students.GradeType
 import users.students.Major
 import users.students.Student
+import util.MathUtil
 
 import java.sql.SQLException
 
@@ -71,7 +72,7 @@ static Grade generateGrade() {
     // Get random GradeType value.
     GradeType[] gradeTypes = GradeType.values()
     GradeType type = gradeTypes[MathUtil.getRandomInt(0, gradeTypes.length - 1)]
-    return new Grade(util.MathUtil.round(MathUtil.getRandomDouble(50, 100), 2), type)
+    return new Grade(MathUtil.round(MathUtil.getRandomDouble(50, 100), 2), type)
 }
 
 // TODO: Possibly create addUsers function to speed process up.

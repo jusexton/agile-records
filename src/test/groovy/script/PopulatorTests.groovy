@@ -4,7 +4,6 @@ import users.students.Course
 import users.students.Grade
 import users.students.Student
 import populator.DatabasePopulator
-import populator.MathUtil
 
 /**
  */
