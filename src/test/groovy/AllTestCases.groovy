@@ -4,10 +4,11 @@ import main.users.students.CourseTests
 import main.database.DatabaseTests
 import main.security.HashingTests
 import main.users.students.StudentTests
-import script.DatabasePopulatorTests
+import main.util.MathUtilTests
+import script.PopulatorTests
 
 /**
- * Will act as an intersection point for all test classes.
+ * Acts as an intersection point for all test classes.
  */
 class AllTestCases {
     static Test suite(){
@@ -17,7 +18,8 @@ class AllTestCases {
         allTests.addTestSuite(DatabaseTests.class)
         allTests.addTestSuite(CourseTests.class)
         allTests.addTestSuite(HashingTests.class)
-        allTests.addTestSuite(DatabasePopulatorTests.class)
+        allTests.addTestSuite(MathUtilTests.class)
+        allTests.addTestSuite(PopulatorTests.class)
         return allTests
     }
 }

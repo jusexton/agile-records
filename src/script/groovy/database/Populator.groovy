@@ -1,6 +1,5 @@
-package populator
+package database
 
-import database.SQLConnection
 import security.Hash
 import security.util.HashingUtil
 import users.students.Course
@@ -18,11 +17,11 @@ import java.sql.SQLException
  */
 
 static Student generateStudent() {
-    String firstName = getRandomElement(new File(DatabasePopulator.class
+    String firstName = getRandomElement(new File(Populator.class
             .getResource("/names/first-names.txt")
             .toURI())
             .readLines())
-    String lastName = getRandomElement(new File(DatabasePopulator.class
+    String lastName = getRandomElement(new File(Populator.class
             .getResource("/names/last-names.txt")
             .toURI())
             .readLines())

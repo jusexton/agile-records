@@ -1,9 +1,10 @@
-package populator
+package database
 
 /**
  * Class containing constant values used throughout the script.
  */
 class Constants {
+    // TODO: Add more courses.
     final static String[] COURSE_NAMES = [
             "MATH 2301",
             "MATH 2302",

@@ -3,11 +3,11 @@ package script
 import users.students.Course
 import users.students.Grade
 import users.students.Student
-import populator.DatabasePopulator
+import database.Populator
 
 /**
  */
-class DatabasePopulatorTests extends GroovyTestCase {
+class PopulatorTests extends GroovyTestCase {
     // Passed
     void testGetRandomInt() {
         int min = 0
@@ -30,14 +30,14 @@ class DatabasePopulatorTests extends GroovyTestCase {
 
     // Passed
     void testGenerateGrade() {
-        Grade testGrade = DatabasePopulator.generateGrade()
+        Grade testGrade = Populator.generateGrade()
         // println(testGrade.getScore())
         assertTrue(testGrade.getScore() >= 50 && testGrade.getScore() <= 100)
     }
 
     // Passed
     void testGenerateCourse() {
-        Course testCourse = DatabasePopulator.generateCourse()
+        Course testCourse = Populator.generateCourse()
         def grades = testCourse.getGrades()
         // grades.forEach { grade -> println(grade.getScore()) }
         assertTrue(grades.size() >= 0 && grades.size() <= 20)
@@ -46,7 +46,7 @@ class DatabasePopulatorTests extends GroovyTestCase {
 
     // Passed
     void testGenerateStudent() {
-        Student testStudent = DatabasePopulator.generateStudent()
+        Student testStudent = Populator.generateStudent()
         println(testStudent.firstName)
         println(testStudent.lastName)
         def courses = testStudent.getCourses()
@@ -58,7 +58,7 @@ class DatabasePopulatorTests extends GroovyTestCase {
     void testGetRandomElement() {
         def intList = [1, 2, 3, 4, 5, 6, 7, 8, 9]
         100.times {
-            // println(DatabasePopulator.getRandomElement(intList))
+            // println(Populator.getRandomElement(intList))
         }
     }
 }
