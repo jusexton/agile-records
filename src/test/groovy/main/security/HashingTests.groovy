@@ -9,12 +9,7 @@ import java.util.stream.Stream
  */
 class HashingTests extends GroovyTestCase {
 
-    /**
-     * Tests that the salt generated is the specified
-     * length.
-     *
-     * STATUS: PASS
-     */
+    // Passed
     void testSaltLength() {
         def length = 20
         String salt = HashingUtil.generateSalt(length, "abc")
@@ -22,23 +17,14 @@ class HashingTests extends GroovyTestCase {
         assertLength(length, salt.toCharArray())
     }
 
-    /**
-     * Tests that the salt only contains characters specified.
-     *
-     * STATUS: PASS
-     */
+    // Passed
     void testSaltCharset() {
         String charset = "abc"
         String salt = HashingUtil.generateSalt(20, charset)
         assertTrue(salt.matches("^[" + charset + "_]+"))
     }
 
-    /**
-     * Tests that the salts generated are random every time
-     * the method is called.
-     *
-     * STATUS: PASS
-     */
+    // Passed
     void testSaltRandomness() {
         final limiter = 1000
         // Generates 1000 salts, none of which should be
@@ -51,12 +37,7 @@ class HashingTests extends GroovyTestCase {
         assertEquals(limiter, saltCount)
     }
 
-    /**
-     * Tests that the Hash class's overrided function are
-     * working as expected.
-     *
-     * STATUS: PASS
-     */
+    // Passed
     void testHashOverrides() {
         String password = "test_password"
         def hash = HashingUtil.hash(password, "SHA-256")
@@ -65,11 +46,7 @@ class HashingTests extends GroovyTestCase {
         assertTrue(hash == HashingUtil.hash(password, "SHA-256"))
     }
 
-    /**
-     * Tests that the sameSalt function works as expected.
-     *
-     * STATUS: PASS
-     */
+    // Passed
     void testHashSameSalt() {
         String algorithm = "SHA-256"
         String salt = HashingUtil.generateSalt(20, "abc")
@@ -80,12 +57,7 @@ class HashingTests extends GroovyTestCase {
         assertTrue(hashOne != hashTwo)
     }
 
-    /**
-     * Tests a similar process that will take place when a user
-     * attempts to login.
-     *
-     * STATUS: PASS
-     */
+    // Passed
     void testLoginProcess() {
         def failPassword = "wrong_password"
         def correctPassword = "correct_password"

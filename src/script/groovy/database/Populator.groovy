@@ -84,7 +84,11 @@ static void populateDatabase(int count) {
         SQLConnection connection = new SQLConnection()
         // Add count number of students.
         count.times {
-            connection.addUser(generateStudent())
+            Student student = generateStudent()
+            if (!connection.addUser(student)){
+                String message = String.format("User '%s' could not be added to database", student.userName)
+                println(message)
+            }
         }
     } catch (SQLException ex) {
         ex.printStackTrace()

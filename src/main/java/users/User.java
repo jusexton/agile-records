@@ -6,7 +6,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 /**
- * Class that will represent all users that reside on sql server.
+ * Abstract Entity class that will represent all users that reside on sql server.
  */
 public abstract class User {
     private int ID;
@@ -83,7 +83,7 @@ public abstract class User {
         this.lastLoginTime = lastLoginTime.format(formatter);
     }
 
-    public void setLastLoginTime(LocalDateTime lastLoginTime){
+    public void setLastLoginTime(LocalDateTime lastLoginTime) {
         setLastLoginTime(lastLoginTime, "yyyy-MM-dd HH:mm:ss");
     }
 

@@ -20,6 +20,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 
 /**
+ * Controller class responsible for course-view.fxml.
  */
 public class CourseViewController implements Initializable {
     @FXML

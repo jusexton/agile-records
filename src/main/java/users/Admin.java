@@ -3,10 +3,9 @@ package users;
 import security.Hash;
 
 /**
- * Represents an admin user on the sql server.
+ * Entity class that represents an admin user.
  */
 public class Admin extends User {
-
     public Admin(String userName, Hash password) {
         super(userName, password);
     }

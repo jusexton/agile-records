@@ -11,11 +11,11 @@ import javafx.scene.image.Image;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import org.jetbrains.annotations.Nullable;
 import users.students.Course;
 import users.students.Grade;
 import users.students.Student;
 import window.controller.*;
-import org.jetbrains.annotations.Nullable;
 
 import java.io.IOException;
 import java.util.Optional;
@@ -52,6 +52,11 @@ public abstract class WindowUtil {
         stage.close();
     }
 
+    /**
+     * Displays a confirmation alert on screen
+     *
+     * @return Whether the ok button was pressed or not.
+     */
     public static boolean displayConfirmationAlert() {
         boolean confirmation = false;
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -59,7 +64,7 @@ public abstract class WindowUtil {
         alert.setHeaderText("Commit Change?");
         alert.setContentText("Executing this action will edit the database and will not be reversible.");
         Optional<ButtonType> result = alert.showAndWait();
-        if (result.isPresent()){
+        if (result.isPresent()) {
             if (result.get() == ButtonType.OK) {
                 confirmation = true;
             }
@@ -67,6 +72,11 @@ public abstract class WindowUtil {
         return confirmation;
     }
 
+    /**
+     * Displays create course screen.
+     *
+     * @return The instanced EditCourseController.
+     */
     @Nullable
     public static EditCourseController displayCreateCourse() {
         try {
@@ -82,6 +92,12 @@ public abstract class WindowUtil {
         return null;
     }
 
+    /**
+     * Displays a course in edit mode.
+     *
+     * @param course The course that will be displayed.
+     * @return The instanced EditCourseController.
+     */
     @Nullable
     public static EditCourseController displayEditCourse(Course course) {
         try {
@@ -98,6 +114,11 @@ public abstract class WindowUtil {
         return null;
     }
 
+    /**
+     * Displays create grade screen.
+     *
+     * @return The instanced EditGradeController.
+     */
     @Nullable
     public static EditGradeController displayCreateGrade() {
         try {
@@ -113,6 +134,12 @@ public abstract class WindowUtil {
         return null;
     }
 
+    /**
+     * Displays a grade object in edit mode.
+     *
+     * @param grade The grade that will be displayed.
+     * @return The instanced EditGradeController.
+     */
     @Nullable
     public static EditGradeController displayEditGrade(Grade grade) {
         try {
@@ -128,6 +155,11 @@ public abstract class WindowUtil {
         return null;
     }
 
+    /**
+     * Displays create student screen.
+     *
+     * @return The instanced EditStudentController.
+     */
     @Nullable
     public static EditStudentController displayCreateStudent() {
         try {
@@ -143,6 +175,12 @@ public abstract class WindowUtil {
         return null;
     }
 
+    /**
+     * Displays a student object in edit mode.
+     *
+     * @param student The student that will be displayed
+     * @return The instanced EditStudentController.
+     */
     @Nullable
     public static EditStudentController displayEditStudent(Student student) {
         try {
@@ -159,6 +197,11 @@ public abstract class WindowUtil {
         return null;
     }
 
+    /**
+     * Displays login screen
+     *
+     * @return The instanced LoginController.
+     */
     @Nullable
     public static LoginController displayLogin() {
         try {
@@ -173,6 +216,11 @@ public abstract class WindowUtil {
         return null;
     }
 
+    /**
+     * Displays a course object.
+     *
+     * @param course The course that will be displayed.
+     */
     public static void displayCourseView(Course course) {
         try {
             FXMLLoader loader = new FXMLLoader(WindowUtil.class.getResource("/fxml/course-view.fxml"));
@@ -191,6 +239,7 @@ public abstract class WindowUtil {
      *
      * @param path  Path to the .fxml file.
      * @param stage The stage that will be used to display the window.
+     * @param <T>   Generic
      * @return The controller of the window.
      */
 
@@ -214,6 +263,7 @@ public abstract class WindowUtil {
      * @param path       Path to the .fxml file.
      * @param stage      The stage that will be sed to display the window.
      * @param controller The controller that will be used to display the given stage.
+     * @param <T>        Generic
      * @return The controller of the stage.
      */
     @Nullable

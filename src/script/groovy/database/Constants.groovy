@@ -1,7 +1,7 @@
 package database
 
 /**
- * Class containing constant values used throughout the script.
+ * Class containing constant values used throughout Populator script.
  */
 class Constants {
     // TODO: Add more courses.

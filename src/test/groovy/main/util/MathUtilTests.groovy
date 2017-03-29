@@ -3,6 +3,7 @@ package main.util
 import util.MathUtil
 
 /**
+ * Class containing all MathUtil tests.
  */
 class MathUtilTests extends GroovyTestCase {
     // Passed
@@ -12,7 +13,6 @@ class MathUtilTests extends GroovyTestCase {
         int randomInt = MathUtil.getRandomInt(min, max)
         // println(randomInt)
         assertTrue(randomInt >= min && randomInt <= max)
-
     }
 
     // Passed
@@ -33,6 +33,7 @@ class MathUtilTests extends GroovyTestCase {
         assertEquals(56.7646, MathUtil.round(testValue, 4))
     }
 
+    // Passed
     void testIsInteger() {
         assertTrue(MathUtil.isInteger("5"))
         assertTrue(MathUtil.isInteger("-5"))
@@ -41,6 +42,7 @@ class MathUtilTests extends GroovyTestCase {
         assertFalse(MathUtil.isInteger("7+6"))
     }
 
+    // Passed
     void testIsDouble() {
         assertTrue(MathUtil.isDouble("5.5"))
         assertTrue(MathUtil.isDouble("5"))
@@ -50,6 +52,7 @@ class MathUtilTests extends GroovyTestCase {
         assertFalse(MathUtil.isDouble("7+6"))
     }
 
+    // Passed
     void testIsNumeric() {
         assertTrue(MathUtil.isNumeric("5"))
         assertTrue(MathUtil.isNumeric("5.5"))

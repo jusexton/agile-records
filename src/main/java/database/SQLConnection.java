@@ -2,10 +2,10 @@ package database;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import security.Hash;
 import users.Admin;
 import users.User;
 import users.students.Student;
-import security.Hash;
 
 import java.lang.reflect.Type;
 import java.sql.*;
@@ -32,12 +32,15 @@ public class SQLConnection implements AutoCloseable {
     }
 
     /**
-     * Used to obtain an sql connection.
-     * WARNING: MAY RETURN NULL
+     * Creates connection object.
      *
-     * @return The sql connection object.
+     * @param host     The server host name
+     * @param username The server username
+     * @param password The username password
+     * @return The connection object
+     * @throws SQLException Thrown when given credentials are incorrect
      */
-    public static Connection establishConnection(String host, String username, String password) throws SQLException{
+    public static Connection establishConnection(String host, String username, String password) throws SQLException {
         try {
             Class.forName("com.mysql.jdbc.Driver");
         } catch (ClassNotFoundException e) {
@@ -310,7 +313,7 @@ public class SQLConnection implements AutoCloseable {
     /**
      * Helper function for attemptLogin.
      *
-     * @param table The table that will be checked
+     * @param table    The table that will be checked
      * @param username The username that will be used to attempt login
      * @param password The password that will be used to attempt login
      * @return The user retrieved
@@ -366,7 +369,7 @@ public class SQLConnection implements AutoCloseable {
         return false;
     }
 
-    public void setConnection(String host, String username, String password) throws SQLException{
+    public void setConnection(String host, String username, String password) throws SQLException {
         this.host = host;
         this.username = username;
         this.password = password;

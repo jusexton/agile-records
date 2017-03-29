@@ -1,8 +1,8 @@
 package users.students;
 
+import security.Hash;
 import users.User;
 import util.MathUtil;
-import security.Hash;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,8 +19,13 @@ public class Student extends User {
         courses = new ArrayList<>();
     }
 
+    /**
+     * Calculates student's current GPA from the student's courses.
+     *
+     * @return Current GPA
+     */
     public double getGPA() {
-        if(courses.size() == 0){
+        if (courses.size() == 0) {
             return 0.0;
         }
 

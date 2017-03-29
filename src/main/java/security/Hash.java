@@ -5,7 +5,7 @@ import security.util.HashingUtil;
 import java.security.NoSuchAlgorithmException;
 
 /**
- * Class that represents a hashed password.
+ * Entity class that represents a hashed password.
  */
 public class Hash {
     private String hash;
@@ -18,11 +18,23 @@ public class Hash {
         this.algorithm = algorithm;
     }
 
-    public boolean sameSalt(Hash hash){
+    /**
+     * Returns whether a given salt is the same as the instanced salt.
+     *
+     * @param hash The hash object that will be checked.
+     * @return Whether the salts match or not.
+     */
+    public boolean sameSalt(Hash hash) {
         return this.salt.equals(hash.getSalt());
     }
 
-    public boolean checkPassword(String password){
+    /**
+     * Checks whether the given password is valid.
+     *
+     * @param password The password to be checked.
+     * @return Whether the given password was valid or not.
+     */
+    public boolean checkPassword(String password) {
         boolean valid = false;
         try {
             valid = this.equals(HashingUtil.hash(password, algorithm, salt));

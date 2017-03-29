@@ -1,10 +1,10 @@
+import database.SQLConnection;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
-import database.SQLConnection;
 import users.Admin;
 import users.User;
 import users.students.Student;
@@ -17,6 +17,11 @@ import java.sql.SQLException;
 import java.time.LocalDateTime;
 
 public class Main extends Application {
+    /**
+     * Main access point of the application.
+     *
+     * @param args Passed application arguments.
+     */
     public static void main(String[] args) {
         launch(args);
     }

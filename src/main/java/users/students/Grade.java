@@ -1,7 +1,7 @@
 package users.students;
 
 /**
- * Represents a grade a student has earned.
+ * Entity class that represents a grade stored in a course.
  */
 public class Grade {
     private double score;

@@ -19,11 +19,10 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 
 /**
- * Controller responsible for CreateCourse.fxml backend and logic.
+ * Controller class responsible for edit-course.fxml.
  */
 public class EditCourseController implements Initializable {
     private Course course;
-    private boolean editMode;
 
     @FXML
     private TextField courseNameField;
@@ -192,9 +191,5 @@ public class EditCourseController implements Initializable {
 
     public Optional<Course> getCourse() {
         return Optional.ofNullable(course);
-    }
-
-    public boolean inEditMode() {
-        return this.editMode;
     }
 }

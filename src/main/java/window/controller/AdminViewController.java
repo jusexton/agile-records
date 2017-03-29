@@ -1,5 +1,6 @@
 package window.controller;
 
+import database.SQLConnection;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
@@ -12,7 +13,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
-import database.SQLConnection;
 import users.Admin;
 import users.User;
 import users.students.Student;
@@ -25,7 +25,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 /**
- * Controller responsible for Admin.fxml backend and logic.
+ * Controller class responsible for admin-view.fxml.
  */
 public class AdminViewController implements Initializable {
     private Admin loggedInAdmin;
@@ -65,6 +65,13 @@ public class AdminViewController implements Initializable {
     @FXML
     private Label usernameLabel;
 
+    /**
+     * Handles add button pressed action.
+     * Displays create student window. Adds the new student object to the
+     * table and database if a student was returned.
+     *
+     * @param event The event thrown.
+     */
     @FXML
     private void handleAddButtonAction(ActionEvent event) {
         EditStudentController controller = WindowUtil.displayCreateStudent();
@@ -85,6 +92,12 @@ public class AdminViewController implements Initializable {
         }
     }
 
+    /**
+     * Handles remove button pressed action.
+     * Removes selected students from table view and from database.
+     *
+     * @param event The event thrown.
+     */
     @FXML
     private void handleRemoveButtonAction(ActionEvent event) {
         // Confirm user decision.
@@ -96,10 +109,10 @@ public class AdminViewController implements Initializable {
                     connection.removeUserById(student.getID());
                     // Checks if a removed student is being displayed.
                     // Sets student display to nothing if so.
-                    if (studentViewController != null){
+                    if (studentViewController != null) {
                         if (studentViewController.getDisplayedStudent()
                                 .getUserName()
-                                .equals(student.getUserName())){
+                                .equals(student.getUserName())) {
                             splitPane.getItems().set(1, new AnchorPane());
                         }
                     }
@@ -111,12 +124,21 @@ public class AdminViewController implements Initializable {
         }
     }
 
+    /**
+     * Handles refresh button pressed action.
+     * Clears table and re-syncs with database.
+     *
+     * @param event The event thrown.
+     */
     @FXML
     private void handleRefreshButtonAction(ActionEvent event) {
         students.clear();
         syncTable();
     }
 
+    /**
+     * Creates AdminViewController and initializes student list.
+     */
     public AdminViewController() {
         students = FXCollections.observableArrayList();
     }
@@ -181,7 +203,7 @@ public class AdminViewController implements Initializable {
     private TableRow<Student> buildRowWithEvent() {
         TableRow<Student> row = new TableRow<>();
         row.setOnMouseClicked(mouseEvent -> {
-            if (mouseEvent.getClickCount() == 2 && !row.isEmpty()) {
+            if (mouseEvent.getClickCount() == 1 && !row.isEmpty()) {
                 displayStudentView(row.getItem());
             }
         });

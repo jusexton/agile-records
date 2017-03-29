@@ -6,7 +6,7 @@ import security.Hash
 import security.util.HashingUtil
 
 /**
- * Class that will contain all tests regarding the Admin class.
+ * Class containing all tests regarding the Admin class.
  */
 class AdminTests extends GroovyTestCase {
     static Admin getTestAdmin(){

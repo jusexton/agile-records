@@ -3,6 +3,7 @@ package time;
 import java.time.LocalTime;
 
 /**
+ * Entity class that represents a time interval.
  */
 public class TimeInterval {
     private LocalTime start;

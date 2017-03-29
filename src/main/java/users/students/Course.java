@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Represents a course that belongs to a student.
+ * Entity class that represents a course that belongs to a student.
  */
 public class Course {
     private int CRN;
@@ -24,6 +24,11 @@ public class Course {
         this.grades = new ArrayList<>();
     }
 
+    /**
+     * Returns the course average
+     *
+     * @return The course average
+     */
     public int getAverage() {
         double total = getTotalScore();
 
@@ -41,6 +46,11 @@ public class Course {
         }
     }
 
+    /**
+     * Returns the current total score in the course.
+     *
+     * @return The total score.
+     */
     public double getTotalScore() {
         return grades.stream()
                 .mapToDouble(Grade::getScore)

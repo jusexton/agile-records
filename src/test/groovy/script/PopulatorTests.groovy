@@ -4,8 +4,10 @@ import users.students.Course
 import users.students.Grade
 import users.students.Student
 import database.Populator
+import util.MathUtil
 
 /**
+ * Class containing tests involving Populator script.
  */
 class PopulatorTests extends GroovyTestCase {
     // Passed

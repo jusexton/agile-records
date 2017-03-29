@@ -3,6 +3,7 @@ package time;
 import java.time.LocalDate;
 
 /**
+ * Entity class that represents a date interval.
  */
 public class DateInterval {
     private LocalDate start;

@@ -1,7 +1,7 @@
 package security.util;
 
-import security.Hash;
 import org.jetbrains.annotations.NotNull;
+import security.Hash;
 
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
@@ -13,6 +13,7 @@ import java.util.Random;
  */
 public abstract class HashingUtil {
     private static Random random = new Random();
+
     /**
      * Overloaded hash function. Uses no salt.
      *
