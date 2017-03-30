@@ -30,9 +30,9 @@
                                 <TableColumn fx:id="GPATableColumn" prefWidth="50.0" text="GPA" />
                             </columns>
                         </TableView>
-                        <Label layoutX="489.0" layoutY="6.0" text="Search: " />
+                        <Label layoutX="477.0" layoutY="7.0" text="Search: " />
                   <Label layoutX="14.0" layoutY="6.0" text="Number of Students: " />
-                  <Label fx:id="studentCountLabel" layoutX="134.0" layoutY="6.0" prefHeight="17.0" prefWidth="83.0" text="0" />
+                  <Label fx:id="studentCountLabel" layoutX="154.0" layoutY="5.0" prefHeight="17.0" prefWidth="83.0" text="0" />
                     </children>
                 </AnchorPane>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="723.0" prefWidth="295.0" />
@@ -50,7 +50,7 @@
         </ButtonBar>
         <AnchorPane prefHeight="0.0" prefWidth="922.0">
             <children>
-                <Label fx:id="usernameLabel" layoutX="67.0" layoutY="5.0" text="Username" AnchorPane.leftAnchor="67.0" />
+                <Label fx:id="usernameLabel" layoutX="82.0" layoutY="5.0" text="Username" AnchorPane.leftAnchor="82.0" />
                 <Label layoutY="5.0" text="Username:  " AnchorPane.leftAnchor="0.0">
                     <font>
                         <Font name="System Bold" size="12.0" />
