@@ -63,6 +63,8 @@ public abstract class WindowUtil {
         alert.setTitle("Commit");
         alert.setHeaderText("Commit Change?");
         alert.setContentText("Executing this action will edit the database and will not be reversible.");
+
+        // TODO: alert not being display on unix based platforms
         Optional<ButtonType> result = alert.showAndWait();
         if (result.isPresent()) {
             if (result.get() == ButtonType.OK) {

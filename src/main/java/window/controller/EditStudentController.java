@@ -85,10 +85,9 @@ public class EditStudentController implements Initializable {
                 displayErrorLabel("Required Field(s) Blank");
             } else {
                 if (this.student.getUserName().equals(usernameTextField.getText()) || usernameIsAvailable()) {
-                    if (WindowUtil.displayConfirmationAlert()) {
-                        createStudent();
-                        WindowUtil.closeWindow(event);
-                    }
+                    createStudent();
+                    WindowUtil.closeWindow(event);
+
                 }
             }
         } else {
