@@ -8,55 +8,26 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
 
 <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="468.0" prefWidth="689.0" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1" fx:controller="window.controller.CourseViewController">
     <children>
         <Pane prefHeight="200.0" prefWidth="200.0">
             <children>
-                <Label layoutX="14.0" layoutY="14.0" text="Name: ">
-                    <font>
-                        <Font name="System Bold" size="12.0" />
-                    </font>
+                <Label fx:id="nameLabel" layoutX="14.0" layoutY="14.0" text="Name:  name">
                 </Label>
-                <Label fx:id="nameLabel" layoutX="54.0" layoutY="14.0" text="Course Name" />
-                <Label layoutX="14.0" layoutY="38.0" text="CRN: ">
-                    <font>
-                        <Font name="System Bold" size="12.0" />
-                    </font>
+                <Label fx:id="CRNLabel" layoutX="14.0" layoutY="38.0" text="CRN:  crn">
                 </Label>
-                <Label fx:id="CRNLabel" layoutX="45.0" layoutY="36.0" text="CRN Number" />
-                <Label layoutX="15.0" layoutY="63.0" text="Credit Hours: ">
-                    <font>
-                        <Font name="System Bold" size="12.0" />
-                    </font>
+                <Label fx:id="creditHoursLabel" layoutX="15.0" layoutY="63.0" text="Credit Hours: hours">
                 </Label>
-                <Label fx:id="creditHoursLabel" layoutX="93.0" layoutY="63.0" text="Course Credit Hours" />
-                <Label layoutX="307.0" layoutY="14.0" text="Date: ">
-                    <font>
-                        <Font name="System Bold" size="12.0" />
-                    </font>
+                <Label fx:id="dateLabel" layoutX="307.0" layoutY="14.0" text="Date: Not Announced">
                 </Label>
                 <Label layoutX="307.0" layoutY="36.0" />
-                <Label layoutX="307.0" layoutY="36.0" text="Time: ">
-                    <font>
-                        <Font name="System Bold" size="12.0" />
-                    </font>
+                <Label fx:id="timeLabel" layoutX="307.0" layoutY="36.0" text="Time: Not Announced">
                 </Label>
-                <Label fx:id="dateLabel" layoutX="341.0" layoutY="14.0" text="Date Label" />
-                <Label fx:id="timeLabel" layoutX="341.0" layoutY="36.0" text="Not Announced" />
-                <Label layoutX="16.0" layoutY="108.0" text="GPA: ">
-                    <font>
-                        <Font name="System Bold" size="12.0" />
-                    </font>
+                <Label fx:id="gpaLabel" layoutX="16.0" layoutY="108.0" text="GPA: gpa">
                 </Label>
-                <Label layoutX="115.0" layoutY="108.0" text="Overall Score: ">
-                    <font>
-                        <Font name="System Bold" size="12.0" />
-                    </font>
+                <Label fx:id="scoreLabel" layoutX="115.0" layoutY="108.0" text="Score: score">
                 </Label>
-            <Label fx:id="gpaLabel" layoutX="54.0" layoutY="108.0" text="GPA Label" />
-            <Label fx:id="scoreLabel" layoutX="200.0" layoutY="108.0" text="Score Label" />
             </children>
         </Pane>
         <TableView fx:id="gradeTableView" prefHeight="363.0" prefWidth="689.0">

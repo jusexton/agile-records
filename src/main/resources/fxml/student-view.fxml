@@ -7,7 +7,6 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
 
 <AnchorPane prefHeight="468.0" prefWidth="768.0" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1" fx:controller="window.controller.StudentViewController">
     <children>
@@ -15,52 +14,32 @@
             <children>
                 <AnchorPane prefHeight="77.0" prefWidth="697.0">
                     <children>
-                        <Label layoutX="14.0" layoutY="14.0" text="Student Name: " AnchorPane.leftAnchor="14.0">
-                            <font>
-                                <Font name="System Bold" size="12.0" />
-                            </font>
+                        <Label fx:id="nameLabel" layoutX="14.0" layoutY="14.0" prefHeight="17.0" prefWidth="254.0" text="Student Name: name" AnchorPane.leftAnchor="14.0">
                         </Label>
-                        <Label fx:id="nameLabel" layoutX="102.0" layoutY="14.0" text="Student" AnchorPane.leftAnchor="102.0" />
-                        <Label fx:id="majorLabel" layoutX="614.0" layoutY="14.0" prefHeight="17.0" prefWidth="151.0" text="Major" AnchorPane.rightAnchor="3.0" />
-                        <Label layoutX="573.0" layoutY="14.0" text="Major: " AnchorPane.rightAnchor="154.0">
-                            <font>
-                                <Font name="System Bold" size="12.0" />
-                            </font>
+                        <Label fx:id="majorLabel" layoutX="573.0" layoutY="14.0" prefHeight="17.0" prefWidth="173.0" text="Major: major" AnchorPane.rightAnchor="49.0">
                         </Label>
-                        <Label layoutX="14.0" layoutY="39.0" text="Student ID:  " AnchorPane.leftAnchor="14.0">
-                            <font>
-                                <Font name="System Bold" size="12.0" />
-                            </font>
+                        <Label fx:id="idLabel" layoutX="14.0" layoutY="39.0" prefHeight="17.0" prefWidth="254.0" text="Student ID: id" AnchorPane.leftAnchor="14.0">
                         </Label>
-                        <Label fx:id="idLabel" layoutX="85.0" layoutY="39.0" text="ID" AnchorPane.leftAnchor="85.0" />
-                        <Label layoutX="573.0" layoutY="39.0" text="Overall GPA: " AnchorPane.rightAnchor="120.0">
-                            <font>
-                                <Font name="System Bold" size="12.0" />
-                            </font>
+                        <Label fx:id="gpaLabel" layoutX="546.0" layoutY="39.0" prefHeight="17.0" prefWidth="173.0" text="Overall GPA: gpa" AnchorPane.rightAnchor="49.0">
                         </Label>
-                        <Label fx:id="gpaLabel" layoutX="648.0" layoutY="39.0" text="GPA" AnchorPane.rightAnchor="97.0" />
                     </children>
                 </AnchorPane>
                 <TableView fx:id="courseViewTable" prefHeight="201.0" prefWidth="768.0" VBox.vgrow="ALWAYS">
                     <columns>
                         <TableColumn fx:id="crnColumn" prefWidth="75.0" text="CRN" />
                         <TableColumn fx:id="courseNameColumn" prefWidth="102.0" text="Course Name" />
-                  <TableColumn fx:id="creditHoursColumn" prefWidth="92.0" text="Credit Hours" />
+                        <TableColumn fx:id="creditHoursColumn" prefWidth="92.0" text="Credit Hours" />
                     </columns>
                 </TableView>
-            <ButtonBar fx:id="adminButtonBar" prefHeight="40.0" prefWidth="200.0" visible="false">
-              <buttons>
-                <Button fx:id="editButton" mnemonicParsing="false" onAction="#handleEditButtonAction" text="Edit" ButtonBar.buttonData="LEFT" />
-              </buttons>
-            </ButtonBar>
+                <ButtonBar fx:id="adminButtonBar" prefHeight="40.0" prefWidth="200.0" visible="false">
+                    <buttons>
+                        <Button fx:id="editButton" mnemonicParsing="false" onAction="#handleEditButtonAction" text="Edit" ButtonBar.buttonData="LEFT" />
+                    </buttons>
+                </ButtonBar>
                 <AnchorPane>
                     <children>
-                        <Label text="Username:  ">
-                            <font>
-                                <Font name="System Bold" size="12.0" />
-                            </font>
+                        <Label fx:id="usernameLabel" text="Username: username">
                         </Label>
-                        <Label fx:id="usernameLabel" layoutX="67.0" text="Username" />
                     </children>
                 </AnchorPane>
             </children>

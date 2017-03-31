@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ButtonBar?>
 <?import javafx.scene.control.ComboBox?>
@@ -15,16 +16,25 @@
               <TextField fx:id="nameField" layoutX="90.0" layoutY="10.0" prefHeight="25.0" prefWidth="234.0" promptText="Name" />
               <TextField fx:id="scoreField" layoutX="90.0" layoutY="41.0" prefHeight="25.0" prefWidth="234.0" promptText="Score" />
               <ComboBox fx:id="typeComboBox" layoutX="90.0" layoutY="71.0" prefHeight="25.0" prefWidth="234.0" promptText="Type" />
-              <Label layoutX="12.0" layoutY="75.0" text="Grade Type: " />
-              <Label layoutX="13.0" layoutY="45.0" text="Score: " />
-              <Label layoutX="12.0" layoutY="14.0" text="Name: " />
+              <Label layoutX="19.0" layoutY="75.0" text="Grade Type: ">
+               <padding>
+                  <Insets right="5.0" />
+               </padding></Label>
+              <Label layoutX="50.0" layoutY="45.0" text="Score: ">
+               <padding>
+                  <Insets right="5.0" />
+               </padding></Label>
+              <Label layoutX="48.0" layoutY="14.0" text="Name: ">
+               <padding>
+                  <Insets right="5.0" />
+               </padding></Label>
               <Label fx:id="errorLabel" layoutX="171.0" layoutY="112.0" prefHeight="17.0" prefWidth="196.0" text="Error Label" textFill="RED" visible="false" />
           </children>
       </Pane>
       <ButtonBar prefHeight="40.0" prefWidth="200.0">
         <buttons>
-          <Button fx:id="createButton" mnemonicParsing="false" onAction="#handleCreateButtonAction" text="Create" ButtonBar.buttonData="LEFT"/>
-            <Button fx:id="cancelButton" mnemonicParsing="false" onAction="#handleCancelButtonAction" text="Cancel" ButtonBar.buttonData="LEFT"/>
+          <Button fx:id="createButton" mnemonicParsing="false" onAction="#handleCreateButtonAction" text="Create" ButtonBar.buttonData="LEFT" />
+            <Button fx:id="cancelButton" mnemonicParsing="false" onAction="#handleCancelButtonAction" text="Cancel" ButtonBar.buttonData="LEFT" />
         </buttons>
       </ButtonBar>
    </children>

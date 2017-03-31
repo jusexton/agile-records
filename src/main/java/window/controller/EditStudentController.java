@@ -8,6 +8,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import database.SQLConnection;
 import security.Hash;
 import security.util.HashingUtil;
+import users.Admin;
 import users.students.Course;
 import users.students.Major;
 import users.students.Student;
@@ -25,7 +26,7 @@ import java.util.ResourceBundle;
  */
 public class EditStudentController implements Initializable {
     private Student student;
-    private boolean editMode;
+    private Admin admin;
 
     @FXML
     private Label passwordLabel;
@@ -79,13 +80,14 @@ public class EditStudentController implements Initializable {
 
     @FXML
     private void handleCreateButtonAction(ActionEvent event) {
-        if (editMode) {
+        if (admin != null) {
             if (usernameTextField.getText().isEmpty() ||
                     majorComboBox.getSelectionModel().isEmpty()) {
                 displayErrorLabel("Required Field(s) Blank");
             } else {
                 if (this.student.getUserName().equals(usernameTextField.getText()) || usernameIsAvailable()) {
-                    if (WindowUtil.displayConfirmationAlert()){
+                    ConfirmationController confirmationController = WindowUtil.displayConfirmation(admin.getPassword());
+                    if (confirmationController != null && confirmationController.isConfirmed()){
                         createStudent();
                         WindowUtil.closeWindow(event);
                     }
@@ -127,18 +129,18 @@ public class EditStudentController implements Initializable {
     }
 
     public void init(Student student) {
-        init(student, false);
+        init(student, null);
     }
 
     /**
      * Initializes student instance into window.
      *
      * @param student  The student instance that will be loaded.
-     * @param editMode Whether the window is in edit or create mode.
+     * @param admin The admin object that is accessing th student view.
      */
-    public void init(Student student, boolean editMode) {
+    public void init(Student student, Admin admin) {
         this.student = student;
-        this.editMode = editMode;
+        this.admin = admin;
         usernameTextField.setText(student.getUserName());
         majorComboBox.setValue(student.getMajor().toString());
         firstNameTextField.setText(student.getFirstName());
@@ -146,9 +148,8 @@ public class EditStudentController implements Initializable {
         emailTextField.setText(student.getEmail());
         courseTableView.getItems().addAll(student.getCourses());
 
-        if (editMode) {
+        if (admin != null) {
             createButton.setText("Save Changes");
-            passwordLabel.setText("Password: ");
         }
     }
 
@@ -178,7 +179,7 @@ public class EditStudentController implements Initializable {
      */
     private void createStudent() {
         try {
-            if (editMode) {
+            if (admin != null) {
                 student.setUserName(usernameTextField.getText());
                 if (!passwordField.getText().isEmpty()) {
                     String salt = HashingUtil.generateSalt(20);
@@ -231,6 +232,6 @@ public class EditStudentController implements Initializable {
     }
 
     public boolean inEditMode() {
-        return this.editMode;
+        return admin != null;
     }
 }

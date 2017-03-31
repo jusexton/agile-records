@@ -67,9 +67,14 @@ public class CourseViewController implements Initializable {
      * @param course The course instance that will be initialized.
      */
     public void init(Course course) {
-        nameLabel.setText(course.getName());
-        CRNLabel.setText(String.valueOf(course.getCRN()));
-        creditHoursLabel.setText(String.valueOf(course.getCreditHours()));
+        String label = String.format("Name: %s", course.getName());
+        nameLabel.setText(label);
+
+        label = String.format("CRN: %s", course.getCRN());
+        CRNLabel.setText(label);
+
+        label = String.format("Credit Hours: %s", course.getCreditHours());
+        creditHoursLabel.setText(label);
 
         if (course.getDateInterval() != null) {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("EEEE, MMMM dd, yyyy");
@@ -85,9 +90,10 @@ public class CourseViewController implements Initializable {
             timeLabel.setText(String.format("%s - %s", startTime.format(formatter), endTime.format(formatter)));
         }
 
-        gpaLabel.setText(String.valueOf(course.getAverage()));
-        String score = String.format("%s / %s", MathUtil.round(course.getTotalScore(), 2), (double) course.getGrades().size() * 100);
-        scoreLabel.setText(score);
+        label = String.format("GPA: %s", course.getAverage());
+        gpaLabel.setText(label);
+        label = String.format("Score: %s / %s", MathUtil.round(course.getTotalScore(), 2), (double) course.getGrades().size() * 100);
+        scoreLabel.setText(label);
 
         gradeTableView.getItems().addAll(course.getGrades());
     }

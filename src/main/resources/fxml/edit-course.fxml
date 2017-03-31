@@ -11,14 +11,26 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox prefHeight="450.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1" fx:controller="window.controller.EditCourseController">
+<VBox prefHeight="438.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1" fx:controller="window.controller.EditCourseController">
     <children>
-        <Pane prefHeight="172.0" prefWidth="731.0">
+        <Pane prefHeight="169.0" prefWidth="600.0">
             <children>
-                <Label layoutX="19.0" layoutY="44.0" text="* Name:  " />
-                <Label layoutX="19.0" layoutY="73.0" text="* CRN: " />
-                <Label layoutX="297.0" layoutY="44.0" text="Start Date: " />
-                <Label layoutX="19.0" layoutY="103.0" text="* Credit Hours:  " />
+                <Label layoutX="46.0" layoutY="44.0" text="* Name:  ">
+               <padding>
+                  <Insets right="5.0" />
+               </padding></Label>
+                <Label layoutX="55.0" layoutY="73.0" text="* CRN: ">
+               <padding>
+                  <Insets right="5.0" />
+               </padding></Label>
+                <Label layoutX="302.0" layoutY="44.0" text="Start Date: ">
+               <padding>
+                  <Insets right="5.0" />
+               </padding></Label>
+                <Label layoutX="10.0" layoutY="103.0" text="* Credit Hours:  ">
+               <padding>
+                  <Insets right="5.0" />
+               </padding></Label>
                 <TextField fx:id="courseNameField" layoutX="101.0" layoutY="40.0" prefHeight="25.0" prefWidth="174.0" promptText="Name" />
                 <TextField fx:id="CRNField" layoutX="101.0" layoutY="69.0" prefHeight="25.0" prefWidth="174.0" promptText="CRN" />
                 <TextField fx:id="creditHoursField" layoutX="101.0" layoutY="99.0" prefHeight="25.0" prefWidth="174.0" promptText="Credit Hours" />
@@ -26,21 +38,30 @@
                 <Label fx:id="errorLabel" layoutX="101.0" layoutY="134.0" text="Error Label" textFill="RED" visible="false" />
                 <Label layoutX="15.0" layoutY="14.0" text="Required Fields Are Marked With *" />
                 <DatePicker fx:id="endDatePicker" layoutX="366.0" layoutY="69.0" prefHeight="25.0" prefWidth="174.0" promptText="End Date" />
-                <Label layoutX="297.0" layoutY="73.0" text="End Date: " />
-                <Label layoutX="296.0" layoutY="103.0" text="Start Time: " />
+                <Label layoutX="307.0" layoutY="73.0" text="End Date: ">
+               <padding>
+                  <Insets right="5.0" />
+               </padding></Label>
+                <Label layoutX="301.0" layoutY="103.0" text="Start Time: ">
+               <padding>
+                  <Insets right="5.0" />
+               </padding></Label>
                 <TextField fx:id="startTimeTextField" layoutX="366.0" layoutY="99.0" prefHeight="25.0" prefWidth="174.0" promptText="Start Time" />
-            <Label layoutX="296.0" layoutY="134.0" text="End Time: " />
+            <Label layoutX="306.0" layoutY="134.0" text="End Time: ">
+               <padding>
+                  <Insets right="5.0" />
+               </padding></Label>
             <TextField fx:id="endTimeTextField" layoutX="366.0" layoutY="130.0" prefHeight="25.0" prefWidth="174.0" promptText="End Time" />
             </children>
         </Pane>
-        <TableView fx:id="gradesTableView" prefHeight="146.0" prefWidth="247.0" VBox.vgrow="ALWAYS">
+        <TableView fx:id="gradesTableView" prefHeight="208.0" prefWidth="600.0" VBox.vgrow="ALWAYS">
             <columns>
                 <TableColumn fx:id="nameTableColumn" prefWidth="75.0" text="Name" />
                 <TableColumn fx:id="typeTableColumn" prefWidth="75.0" text="Type" />
                 <TableColumn fx:id="scoreTableColumn" prefWidth="75.0" text="Score" />
             </columns>
         </TableView>
-        <ButtonBar prefHeight="45.0" prefWidth="683.0">
+        <ButtonBar prefHeight="45.0" prefWidth="200.0">
             <buttons>
                 <Button fx:id="addButton" mnemonicParsing="false" onAction="#handleAddButtonAction" text="Add" ButtonBar.buttonData="LEFT" />
                 <Button fx:id="removeButton" mnemonicParsing="false" onAction="#handleRemoveButtonAction" text="Remove" ButtonBar.buttonData="LEFT" />

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="229.0"
+      prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="window.controller.ConfirmationController">
+    <children>
+        <AnchorPane prefHeight="90.0" prefWidth="600.0" style="-fx-background-color: #D3D3D3;">
+            <children>
+                <ImageView fx:id="imageView" fitHeight="67.0" fitWidth="68.0" layoutX="14.0" layoutY="5.0"
+                           pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../icon/warning.png"/>
+                    </image>
+                </ImageView>
+                <Label fx:id="titleLabel" layoutX="90.0" layoutY="19.0" text="Warning">
+                    <font>
+                        <Font size="24.0"/>
+                    </font>
+                </Label>
+            </children>
+        </AnchorPane>
+        <AnchorPane prefHeight="143.0" prefWidth="600.0">
+            <children>
+                <Label layoutX="85.0" layoutY="14.0"
+                       text="Are you sure you want to commit these changes? Your changes will not be revertable.">
+                    <font>
+                        <Font size="13.0"/>
+                    </font>
+                </Label>
+                <Label layoutX="143.0" layoutY="41.0"
+                       text="Please type password in order to confirm and commit changes.">
+                    <font>
+                        <Font size="13.0"/>
+                    </font>
+                </Label>
+                <PasswordField fx:id="passwordField" layoutX="167.0" layoutY="73.0" onAction="#handleConfirmationAction"
+                               prefHeight="25.0" prefWidth="267.0" promptText="Password"/>
+                <Label layoutX="111.0" layoutY="77.0" text="Password: "/>
+                <Button fx:id="confirmButton" layoutX="441.0" layoutY="73.0" mnemonicParsing="false"
+                        onAction="#handleConfirmationAction" prefHeight="25.0" prefWidth="74.0" text="Confirm"/>
+                <Label fx:id="errorLabel" layoutX="250.0" layoutY="110.0" text="Incorrect Password" textFill="RED"
+                       visible="false"/>
+            </children>
+        </AnchorPane>
+    </children>
+</VBox>

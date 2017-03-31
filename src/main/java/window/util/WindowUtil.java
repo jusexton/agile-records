@@ -12,6 +12,8 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import org.jetbrains.annotations.Nullable;
+import security.Hash;
+import users.Admin;
 import users.students.Course;
 import users.students.Grade;
 import users.students.Student;
@@ -57,21 +59,20 @@ public abstract class WindowUtil {
      *
      * @return Whether the ok button was pressed or not.
      */
-    public static boolean displayConfirmationAlert() {
-        boolean confirmation = false;
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Commit");
-        alert.setHeaderText("Commit Change?");
-        alert.setContentText("Executing this action will edit the database and will not be reversible.");
-
-        // TODO: alert not being display on unix based platforms
-        Optional<ButtonType> result = alert.showAndWait();
-        if (result.isPresent()) {
-            if (result.get() == ButtonType.OK) {
-                confirmation = true;
-            }
+    @Nullable
+    public static ConfirmationController displayConfirmation(Hash hash) {
+        try {
+            FXMLLoader loader = new FXMLLoader(WindowUtil.class.getResource("/fxml/confirmation.fxml"));
+            Parent root = loader.load();
+            loader.<ConfirmationController>getController().init(hash);
+            Stage stage = buildStage(root, "Confirmation");
+            stage.initStyle(StageStyle.UTILITY);
+            stage.showAndWait();
+            return loader.getController();
+        } catch (IOException ex) {
+            ex.printStackTrace();
         }
-        return confirmation;
+        return null;
     }
 
     /**
@@ -184,11 +185,11 @@ public abstract class WindowUtil {
      * @return The instanced EditStudentController.
      */
     @Nullable
-    public static EditStudentController displayEditStudent(Student student) {
+    public static EditStudentController displayEditStudent(Student student, Admin admin) {
         try {
             FXMLLoader loader = new FXMLLoader(WindowUtil.class.getResource("/fxml/edit-student.fxml"));
             Parent root = loader.load();
-            loader.<EditStudentController>getController().init(student, true);
+            loader.<EditStudentController>getController().init(student, admin);
             Stage stage = buildStage(root, "Edit Student");
             stage.initStyle(StageStyle.UTILITY);
             stage.showAndWait();

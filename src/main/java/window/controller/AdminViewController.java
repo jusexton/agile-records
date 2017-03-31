@@ -79,7 +79,9 @@ public class AdminViewController implements Initializable {
         // Make sure student object was returned
         if (controller != null && controller.getStudent().isPresent()) {
             // Confirm user decision.
-            if (WindowUtil.displayConfirmationAlert()) {
+            ConfirmationController confirmationController = WindowUtil.displayConfirmation(loggedInAdmin.getPassword());
+
+            if (confirmationController != null && confirmationController.isConfirmed()){
                 // Commence add procedure
                 Student student = controller.getStudent().get();
                 students.add(student);
@@ -100,26 +102,29 @@ public class AdminViewController implements Initializable {
      */
     @FXML
     private void handleRemoveButtonAction(ActionEvent event) {
-        // Confirm user decision.
-        if (WindowUtil.displayConfirmationAlert()) {
-            // Execute remove procedure
-            List<Student> selectedStudents = studentTableView.getSelectionModel().getSelectedItems();
-            try (SQLConnection connection = new SQLConnection()) {
-                selectedStudents.forEach(student -> {
-                    connection.removeUserById(student.getID());
-                    // Checks if a removed student is being displayed.
-                    // Sets student display to nothing if so.
-                    if (studentViewController != null) {
-                        if (studentViewController.getDisplayedStudent()
-                                .getUserName()
-                                .equals(student.getUserName())) {
-                            splitPane.getItems().set(1, new AnchorPane());
+        List<Student> selectedStudents = studentTableView.getSelectionModel().getSelectedItems();
+        if (selectedStudents.size() > 0){
+            // Confirm user decision.
+            ConfirmationController controller = WindowUtil.displayConfirmation(loggedInAdmin.getPassword());
+            if (controller != null && controller.isConfirmed()) {
+                // Execute remove procedure
+                try (SQLConnection connection = new SQLConnection()) {
+                    selectedStudents.forEach(student -> {
+                        connection.removeUserById(student.getID());
+                        // Checks if a removed student is being displayed.
+                        // Sets student display to nothing if so.
+                        if (studentViewController != null) {
+                            if (studentViewController.getDisplayedStudent()
+                                    .getUserName()
+                                    .equals(student.getUserName())) {
+                                splitPane.getItems().set(1, new AnchorPane());
+                            }
                         }
-                    }
-                });
-                students.removeAll(selectedStudents);
-            } catch (SQLException ex) {
-                ex.printStackTrace();
+                    });
+                    students.removeAll(selectedStudents);
+                } catch (SQLException ex) {
+                    ex.printStackTrace();
+                }
             }
         }
     }
@@ -154,9 +159,13 @@ public class AdminViewController implements Initializable {
         majorTableColumn.setCellValueFactory(new PropertyValueFactory<>("major"));
         GPATableColumn.setCellValueFactory(new PropertyValueFactory<>("GPA"));
 
-        // Allows application to detect when rows are double clicked.
         studentTableView.setRowFactory(row -> buildRowWithEvent());
         studentTableView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+        studentTableView.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+            if (newSelection != null) {
+                displayStudentView(studentTableView.getSelectionModel().getSelectedItem());
+            }
+        });
 
         // Updates student count label on list change.
         students.addListener((ListChangeListener<? super Student>)
@@ -222,7 +231,7 @@ public class AdminViewController implements Initializable {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/student-view.fxml"));
             AnchorPane root = loader.load();
-            loader.<StudentViewController>getController().init(student, true);
+            loader.<StudentViewController>getController().init(student, loggedInAdmin);
             studentViewController = loader.getController();
             splitPane.getItems().set(1, root);
         } catch (IOException ex) {

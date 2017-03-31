@@ -6,6 +6,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import database.SQLConnection;
+import users.Admin;
 import users.students.Course;
 import users.students.Student;
 import window.util.WindowUtil;
@@ -18,7 +19,7 @@ import java.util.ResourceBundle;
  */
 public class StudentViewController implements Initializable {
     private Student displayedStudent;
-    private boolean isAdmin;
+    private Admin admin;
 
     //Table values
     @FXML
@@ -50,7 +51,7 @@ public class StudentViewController implements Initializable {
 
     @FXML
     private void handleEditButtonAction(ActionEvent event) {
-        EditStudentController controller = WindowUtil.displayEditStudent(displayedStudent);
+        EditStudentController controller = WindowUtil.displayEditStudent(displayedStudent, admin);
 
         if (controller != null && controller.getStudent().isPresent()) {
             // Config window with edited student.
@@ -83,11 +84,23 @@ public class StudentViewController implements Initializable {
     public void init(Student student) {
         courseViewTable.getItems().clear();
         this.displayedStudent = student;
-        nameLabel.setText(student.getFirstName() + " " + student.getLastName());
-        majorLabel.setText(student.getMajor().toString());
-        idLabel.setText(Integer.toString(student.getID()));
-        gpaLabel.setText(Double.toString(student.getGPA()));
-        usernameLabel.setText(student.getUserName());
+
+        String label = String.format("Student Name: %s %s",
+                student.getFirstName(),
+                student.getLastName());
+        nameLabel.setText(label);
+
+        label = String.format("Major: %s", student.getMajor().toString());
+        majorLabel.setText(label);
+
+        label = String.format("Student ID: %s", student.getID());
+        idLabel.setText(label);
+
+        label = String.format("Unofficial GPA: %s", student.getGPA());
+        gpaLabel.setText(label);
+
+        label = String.format("Username: %s",student.getUserName() );
+        usernameLabel.setText(label);
         courseViewTable.getItems().addAll(student.getCourses());
     }
 
@@ -95,12 +108,12 @@ public class StudentViewController implements Initializable {
      * Initialize controller with student in admin mode.
      *
      * @param student The student instance that will be displayed.
-     * @param isAdmin If admin access should be granted.
+     * @param admin The admin viewing the student
      */
-    public void init(Student student, boolean isAdmin) {
-        this.isAdmin = isAdmin;
+    public void init(Student student, Admin admin) {
+        this.admin = admin;
         init(student);
-        if (isAdmin) {
+        if (admin != null) {
             adminButtonBar.setVisible(true);
         }
     }
