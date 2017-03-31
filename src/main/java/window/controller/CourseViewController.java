@@ -80,14 +80,14 @@ public class CourseViewController implements Initializable {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("EEEE, MMMM dd, yyyy");
             LocalDate startDate = course.getDateInterval().getStart();
             LocalDate endDate = course.getDateInterval().getEnd();
-            dateLabel.setText(String.format("%s - %s", startDate.format(formatter), endDate.format(formatter)));
+            dateLabel.setText(String.format("Date: %s - %s", startDate.format(formatter), endDate.format(formatter)));
         }
 
         if (course.getTimeInterval() != null) {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("h:mma");
             LocalTime startTime = course.getTimeInterval().getStart();
             LocalTime endTime = course.getTimeInterval().getEnd();
-            timeLabel.setText(String.format("%s - %s", startTime.format(formatter), endTime.format(formatter)));
+            timeLabel.setText(String.format("Time: %s - %s", startTime.format(formatter), endTime.format(formatter)));
         }
 
         label = String.format("GPA: %s", course.getAverage());

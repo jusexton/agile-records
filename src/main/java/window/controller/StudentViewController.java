@@ -9,6 +9,7 @@ import database.SQLConnection;
 import users.Admin;
 import users.students.Course;
 import users.students.Student;
+import util.StringUtil;
 import window.util.WindowUtil;
 
 import java.net.URL;
@@ -90,7 +91,7 @@ public class StudentViewController implements Initializable {
                 student.getLastName());
         nameLabel.setText(label);
 
-        label = String.format("Major: %s", student.getMajor().toString());
+        label = String.format("Major: %s", StringUtil.formatMajor(student.getMajor()));
         majorLabel.setText(label);
 
         label = String.format("Student ID: %s", student.getID());

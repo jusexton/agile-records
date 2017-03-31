@@ -2,15 +2,10 @@ package database
 
 import security.Hash
 import security.util.HashingUtil
-import users.students.Course
-import users.students.Grade
-import users.students.GradeType
-import users.students.Major
-import users.students.Student
+import users.students.*
 import util.MathUtil
 
 import java.sql.SQLException
-import java.time.LocalTime
 
 /**
  * Script used to generate users with random associated data
@@ -39,14 +34,14 @@ static Student generateStudent() {
     student.setMajor(major)
 
     int courseCount = MathUtil.getRandomInt(1, 5)
-    courseCount.times{
+    courseCount.times {
         student.getCourses().add(generateCourse())
     }
     return student
 }
 
 // Returns random element of a given list.
-static <T> String getRandomElement(List<T> list){
+static <T> String getRandomElement(List<T> list) {
     return list.get(MathUtil.getRandomInt(0, list.size()))
 }
 
@@ -88,7 +83,7 @@ static PopulateStatistics populateDatabase(int count) {
         // Add count number of students.
         count.times {
             Student student = generateStudent()
-            if (!connection.addUser(student)){
+            if (!connection.addUser(student)) {
                 stats.nameAttempt(student.getUserName())
             } else {
                 stats.studentsAdded++
@@ -103,13 +98,13 @@ static PopulateStatistics populateDatabase(int count) {
 
 println("Adding Students...")
 // Places n number of randomly generated users in database.
-def stats = populateDatabase(1)
+def stats = populateDatabase(1000)
 
 // Display statistics gathered while populating database
 println("Time Taken: " + stats.time + " seconds")
 println("Students Added: " + stats.studentsAdded)
 def entries = stats.takenUsernames.entrySet()
-if (entries.size() > 0){
+if (entries.size() > 0) {
     println("Attempted Additions:")
     entries.forEach { entry ->
         String message = String.format("Name: %s, Count: %s", entry.key, entry.value)
