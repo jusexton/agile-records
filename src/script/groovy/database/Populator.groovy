@@ -10,6 +10,7 @@ import users.students.Student
 import util.MathUtil
 
 import java.sql.SQLException
+import java.time.LocalTime
 
 /**
  * Script used to generate users with random associated data
@@ -79,23 +80,40 @@ static Grade generateGrade() {
  * @param count The number of users that will be generated and added
  * to the database.
  */
-static void populateDatabase(int count) {
+static PopulateStatistics populateDatabase(int count) {
+    def stats = new PopulateStatistics()
+    def start = System.nanoTime()
     try {
         SQLConnection connection = new SQLConnection()
         // Add count number of students.
         count.times {
             Student student = generateStudent()
             if (!connection.addUser(student)){
-                String message = String.format("User '%s' could not be added to database", student.userName)
-                println(message)
+                stats.nameAttempt(student.getUserName())
+            } else {
+                stats.studentsAdded++
             }
         }
     } catch (SQLException ex) {
         ex.printStackTrace()
     }
+    stats.time = (System.nanoTime() - start) / 1000000000.0
+    return stats
 }
 
 println("Adding Students...")
 // Places n number of randomly generated users in database.
-populateDatabase(1000)
+def stats = populateDatabase(1)
+
+// Display statistics gathered while populating database
+println("Time Taken: " + stats.time + " seconds")
+println("Students Added: " + stats.studentsAdded)
+def entries = stats.takenUsernames.entrySet()
+if (entries.size() > 0){
+    println("Attempted Additions:")
+    entries.forEach { entry ->
+        String message = String.format("Name: %s, Count: %s", entry.key, entry.value)
+        println(message)
+    }
+}
 println("Done.")
