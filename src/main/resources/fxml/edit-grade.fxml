@@ -13,18 +13,18 @@
    <children>
       <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="114.0" prefWidth="376.0">
           <children>
-              <TextField fx:id="nameField" layoutX="90.0" layoutY="10.0" prefHeight="25.0" prefWidth="234.0" promptText="Name" />
-              <TextField fx:id="scoreField" layoutX="90.0" layoutY="41.0" prefHeight="25.0" prefWidth="234.0" promptText="Score" />
-              <ComboBox fx:id="typeComboBox" layoutX="90.0" layoutY="71.0" prefHeight="25.0" prefWidth="234.0" promptText="Type" />
-              <Label layoutX="19.0" layoutY="75.0" text="Grade Type: ">
+              <TextField fx:id="nameField" layoutX="138.0" layoutY="10.0" prefHeight="26.0" prefWidth="215.0" promptText="Name" />
+              <TextField fx:id="scoreField" layoutX="138.0" layoutY="44.0" prefHeight="26.0" prefWidth="215.0" promptText="Score" />
+              <ComboBox fx:id="typeComboBox" layoutX="138.0" layoutY="79.0" prefHeight="26.0" prefWidth="215.0" promptText="Type" />
+              <Label layoutX="48.0" layoutY="84.0" text="Grade Type: ">
                <padding>
                   <Insets right="5.0" />
                </padding></Label>
-              <Label layoutX="50.0" layoutY="45.0" text="Score: ">
+              <Label layoutX="86.0" layoutY="49.0" text="Score: ">
                <padding>
                   <Insets right="5.0" />
                </padding></Label>
-              <Label layoutX="48.0" layoutY="14.0" text="Name: ">
+              <Label layoutX="86.0" layoutY="15.0" text="Name: ">
                <padding>
                   <Insets right="5.0" />
                </padding></Label>
