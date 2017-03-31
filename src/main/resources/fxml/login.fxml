@@ -13,8 +13,8 @@
         <PasswordField fx:id="passwordField" layoutX="104.0" layoutY="73.0" onAction="#handleLoginAction" prefHeight="25.0" prefWidth="265.0" promptText="Password" />
         <CheckBox fx:id="checkBox" layoutX="35.0" layoutY="115.0" mnemonicParsing="false" onKeyPressed="#handleKeyEvent" text="Remember Username" />
         <Button fx:id="loginButton" layoutX="313.0" layoutY="111.0" mnemonicParsing="false" onAction="#handleLoginAction" prefHeight="25.0" prefWidth="56.0" text="Login" />
-        <Label layoutX="35.0" layoutY="37.0" text="Username:" />
-        <Label layoutX="35.0" layoutY="77.0" text="Password:" />
+        <Label layoutX="33.0" layoutY="38.0" text="Username:" />
+        <Label layoutX="38.0" layoutY="78.0" text="Password:" />
         <Label fx:id="loginFailLabel" layoutX="35.0" layoutY="143.0" text="Username Or Password Incorrect !" textFill="RED" visible="false" />
     </children>
 </Pane>

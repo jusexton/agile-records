@@ -173,8 +173,8 @@ public class EditCourseController implements Initializable {
         if (!startTimeTextField.getText().isEmpty() && !endTimeTextField.getText().isEmpty()){
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("h:mma");
             TimeInterval timeInterval = new TimeInterval(
-                    LocalTime.parse(startTimeTextField.getText().replaceAll(" ", ""), formatter),
-                    LocalTime.parse(endTimeTextField.getText().replaceAll(" ", ""), formatter));
+                    LocalTime.parse(startTimeTextField.getText().toUpperCase().replaceAll(" ", ""), formatter),
+                    LocalTime.parse(endTimeTextField.getText().toUpperCase().replaceAll(" ", ""), formatter));
             course.setTimeInterval(timeInterval);
         }
     }

@@ -160,7 +160,8 @@ public class AdminViewController implements Initializable {
 
         // Updates student count label on list change.
         students.addListener((ListChangeListener<? super Student>)
-                (c -> studentCountLabel.setText(String.valueOf(students.size()))));
+                (c -> studentCountLabel.setText(
+                        String.format("Number of Students: %d", students.size()))));
 
         syncTable();
 
@@ -175,7 +176,8 @@ public class AdminViewController implements Initializable {
                     return student.getFirstName().toLowerCase().contains(lowerCaseFilter) ||
                             student.getLastName().toLowerCase().contains(lowerCaseFilter) ||
                             student.getUserName().toLowerCase().contains(lowerCaseFilter) ||
-                            String.valueOf(student.getID()).contains(lowerCaseFilter);
+                            String.valueOf(student.getID()).contains(lowerCaseFilter) ||
+                            student.getMajor().toString().toLowerCase().contains(lowerCaseFilter);
                 })
         );
 
@@ -191,7 +193,8 @@ public class AdminViewController implements Initializable {
      */
     public void init(Admin admin) {
         this.loggedInAdmin = admin;
-        usernameLabel.setText(admin.getUserName());
+        String label = String.format("Username: %s", admin.getUserName());
+        usernameLabel.setText(label);
     }
 
     /**
