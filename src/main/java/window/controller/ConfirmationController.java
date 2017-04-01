@@ -26,6 +26,8 @@ public class ConfirmationController implements Initializable {
     @FXML
     private Button confirmButton;
     @FXML
+    private Button cancelButton;
+    @FXML
     private Label errorLabel;
 
     @FXML
@@ -36,6 +38,11 @@ public class ConfirmationController implements Initializable {
         } else {
             errorLabel.setVisible(true);
         }
+    }
+
+    @FXML
+    private void handleCancelButtonAction(ActionEvent event){
+        WindowUtil.closeWindow(event);
     }
 
     @Override

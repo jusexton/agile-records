@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="197.0" prefWidth="520.0" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1" fx:controller="window.controller.ConfirmationController">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="197.0" prefWidth="474.0" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1" fx:controller="window.controller.ConfirmationController">
     <children>
         <AnchorPane prefHeight="96.0" prefWidth="520.0" style="-fx-background-color: #D3D3D3;">
             <children>
@@ -27,16 +27,15 @@
         </AnchorPane>
         <AnchorPane prefHeight="195.0" prefWidth="530.0">
             <children>
-                <Label layoutX="103.0" layoutY="37.0" text="Are you sure you want to commit these changes?">
-                    <font>
-                        <Font size="13.0" />
-                    </font>
-                </Label>
-                <PasswordField fx:id="passwordField" layoutX="132.0" layoutY="61.0" onAction="#handleConfirmationAction" prefHeight="25.0" prefWidth="267.0" promptText="Password" />
-                <Label layoutX="61.0" layoutY="66.0" text="Password: " />
-                <Button fx:id="confirmButton" layoutX="411.0" layoutY="61.0" mnemonicParsing="false" onAction="#handleConfirmationAction" prefHeight="25.0" prefWidth="74.0" text="Confirm" />
-                <Label fx:id="errorLabel" layoutX="203.0" layoutY="97.0" text="Incorrect Password" textFill="RED" visible="false" />
-            <Label layoutX="14.0" layoutY="14.0" text="Commited changes will take affect immidiatly and will not be revertable" />
+                <Label layoutX="14.0" layoutY="42.0" text="Typing your password will confirm these changes." />
+                <PasswordField fx:id="passwordField" layoutX="14.0" layoutY="74.0" onAction="#handleConfirmationAction" prefHeight="25.0" prefWidth="267.0" promptText="Password" />
+                <Button fx:id="confirmButton" layoutX="289.0" layoutY="74.0" mnemonicParsing="false" onAction="#handleConfirmationAction" prefHeight="25.0" prefWidth="75.0" text="Confirm" />
+                <Button fx:id="cancelButton" layoutX="370.0" layoutY="74.0" mnemonicParsing="false" onAction="#handleCancelButtonAction" prefHeight="25.0" prefWidth="75.0" text="Cancel" />
+                <Label fx:id="errorLabel" layoutX="14.0" layoutY="103.0" text="Incorrect Password" textFill="RED" visible="false" />
+            <Label layoutX="14.0" layoutY="14.0" text="Commited changes will take affect immidiatly and will not be revertable">
+               <font>
+                  <Font size="14.0" />
+               </font></Label>
             </children>
         </AnchorPane>
     </children>
