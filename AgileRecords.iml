@@ -42,5 +42,6 @@
         <SOURCES />
       </library>
     </orderEntry>
+    <orderEntry type="library" name="groovy-2.4.8 (2)" level="application" />
   </component>
 </module>
