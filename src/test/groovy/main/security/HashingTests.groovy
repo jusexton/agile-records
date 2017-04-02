@@ -13,7 +13,7 @@ class HashingTests extends GroovyTestCase {
     void testSaltLength() {
         def length = 20
         String salt = HashingUtil.generateSalt(length, "abc")
-        println(salt)
+        // println(salt)
         assertLength(length, salt.toCharArray())
     }
 

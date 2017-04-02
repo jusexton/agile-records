@@ -1,20 +1,21 @@
 package main.users.students
 
+import org.junit.Before
+import org.junit.BeforeClass
+import org.junit.Test
+import org.junit.runner.RunWith
+import org.junit.runners.JUnit4
+import security.util.HashingUtil
 import users.students.Course
 import users.students.Grade
 import users.students.GradeType
 import users.students.Student
-import security.util.HashingUtil
-import org.junit.BeforeClass
 
 /**
  * Class that will contain all tests regarding the Student class.
  */
 class StudentTests extends GroovyTestCase {
-    static Student testStudent
-
-    @BeforeClass
-    static void getTestStudent() {
+    static Student getTestStudent() {
         // Create test course one.
         Course courseOne = new Course("MathUtil 2302", 4, 12345)
         courseOne.getGrades().add(new Grade(60, GradeType.Test))
@@ -57,12 +58,11 @@ class StudentTests extends GroovyTestCase {
         // Create test student and return the object.
         Student testStudent = new Student("testStudent", HashingUtil.hash("username", "SHA-256"))
         testStudent.setCourses(courses)
-
-        this.testStudent = testStudent
+        return testStudent
     }
 
     // Passed
     void testGpaAverage() {
-        assertEquals(testStudent.getGPA(), 0.0)
+        assertEquals(getTestStudent().getGPA(), 0.0)
     }
 }

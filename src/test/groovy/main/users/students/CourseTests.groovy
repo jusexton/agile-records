@@ -18,12 +18,9 @@ import java.time.format.DateTimeParseException
 /**
  * Contains all course tests.
  */
-@RunWith(JUnit4.class)
-class CourseTests extends GroovyTestCase {
-    static Course testCourse
 
-    @BeforeClass
-    static void createTestCourse() {
+class CourseTests extends GroovyTestCase {
+    static Course getTestCourse() {
         Course testCourse = new Course("MathUtil 2302", 4, 12345)
 
         Grade gradeOne = new Grade(90, GradeType.Test)
@@ -42,19 +39,17 @@ class CourseTests extends GroovyTestCase {
         testCourse.setDateInterval(new DateInterval(startDate, endDate))
         testCourse.setTimeInterval(new TimeInterval(startTime, endTime))
 
-        this.testCourse = testCourse
+        return testCourse
     }
 
     // Passed
-    @Test
     void testCourseAverage() {
-        assertEquals(testCourse.getAverage(), 4)
+        assertEquals(getTestCourse().getAverage(), 4)
     }
 
     // Passed
-    @Test
     void testDateInterval() {
-        DateInterval dateInterval = testCourse.getDateInterval()
+        DateInterval dateInterval = getTestCourse().getDateInterval()
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM-dd-yyyy")
         LocalDate start = dateInterval.getStart()
@@ -71,9 +66,8 @@ class CourseTests extends GroovyTestCase {
     }
 
     // Passed
-    @Test
     void testTimeInterval() {
-        TimeInterval timeInterval = testCourse.getTimeInterval()
+        TimeInterval timeInterval = getTestCourse().getTimeInterval()
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("h:mma")
         LocalTime start = timeInterval.getStart()
@@ -88,8 +82,7 @@ class CourseTests extends GroovyTestCase {
     }
 
     // Passed
-    @Test
-    void parseTest() {
+    static void parseTest() {
         Exception ex = null
         String time = "4:00PM"
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("h:mma")

@@ -49,8 +49,8 @@ class PopulatorTests extends GroovyTestCase {
     // Passed
     void testGenerateStudent() {
         Student testStudent = Populator.generateStudent()
-        println(testStudent.firstName)
-        println(testStudent.lastName)
+        // println(testStudent.firstName)
+        // println(testStudent.lastName)
         def courses = testStudent.getCourses()
         // courses.forEach { course -> println(course.getName())}
         assertTrue(courses.size() >= 1 && courses.size() <= 5)

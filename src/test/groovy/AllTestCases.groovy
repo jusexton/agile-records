@@ -15,7 +15,7 @@ class AllTestCases {
         def allTests = new GroovyTestSuite()
         allTests.addTestSuite(AdminTests.class)
         allTests.addTestSuite(StudentTests.class)
-        allTests.addTestSuite(DatabaseTests.class)
+        // allTests.addTestSuite(DatabaseTests.class)
         allTests.addTestSuite(CourseTests.class)
         allTests.addTestSuite(HashingTests.class)
         allTests.addTestSuite(MathUtilTests.class)
