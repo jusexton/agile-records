@@ -9,5 +9,5 @@ Admins are given the ability to view and manage students and their information,
 while students can easily check their courses
 ![alt tag](docs/examples/student.png)
 
-and course information
+and course information  
 ![alt tag](docs/examples/course.png)
