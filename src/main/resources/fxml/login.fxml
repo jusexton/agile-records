@@ -6,22 +6,43 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="174.0" prefWidth="432.0" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1" fx:controller="window.controller.LoginController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="376.0" prefWidth="766.0" stylesheets="@../stylesheets/agile.css" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1" fx:controller="window.controller.LoginController">
     <children>
-        <TextField fx:id="textField" layoutX="104.0" layoutY="33.0" onAction="#handleLoginAction" prefHeight="25.0" prefWidth="265.0" promptText="Username" />
-        <PasswordField fx:id="passwordField" layoutX="104.0" layoutY="73.0" onAction="#handleLoginAction" prefHeight="25.0" prefWidth="265.0" promptText="Password" />
-        <CheckBox fx:id="checkBox" layoutX="35.0" layoutY="115.0" mnemonicParsing="false" onKeyPressed="#handleKeyEvent" text="Remember Username" />
-        <Button fx:id="loginButton" layoutX="313.0" layoutY="111.0" mnemonicParsing="false" onAction="#handleLoginAction" prefHeight="25.0" prefWidth="56.0" text="Login" />
-        <Label layoutX="28.0" layoutY="38.0" text="Username:">
+      <ImageView fitHeight="382.0" fitWidth="819.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../stylesheets/Michael-Schultz016-A.jpg" />
+         </image>
+      </ImageView>
+      <Label layoutX="34.0" layoutY="33.0" prefHeight="68.0" prefWidth="334.0" text="AGILE RECORDS" textFill="WHITE">
+         <font>
+            <Font name="Helvetica Bold" size="36.0" />
+         </font></Label>
+        <TextField fx:id="textField" layoutX="105.0" layoutY="101.0" onAction="#handleLoginAction" prefHeight="27.0" prefWidth="245.0" promptText="Username" />
+        <PasswordField fx:id="passwordField" layoutX="105.0" layoutY="144.0" onAction="#handleLoginAction" prefHeight="27.0" prefWidth="245.0" promptText="Password" />
+        <CheckBox fx:id="checkBox" layoutX="27.0" layoutY="191.0" mnemonicParsing="false" onKeyPressed="#handleKeyEvent" text="Remember Username" textFill="WHITE" />
+        <Button fx:id="loginButton" layoutX="294.0" layoutY="186.0" mnemonicParsing="false" onAction="#handleLoginAction" prefHeight="25.0" prefWidth="56.0" text="Login" />
+        <Label layoutX="10.0" layoutY="103.0" text="Username:" textFill="WHITE">
          <padding>
             <Insets right="5.0" />
-         </padding></Label>
-        <Label layoutX="30.0" layoutY="78.0" text="Password:">
+         </padding>
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font></Label>
+        <Label layoutX="12.0" layoutY="146.0" text="Password:" textFill="WHITE">
          <padding>
             <Insets right="5.0" />
-         </padding></Label>
-        <Label fx:id="loginFailLabel" layoutX="35.0" layoutY="143.0" text="Username Or Password Incorrect !" textFill="RED" visible="false" />
+         </padding>
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font></Label>
+        <Label fx:id="loginFailLabel" layoutX="67.0" layoutY="213.0" prefHeight="44.0" prefWidth="268.0" text="Username Or Password Incorrect !" textFill="RED" visible="false">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font></Label>
     </children>
 </Pane>
