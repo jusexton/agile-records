@@ -31,9 +31,12 @@ public class AdminViewController implements Initializable {
     private Admin loggedInAdmin;
     private ObservableList<Student> students;
     private StudentViewController studentViewController;
+    private boolean loggingOut = false;
 
     @FXML
     private SplitPane splitPane;
+    @FXML
+    private Button logoutButton;
     @FXML
     private TextField searchTextField;
     @FXML
@@ -66,6 +69,12 @@ public class AdminViewController implements Initializable {
     private Label usernameLabel;
     @FXML
     private Label displayedStudentCountLabel;
+
+    @FXML
+    private void handleLogoutButtonAction(ActionEvent event){
+        loggingOut = true;
+        WindowUtil.closeWindow(event);
+    }
 
     /**
      * Handles add button pressed action.
@@ -267,4 +276,9 @@ public class AdminViewController implements Initializable {
     public User getLoggedInAdmin() {
         return this.loggedInAdmin;
     }
+
+    public boolean isLoggingOut(){
+        return this.loggingOut;
+    }
+
 }

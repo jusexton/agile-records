@@ -21,6 +21,7 @@ import java.util.ResourceBundle;
 public class StudentViewController implements Initializable {
     private Student displayedStudent;
     private Admin admin;
+    private boolean loggingOut = false;
 
     //Table values
     @FXML
@@ -49,6 +50,12 @@ public class StudentViewController implements Initializable {
     private Label usernameLabel;
     @FXML
     private Label gpaLabel;
+
+    @FXML
+    private void handleLogoutButtonAction(ActionEvent event){
+        loggingOut = true;
+        WindowUtil.closeWindow(event);
+    }
 
     @FXML
     private void handleEditButtonAction(ActionEvent event) {
@@ -137,5 +144,9 @@ public class StudentViewController implements Initializable {
 
     public Student getDisplayedStudent() {
         return displayedStudent;
+    }
+
+    public boolean isLoggingOut(){
+        return this.loggingOut;
     }
 }

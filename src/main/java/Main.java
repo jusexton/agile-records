@@ -28,28 +28,45 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        // Launches application login screen.
-        LoginController controller = WindowUtil.displayLogin();
+        while (true) {
+            AdminViewController adminViewController = null;
+            StudentViewController studentViewController = null;
 
-        // If login was successful update user's last login property
-        // and open the correct primary window.
-        if (controller != null && controller.getLoggedInUser().isPresent()) {
-            User loggedInUser = controller.getLoggedInUser().get();
-            updateLoginTime(loggedInUser);
-            String path = loggedInUser instanceof Student ?
-                    "/fxml/student-view.fxml" : "/fxml/admin-view.fxml";
+            // Launches application login screen.
+            LoginController controller = WindowUtil.displayLogin();
 
-            FXMLLoader loader = new FXMLLoader(getClass().getResource(path));
-            Parent root = loader.load();
-            if (loggedInUser instanceof Student) {
-                loader.<StudentViewController>getController().init((Student) loggedInUser);
+            // If login was successful update user's last login property
+            // and open the correct primary window.
+            if (controller != null && controller.getLoggedInUser().isPresent()) {
+                User loggedInUser = controller.getLoggedInUser().get();
+                updateLoginTime(loggedInUser);
+                String path = loggedInUser instanceof Student ?
+                        "/fxml/student-view.fxml" : "/fxml/admin-view.fxml";
+
+                FXMLLoader loader = new FXMLLoader(getClass().getResource(path));
+                Parent root = loader.load();
+                if (loggedInUser instanceof Student) {
+                    loader.<StudentViewController>getController().init((Student) loggedInUser);
+                    studentViewController = loader.getController();
+                } else {
+                    loader.<AdminViewController>getController().init((Admin) loggedInUser);
+                    adminViewController = loader.getController();
+                }
+                Stage stage = new Stage();
+                stage.setTitle("Agile Records");
+                stage.getIcons().add(new Image(getClass().getResourceAsStream("/icon/agile-records.png")));
+                stage.setScene(new Scene(root));
+                stage.showAndWait();
+
+                if (adminViewController != null && !adminViewController.isLoggingOut()) {
+                    break;
+                } else if (studentViewController != null && !studentViewController.isLoggingOut()) {
+                    break;
+                }
             } else {
-                loader.<AdminViewController>getController().init((Admin) loggedInUser);
+                break;
             }
-            primaryStage.setTitle("Agile Records");
-            primaryStage.getIcons().add(new Image(getClass().getResourceAsStream("/icon/agile-records.png")));
-            primaryStage.setScene(new Scene(root));
-            primaryStage.show();
+
         }
     }
 

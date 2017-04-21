@@ -1,57 +1,65 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ButtonBar?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
-<VBox xmlns:fx="http://javafx.com/fxml/1" alignment="TOP_LEFT" prefHeight="787.0" prefWidth="1139.0"
-      xmlns="http://javafx.com/javafx/8.0.112" fx:controller="window.controller.AdminViewController">
+
+<VBox alignment="TOP_LEFT" prefHeight="787.0" prefWidth="1139.0" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1" fx:controller="window.controller.AdminViewController">
     <children>
-        <SplitPane fx:id="splitPane" dividerPositions="0.6253298153034301" prefHeight="160.0" prefWidth="200.0"
-                   VBox.vgrow="ALWAYS">
+      <ButtonBar prefHeight="40.0" prefWidth="200.0">
+        <buttons>
+          <Button fx:id="logoutButton" mnemonicParsing="false" onAction="#handleLogoutButtonAction" text="Logout" />
+        </buttons>
+         <VBox.margin>
+            <Insets left="10.0" right="10.0" />
+         </VBox.margin>
+      </ButtonBar>
+        <SplitPane fx:id="splitPane" dividerPositions="0.6253298153034301" prefHeight="160.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
             <items>
                 <AnchorPane prefHeight="200.0" prefWidth="200.0">
                     <children>
-                        <TextField fx:id="searchTextField" layoutX="531.0" layoutY="2.0" promptText="Search"/>
-                        <TableView fx:id="studentTableView" layoutX="47.0" layoutY="31.0" prefHeight="607.0"
-                                   prefWidth="603.0" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0"
-                                   AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="31.0">
+                        <TextField fx:id="searchTextField" layoutX="531.0" layoutY="2.0" promptText="Search" />
+                        <TableView fx:id="studentTableView" layoutX="47.0" layoutY="31.0" prefHeight="607.0" prefWidth="603.0" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="31.0">
                             <columns>
-                                <TableColumn fx:id="idTableColumn" prefWidth="75.0" text="ID"/>
-                                <TableColumn fx:id="usernameTableColumn" prefWidth="110.0" text="Username"/>
-                                <TableColumn fx:id="lastLoginTableColumn" prefWidth="110.0" text="Last Login"/>
-                                <TableColumn fx:id="firstNameTableColumn" prefWidth="110.0" text="First Name"/>
-                                <TableColumn fx:id="lastNameTableColumn" prefWidth="110.0" text="Last Name"/>
-                                <TableColumn fx:id="majorTableColumn" prefWidth="110.0" text="Major"/>
-                                <TableColumn fx:id="GPATableColumn" prefWidth="50.0" text="GPA"/>
+                                <TableColumn fx:id="idTableColumn" prefWidth="75.0" text="ID" />
+                                <TableColumn fx:id="usernameTableColumn" prefWidth="110.0" text="Username" />
+                                <TableColumn fx:id="lastLoginTableColumn" prefWidth="110.0" text="Last Login" />
+                                <TableColumn fx:id="firstNameTableColumn" prefWidth="110.0" text="First Name" />
+                                <TableColumn fx:id="lastNameTableColumn" prefWidth="110.0" text="Last Name" />
+                                <TableColumn fx:id="majorTableColumn" prefWidth="110.0" text="Major" />
+                                <TableColumn fx:id="GPATableColumn" prefWidth="50.0" text="GPA" />
                             </columns>
                         </TableView>
-                        <Label fx:id="studentCountLabel" layoutX="14.0" layoutY="6.0" text="Number of Students: 0"/>
-                        <Label fx:id="displayedStudentCountLabel" layoutX="240.0" layoutY="6.0"
-                               text="Number of Students Being Displayed: 0"/>
+                        <Label fx:id="studentCountLabel" layoutX="14.0" layoutY="6.0" text="Number of Students: 0" />
+                        <Label fx:id="displayedStudentCountLabel" layoutX="240.0" layoutY="6.0" text="Number of Students Being Displayed: 0" />
                     </children>
                 </AnchorPane>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="723.0" prefWidth="295.0"/>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="723.0" prefWidth="295.0" />
             </items>
         </SplitPane>
         <ButtonBar prefHeight="40.0" prefWidth="200.0">
             <buttons>
-                <Button fx:id="addButton" mnemonicParsing="false" onAction="#handleAddButtonAction" text="Add"
-                        ButtonBar.buttonData="LEFT"/>
-                <Button fx:id="removeButton" mnemonicParsing="false" onAction="#handleRemoveButtonAction" text="Remove"
-                        ButtonBar.buttonData="LEFT"/>
-                <Button fx:id="refreshButton" mnemonicParsing="false" onAction="#handleRefreshButtonAction"
-                        text="Refresh" ButtonBar.buttonData="RIGHT"/>
+                <Button fx:id="addButton" mnemonicParsing="false" onAction="#handleAddButtonAction" text="Add" ButtonBar.buttonData="LEFT" />
+                <Button fx:id="removeButton" mnemonicParsing="false" onAction="#handleRemoveButtonAction" text="Remove" ButtonBar.buttonData="LEFT" />
+                <Button fx:id="refreshButton" mnemonicParsing="false" onAction="#handleRefreshButtonAction" text="Refresh" ButtonBar.buttonData="RIGHT" />
             </buttons>
             <padding>
-                <Insets left="10.0" right="10.0"/>
+                <Insets left="10.0" right="10.0" />
             </padding>
         </ButtonBar>
         <AnchorPane prefHeight="0.0" prefWidth="922.0">
             <children>
                 <Label fx:id="usernameLabel" layoutY="5.0" text="Username: username " AnchorPane.leftAnchor="0.0">
                     <font>
-                        <Font size="12.0"/>
+                        <Font size="12.0" />
                     </font>
                 </Label>
             </children>
