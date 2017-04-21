@@ -31,8 +31,8 @@ public class ConfirmationController implements Initializable {
     private Label errorLabel;
 
     @FXML
-    private void handleConfirmationAction(ActionEvent event){
-        if (hash.checkPassword(passwordField.getText())){
+    private void handleConfirmationAction(ActionEvent event) {
+        if (hash.checkPassword(passwordField.getText())) {
             confirm = true;
             WindowUtil.closeWindow(event);
         } else {
@@ -41,7 +41,7 @@ public class ConfirmationController implements Initializable {
     }
 
     @FXML
-    private void handleCancelButtonAction(ActionEvent event){
+    private void handleCancelButtonAction(ActionEvent event) {
         WindowUtil.closeWindow(event);
     }
 
@@ -50,11 +50,11 @@ public class ConfirmationController implements Initializable {
 
     }
 
-    public void init(Hash hash){
+    public void init(Hash hash) {
         this.hash = hash;
     }
 
-    public boolean isConfirmed(){
+    public boolean isConfirmed() {
         return this.confirm;
     }
 }

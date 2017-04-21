@@ -64,6 +64,8 @@ public class AdminViewController implements Initializable {
     private Label studentCountLabel;
     @FXML
     private Label usernameLabel;
+    @FXML
+    private Label displayedStudentCountLabel;
 
     /**
      * Handles add button pressed action.
@@ -81,7 +83,7 @@ public class AdminViewController implements Initializable {
             // Confirm user decision.
             ConfirmationController confirmationController = WindowUtil.displayConfirmation(loggedInAdmin.getPassword());
 
-            if (confirmationController != null && confirmationController.isConfirmed()){
+            if (confirmationController != null && confirmationController.isConfirmed()) {
                 // Commence add procedure
                 Student student = controller.getStudent().get();
                 students.add(student);
@@ -103,7 +105,7 @@ public class AdminViewController implements Initializable {
     @FXML
     private void handleRemoveButtonAction(ActionEvent event) {
         List<Student> selectedStudents = studentTableView.getSelectionModel().getSelectedItems();
-        if (selectedStudents.size() > 0){
+        if (selectedStudents.size() > 0) {
             // Confirm user decision.
             ConfirmationController controller = WindowUtil.displayConfirmation(loggedInAdmin.getPassword());
             if (controller != null && controller.isConfirmed()) {
@@ -138,7 +140,7 @@ public class AdminViewController implements Initializable {
     @FXML
     private void handleRefreshButtonAction(ActionEvent event) {
         students.clear();
-        syncTable();
+        pullStudents();
     }
 
     /**
@@ -172,9 +174,17 @@ public class AdminViewController implements Initializable {
                 (c -> studentCountLabel.setText(
                         String.format("Number of Students: %d", students.size()))));
 
-        syncTable();
+        pullStudents();
 
         FilteredList<Student> filteredData = new FilteredList<>(students, p -> true);
+        // Initialize displayed student label count.
+        displayedStudentCountLabel.setText(String.format(
+                "Number of Students Being Displayed: %s",
+                filteredData.size()));
+        filteredData.addListener((ListChangeListener<? super Student>)
+                (c -> displayedStudentCountLabel.setText(
+                        String.format("Number of Students Being Displayed: %s", filteredData.size()))));
+
         searchTextField.textProperty().addListener((observable, oldValue, newValue) ->
                 filteredData.setPredicate(student -> {
                     // If search bar is empty, all elements will be displayed.
@@ -240,9 +250,10 @@ public class AdminViewController implements Initializable {
     }
 
     /**
-     * Synces student TableView with student database table
+     * Pull all student objects from database and
+     * adds them to student observable list.
      */
-    private void syncTable() {
+    private void pullStudents() {
         // Populates table on load.
         try (SQLConnection connection = new SQLConnection()) {
             connection.getAllUsers()

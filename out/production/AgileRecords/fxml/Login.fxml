@@ -29,7 +29,7 @@
          <font>
             <Font name="Helvetica" size="14.0" />
          </font></CheckBox>
-        <Button fx:id="loginButton" layoutX="246.0" layoutY="185.0" mnemonicParsing="false" onAction="#handleLoginAction" prefHeight="27.0" prefWidth="64.0" text="Login" />
+        <Button fx:id="loginButton" layoutX="262.0" layoutY="191.0" mnemonicParsing="false" onAction="#handleLoginAction" prefHeight="27.0" prefWidth="64.0" text="Login" />
         <Label layoutX="13.0" layoutY="100.0" prefHeight="38.0" prefWidth="86.0" text="Username:" textFill="WHITE">
          <padding>
             <Insets right="5.0" />

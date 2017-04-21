@@ -4,8 +4,8 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
-<VBox alignment="TOP_LEFT" prefHeight="787.0" prefWidth="1139.0" xmlns="http://javafx.com/javafx/8.0.112"
-      xmlns:fx="http://javafx.com/fxml/1" fx:controller="window.controller.AdminViewController">
+<VBox xmlns:fx="http://javafx.com/fxml/1" alignment="TOP_LEFT" prefHeight="787.0" prefWidth="1139.0"
+      xmlns="http://javafx.com/javafx/8.0.112" fx:controller="window.controller.AdminViewController">
     <children>
         <SplitPane fx:id="splitPane" dividerPositions="0.6253298153034301" prefHeight="160.0" prefWidth="200.0"
                    VBox.vgrow="ALWAYS">
@@ -27,6 +27,8 @@
                             </columns>
                         </TableView>
                         <Label fx:id="studentCountLabel" layoutX="14.0" layoutY="6.0" text="Number of Students: 0"/>
+                        <Label fx:id="displayedStudentCountLabel" layoutX="240.0" layoutY="6.0"
+                               text="Number of Students Being Displayed: 0"/>
                     </children>
                 </AnchorPane>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="723.0" prefWidth="295.0"/>
