@@ -13,7 +13,7 @@
     <children>
         <VBox prefHeight="377.0" prefWidth="755.0" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0">
             <children>
-            <ButtonBar prefHeight="40.0" prefWidth="200.0">
+            <ButtonBar fx:id="toolButtonBar" prefHeight="40.0" prefWidth="200.0">
               <buttons>
                 <Button fx:id="logoutButton" mnemonicParsing="false" onAction="#handleLogoutButtonAction" text="Logout" />
               </buttons>

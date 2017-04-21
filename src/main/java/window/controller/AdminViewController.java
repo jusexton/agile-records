@@ -38,6 +38,8 @@ public class AdminViewController implements Initializable {
     @FXML
     private Button logoutButton;
     @FXML
+    private ButtonBar toolButtonBar;
+    @FXML
     private TextField searchTextField;
     @FXML
     private TableView<Student> studentTableView;

@@ -35,6 +35,8 @@ public class StudentViewController implements Initializable {
 
     // Buttons
     @FXML
+    private ButtonBar toolButtonBar;
+    @FXML
     private ButtonBar adminButtonBar;
     @FXML
     private Button editButton;
@@ -123,6 +125,7 @@ public class StudentViewController implements Initializable {
         init(student);
         if (admin != null) {
             adminButtonBar.setVisible(true);
+            toolButtonBar.setVisible(false);
         }
     }
 
