@@ -26,7 +26,7 @@
             <items>
                 <AnchorPane prefHeight="200.0" prefWidth="200.0">
                     <children>
-                        <TextField fx:id="searchTextField" layoutX="578.0" layoutY="2.0" promptText="Search" />
+                        <TextField fx:id="searchTextField" layoutX="599.0" layoutY="2.0" promptText="Search" />
                         <TableView fx:id="studentTableView" layoutX="47.0" layoutY="31.0" prefHeight="607.0" prefWidth="603.0" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="31.0">
                             <columns>
                                 <TableColumn fx:id="idTableColumn" prefWidth="75.0" text="ID" />
