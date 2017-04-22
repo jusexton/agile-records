@@ -22,24 +22,24 @@
             <Insets left="10.0" right="10.0" />
          </VBox.margin>
       </ButtonBar>
-        <SplitPane fx:id="splitPane" dividerPositions="0.6253298153034301" prefHeight="160.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+        <SplitPane fx:id="splitPane" dividerPositions="0.7088830255057168" prefHeight="160.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
             <items>
                 <AnchorPane prefHeight="200.0" prefWidth="200.0">
                     <children>
-                        <TextField fx:id="searchTextField" layoutX="531.0" layoutY="2.0" promptText="Search" />
+                        <TextField fx:id="searchTextField" layoutX="578.0" layoutY="2.0" promptText="Search" />
                         <TableView fx:id="studentTableView" layoutX="47.0" layoutY="31.0" prefHeight="607.0" prefWidth="603.0" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="31.0">
                             <columns>
                                 <TableColumn fx:id="idTableColumn" prefWidth="75.0" text="ID" />
                                 <TableColumn fx:id="usernameTableColumn" prefWidth="110.0" text="Username" />
-                                <TableColumn fx:id="lastLoginTableColumn" prefWidth="110.0" text="Last Login" />
+                                <TableColumn fx:id="lastLoginTableColumn" prefWidth="135.0" text="Last Login" />
                                 <TableColumn fx:id="firstNameTableColumn" prefWidth="110.0" text="First Name" />
                                 <TableColumn fx:id="lastNameTableColumn" prefWidth="110.0" text="Last Name" />
-                                <TableColumn fx:id="majorTableColumn" prefWidth="110.0" text="Major" />
+                                <TableColumn fx:id="majorTableColumn" prefWidth="135.0" text="Major" />
                                 <TableColumn fx:id="GPATableColumn" prefWidth="50.0" text="GPA" />
                             </columns>
                         </TableView>
                         <Label fx:id="studentCountLabel" layoutX="14.0" layoutY="6.0" text="Number of Students: 0" />
-                        <Label fx:id="displayedStudentCountLabel" layoutX="240.0" layoutY="6.0" text="Number of Students Being Displayed: 0" />
+                        <Label fx:id="displayedStudentCountLabel" layoutX="285.0" layoutY="6.0" text="Number of Students Being Displayed: 0" />
                     </children>
                 </AnchorPane>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="723.0" prefWidth="295.0" />
