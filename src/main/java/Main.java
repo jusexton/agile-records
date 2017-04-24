@@ -63,6 +63,7 @@ public class Main extends Application {
                 } else if (studentViewController != null && !studentViewController.isLoggingOut()) {
                     break;
                 }
+                System.gc();
             } else {
                 break;
             }
