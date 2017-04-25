@@ -18,7 +18,7 @@
             <Image url="@../icon/Michael-Schultz016-A.jpg" />
          </image>
       </ImageView>
-      <Label layoutX="14.0" layoutY="45.0" prefHeight="61.0" prefWidth="290.0" text="AGILE RECORDS" textFill="WHITE">
+      <Label layoutX="14.0" layoutY="45.0" prefHeight="61.0" prefWidth="383.0" text="AGILE RECORDS" textFill="WHITE">
          <font>
             <Font name="Helvetica Bold" size="40.0" />
          </font>
