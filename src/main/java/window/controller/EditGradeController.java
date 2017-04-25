@@ -45,7 +45,8 @@ public class EditGradeController implements Initializable {
             return;
         }
 
-        if (!MathUtil.isNumeric(scoreField.getText())) {
+        if (!MathUtil.isNumeric(scoreField.getText()) ||
+                MathUtil.isNegative(scoreField.getText())) {
             displayErrorLabel("Incorrect Values Passed.");
             return;
         }

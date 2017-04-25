@@ -62,4 +62,14 @@ class MathUtilTests extends GroovyTestCase {
         assertFalse(MathUtil.isNumeric("5+5"))
         assertFalse(MathUtil.isNumeric("a"))
     }
+
+    void testIsNegative(){
+        assertTrue(MathUtil.isNegative("-1"))
+        assertTrue(MathUtil.isNegative("-2.5"))
+        assertFalse(MathUtil.isNegative("0"))
+        assertFalse(MathUtil.isNegative("0.0"))
+        assertFalse(MathUtil.isNegative("1"))
+        assertFalse(MathUtil.isNegative("2.5"))
+        assertFalse(MathUtil.isNegative("Test"))
+    }
 }

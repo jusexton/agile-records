@@ -83,4 +83,14 @@ public abstract class MathUtil {
     public static boolean isNumeric(String value) {
         return value.matches("[-+]?\\d*\\.?\\d+");
     }
+
+    /**
+     * Determines whether given value is negative.
+     *
+     * @param numericValue The value that will be checked.
+     * @return Whether the given value is negative or not.
+     */
+    public static boolean isNegative(String numericValue){
+        return isNumeric(numericValue) && Double.parseDouble(numericValue) < 0.0;
+    }
 }
