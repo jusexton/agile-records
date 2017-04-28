@@ -91,6 +91,8 @@ public class EditStudentController implements Initializable {
                         createStudent();
                         WindowUtil.closeWindow(event);
                     }
+                } else {
+                    displayErrorLabel("Username Taken");
                 }
             }
         } else {

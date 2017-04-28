@@ -14,7 +14,7 @@
 
 <VBox xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1" fx:controller="window.controller.EditStudentController">
     <children>
-        <Pane prefHeight="159.0" prefWidth="600.0">
+        <Pane prefHeight="173.0" prefWidth="600.0">
             <children>
                 <Label layoutX="4.0" layoutY="50.0" text="* Username:">
                <padding>
@@ -47,10 +47,10 @@
                <padding>
                   <Insets right="5.0" />
                </padding></Label>
-                <Label fx:id="errorLabel" layoutX="91.0" layoutY="159.0" textFill="RED" visible="false" />
+            <Label fx:id="errorLabel" layoutX="91.0" layoutY="151.0" text="Error Message" textFill="RED" visible="false" />
             </children>
         </Pane>
-        <TableView fx:id="courseTableView" prefHeight="200.0" prefWidth="200.0">
+        <TableView fx:id="courseTableView" prefHeight="192.0" prefWidth="600.0">
             <columns>
                 <TableColumn fx:id="crnTableColumn" prefWidth="75.0" text="CRN" />
                 <TableColumn fx:id="nameTableColumn" prefWidth="75.0" text="Name" />
