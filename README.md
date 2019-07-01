@@ -1,6 +1,6 @@
 ![alt tag](logo/AgileRecords.png)
 
-Agile Records is a GUI application used for managing multiple students while also allowing
+Agile Records is a school project GUI application used for managing multiple students while also allowing
 students to simply view their important information.
 
 # Admins
